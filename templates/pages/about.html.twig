@@ -1,0 +1,195 @@
+{# 1. НАСЛЕДОВАНИЕ базового шаблона #}
+{% extends 'base.html.twig' %}
+
+{# 2. ПЕРЕОПРЕДЕЛЕНИЕ заголовка страницы #}
+{% block title %}
+    {{ seo.title|default('О нашей студии') }} | SEO Studio
+{% endblock %}
+
+{# 3. Добавление специфичных стилей для этой страницы #}
+{% block stylesheets %}
+    {{ parent() }} {# ← ВАЖНО: сохраняем родительские стили #}
+
+    <style>
+        /* Специфичные стили для страницы "О нас" */
+        .team-member:hover img {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 0;
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+        }
+    </style>
+{% endblock %}
+
+{# 4. ОСНОВНОЙ КОНТЕНТ страницы #}
+{% block body %}
+    {# Hero секция #}
+    <section class="relative py-20 bg-gradient-to-br from-primary-50 to-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 animate-fade-in">
+                    О нашей <span class="text-primary-600">студии</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8">
+                    Мы помогаем бизнесу расти с 2018 года, используя современные подходы к SEO и аналитике.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    {# История компании #}
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                        Наша <span class="text-primary-600">история</span>
+                    </h2>
+                    <div class="space-y-6 text-gray-600">
+                        <p>
+                            Начав с небольшой команды из 3 человек в 2018 году, мы выросли
+                            до полноценной студии с 15+ экспертами в области SEO, аналитики
+                            и digital-маркетинга.
+                        </p>
+                        <p>
+                            За это время мы реализовали более 100 успешных проектов,
+                            увеличивая трафик наших клиентов в среднем на 150% за первые 6 месяцев работы.
+                        </p>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                         alt="Наш офис"
+                         class="rounded-2xl shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Команда #}
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    Наша <span class="text-primary-600">команда</span>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Профессионалы с опытом работы от 5 лет в digital-маркетинге
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                {% for member in [
+                    { name: 'Анна Петрова', position: 'SEO-директор', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop' },
+                    { name: 'Максим Иванов', position: 'Аналитик', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w-400&h=400&fit=crop' },
+                    { name: 'Елена Смирнова', position: 'Технический SEO', image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop' }
+                ] %}
+                    <div class="team-member card text-center transform hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                            <img src="{{ member.image }}"
+                                 alt="{{ member.name }}"
+                                 class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ member.name }}</h3>
+                        <p class="text-primary-600 font-medium mb-4">{{ member.position }}</p>
+                        <p class="text-gray-600 text-sm">
+                            Опыт работы: 5+ лет<br>
+                            Специализация: {{ member.position }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {# Цифры и факты #}
+    <section class="py-20 bg-primary-600 text-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold mb-2">100+</div>
+                    <div class="text-primary-100">Успешных проектов</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">5 лет</div>
+                    <div class="text-primary-100">На рынке</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">15+</div>
+                    <div class="text-primary-100">Экспертов в команде</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">98%</div>
+                    <div class="text-primary-100">Довольных клиентов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# CTA секция #}
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                    Хотите работать с нами?
+                </h2>
+                <p class="text-gray-600 mb-10 text-lg">
+                    Обсудим ваш проект и предложим индивидуальное решение
+                </p>
+                <a href="{{ path('app_contacts') }}"
+                   class="inline-flex items-center bg-primary-600 text-white px-8 py-4 rounded-lg
+                          font-semibold text-lg hover:bg-primary-700 transition-colors duration-300
+                          transform hover:scale-105 transition-transform">
+                    <span>Обсудить проект</span>
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{# 5. Добавление специфичного JavaScript для этой страницы #}
+{% block javascripts %}
+    {{ parent() }} {# ← ВАЖНО: сохраняем родительские скрипты #}
+
+    <script>
+        // Специфичный JavaScript для страницы "О нас"
+        document.addEventListener('DOMContentLoaded', function() {
+            // Анимация появления команды при скролле
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.team-member').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Консоль лог для отладки
+            console.log('Страница "О нас" загружена');
+        });
+    </script>
+{% endblock %}
+
+{# 6. Дополнительный контент в конце body (если нужно) #}
+{% block body_end %}
+    {# Можно добавить модальные окна, дополнительные виджеты и т.д. #}
+    <div id="team-modal" class="hidden">
+        <!-- Модальное окно с детальной информацией о команде -->
+    </div>
+{% endblock %}

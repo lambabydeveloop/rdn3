@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>AutoParts Marketplace - Search Results</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f48c25",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#221910",
+                        "surface-dark": "#2d241b", // Slightly lighter than background-dark for cards
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #221910;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a3e33;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f48c25;
+        }
+
+        /* Range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #f48c25;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 0 2px #221910;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #4a3e33;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 font-display min-h-screen flex flex-col">
+<!-- Navigation Bar -->
+<nav class="sticky top-0 z-50 bg-white dark:bg-[#1a120b] border-b border-gray-200 dark:border-white/10 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center gap-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span class="material-icons">build_circle</span>
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Gear<span class="text-primary">Shift</span></span>
+            </div>
+            <!-- Search Bar -->
+            <div class="hidden md:flex flex-1 mx-12">
+                <div class="relative w-full max-w-2xl">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="material-icons text-gray-400">search</span>
+                    </div>
+                    <input class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-white/10 rounded-lg leading-5 bg-gray-50 dark:bg-surface-dark placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm text-gray-900 dark:text-white transition duration-150 ease-in-out" placeholder="Search by part name, brand, or vehicle..." type="text"/>
+                    <div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+                        <button class="bg-primary/20 hover:bg-primary/30 text-primary px-3 py-1 rounded text-xs font-medium transition">My Garage</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Actions -->
+            <div class="flex items-center gap-6">
+                <button class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition">
+                    <span class="material-icons">notifications</span>
+                </button>
+                <button class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition">
+                    <span class="material-icons">shopping_cart</span>
+                </button>
+                <div class="h-8 w-8 rounded-full bg-gradient-to-tr from-primary to-orange-400 overflow-hidden border-2 border-white/10">
+                    <img alt="User profile avatar" class="h-full w-full object-cover" data-alt="User profile avatar showing a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS8PcwGPsw93QOjnhcQxZ7JrVKkp77b4brMp9x2wOUblFDJL-tPwQSs-xYW-7X2_yZr5YsotSzeSjKWaQGAsrQUeag7MAOQN89BxxwojConQ1gxR1_1D_9jUYAbBWyw_TRCoGhzRDxabK01_p7E1Q7Ardy_VAkZ6UnlhrIfLv83pzdtMs7zt5IVK0QGjGsvnBlSBl2RGbZxxdczby0iIXBQPDaGxIn1J4-W3uk_2NdfaGCvV2gm_zzATUjU6NYUqdrRR7Fk5AWbjQ"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Breadcrumbs & Header -->
+    <div class="mb-8">
+        <nav aria-label="Breadcrumb" class="flex text-sm text-gray-500 dark:text-gray-400 mb-4">
+            <ol class="flex items-center space-x-2">
+                <li><a class="hover:text-primary transition" href="#">Home</a></li>
+                <li><span class="material-icons text-xs">chevron_right</span></li>
+                <li><a class="hover:text-primary transition" href="#">Engine Parts</a></li>
+                <li><span class="material-icons text-xs">chevron_right</span></li>
+                <li aria-current="page" class="text-gray-900 dark:text-white font-medium">Turbochargers</li>
+            </ol>
+        </nav>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Turbochargers for Sale</h1>
+                <p class="mt-1 text-gray-500 dark:text-gray-400">Showing results compatible with <span class="text-primary font-medium">2018 Honda Civic Type R</span></p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-sm text-gray-500 dark:text-gray-400">124 results found</span>
+                <div class="relative inline-block text-left">
+                    <select class="form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-white/10 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg bg-white dark:bg-surface-dark text-gray-900 dark:text-white shadow-sm cursor-pointer">
+                        <option>Relevance</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest Arrivals</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <aside class="w-full lg:w-64 flex-shrink-0 space-y-8">
+            <!-- Sticky Container -->
+            <div class="lg:sticky lg:top-24 space-y-8 p-1">
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-900 dark:text-gray-200 mb-4">Categories</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a class="text-primary font-medium flex items-center justify-between group" href="#">Turbochargers <span class="bg-primary/10 text-primary text-xs py-0.5 px-2 rounded-full group-hover:bg-primary group-hover:text-white transition">124</span></a></li>
+                        <li><a class="hover:text-primary transition flex items-center justify-between" href="#">Intercoolers <span>45</span></a></li>
+                        <li><a class="hover:text-primary transition flex items-center justify-between" href="#">Wastegates <span>32</span></a></li>
+                        <li><a class="hover:text-primary transition flex items-center justify-between" href="#">Blow-off Valves <span>28</span></a></li>
+                    </ul>
+                </div>
+                <!-- Price Filter -->
+                <div class="border-t border-gray-200 dark:border-white/10 pt-6">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-900 dark:text-gray-200 mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <input class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" max="2000" min="0" type="range" value="850"/>
+                        <div class="flex items-center gap-2">
+                            <div class="relative rounded-md shadow-sm flex-1">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                </div>
+                                <input class="focus:ring-primary focus:border-primary block w-full pl-7 sm:text-sm border-gray-300 dark:border-white/10 rounded-md bg-white dark:bg-surface-dark py-2 text-white" id="min_price" name="min_price" placeholder="0" type="number"/>
+                            </div>
+                            <span class="text-gray-400">-</span>
+                            <div class="relative rounded-md shadow-sm flex-1">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                </div>
+                                <input class="focus:ring-primary focus:border-primary block w-full pl-7 sm:text-sm border-gray-300 dark:border-white/10 rounded-md bg-white dark:bg-surface-dark py-2 text-white" id="max_price" name="max_price" placeholder="2000" type="number"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Condition -->
+                <div class="border-t border-gray-200 dark:border-white/10 pt-6">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-900 dark:text-gray-200 mb-4">Condition</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-3 cursor-pointer group">
+                            <input checked="" class="form-checkbox h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary bg-transparent group-hover:border-primary transition" type="checkbox"/>
+                            <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-white transition">New (OEM)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer group">
+                            <input class="form-checkbox h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary bg-transparent group-hover:border-primary transition" type="checkbox"/>
+                            <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-white transition">Remanufactured</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer group">
+                            <input class="form-checkbox h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary bg-transparent group-hover:border-primary transition" type="checkbox"/>
+                            <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-white transition">Used</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Seller Type -->
+                <div class="border-t border-gray-200 dark:border-white/10 pt-6">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-900 dark:text-gray-200 mb-4">Seller Type</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-3 cursor-pointer group">
+                            <input class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary bg-transparent" name="seller" type="radio"/>
+                            <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-white transition">Any</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer group">
+                            <input class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary bg-transparent" name="seller" type="radio"/>
+                            <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-white transition">Verified Dealer</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer group">
+                            <input class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary bg-transparent" name="seller" type="radio"/>
+                            <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-white transition">Private Seller</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Location -->
+                <div class="border-t border-gray-200 dark:border-white/10 pt-6">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-900 dark:text-gray-200 mb-4">Location</h3>
+                    <div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+<span class="material-icons text-sm">location_on</span>
+</span>
+                        <input class="block w-full pl-9 pr-3 py-2 border border-gray-300 dark:border-white/10 rounded-lg leading-5 bg-white dark:bg-surface-dark placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm text-white" placeholder="Zip Code or City" type="text"/>
+                    </div>
+                    <div class="mt-3">
+                        <select class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-white/10 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg bg-white dark:bg-surface-dark text-gray-700 dark:text-gray-300">
+                            <option>Within 50 miles</option>
+                            <option>Within 100 miles</option>
+                            <option>Nationwide</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Results List -->
+        <div class="flex-1 space-y-4">
+            <!-- Product Card 1 (Featured/Best Match) -->
+            <div class="group bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-gray-200 dark:border-white/5 overflow-hidden hover:border-primary/50 transition duration-300 flex flex-col sm:flex-row">
+                <!-- Image -->
+                <div class="sm:w-64 h-48 sm:h-auto flex-shrink-0 relative overflow-hidden bg-gray-100 dark:bg-black/20">
+                    <img alt="High performance turbocharger close up" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXX_aEthk3sAj5mPo6iICp1wfkWfoUlYwW_Dugc2z0UwoIryMRZ0mHScIm9WFuJp-b-tNIbp5OqcDDSFLQFAzA0nT8NsdARw2--NBAWyLOMOwPYcmdoz16vKTKiPJa3aewPSRKfQM6lBu-vWqIbiQZTjF1gj_Erw62m5ccjwKAJEdjKlKSOCoPKcdYewoAQupd5CONuHJ41whGyLn5sKZ7fHPlJKuvJI9PhiaYKR8B6hTxnfKsURFRcOyAIxU3ATNrsWkjzIa-fFE"/>
+                    <div class="absolute top-2 left-2 bg-black/70 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded">
+                        <span class="material-icons text-xs align-middle mr-1">star</span>Best Match
+                    </div>
+                </div>
+                <!-- Content -->
+                <div class="flex-1 p-5 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                        Verified Dealer
+                                    </span>
+                                <span class="text-xs text-gray-500">New (OEM)</span>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition">Garrett GT2860R Ball Bearing Turbo</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">Direct replacement for Honda Civic Type R (FK8). Increased airflow and quicker spool time. Includes gasket kit.</p>
+                            <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">local_shipping</span>Free Shipping</span>
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">verified_user</span>1 Year Warranty</span>
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">place</span>Los Angeles, CA</span>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-primary transition">
+                            <span class="material-icons">favorite_border</span>
+                        </button>
+                    </div>
+                    <div class="mt-4 flex items-end justify-between border-t border-gray-100 dark:border-white/5 pt-4">
+                        <div>
+                            <p class="text-xs text-gray-400 mb-0.5">Price</p>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-2xl font-bold text-gray-900 dark:text-white">$1,245.00</span>
+                                <span class="text-sm text-gray-500 line-through">$1,399.00</span>
+                            </div>
+                        </div>
+                        <button class="bg-primary hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-lg transition shadow-lg shadow-orange-500/20 flex items-center gap-2">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 2 -->
+            <div class="group bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-gray-200 dark:border-white/5 overflow-hidden hover:border-primary/50 transition duration-300 flex flex-col sm:flex-row">
+                <div class="sm:w-64 h-48 sm:h-auto flex-shrink-0 relative overflow-hidden bg-gray-100 dark:bg-black/20">
+                    <img alt="Car engine part detail view" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtyf_hU9eE28kIZlbdRVR10V9AYLcHN1OqQWCtjQxoApdAgT6e1NSLLO05Fx-InNvk_tH1KRSUEdsoV_O8gGLeBypOBTUXmor-rWeTvejL7ufqM9cs0km1Ka6MijKNLNFxln8vzVv_fHoq8HBVL06JiasFqxPeATp5cLYDIVak2TCrM-3WxkXc0t7gKq24LO3TSL_nHEKgYHzUF47s-mutLEpaG-7lSMGTpFb_mIPumrfZr5otjHs6T99E2kpdg1SQ9yuVOX2Hpgo"/>
+                </div>
+                <div class="flex-1 p-5 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-500 border border-green-500/20">
+                                        Top Rated Seller
+                                    </span>
+                                <span class="text-xs text-gray-500">Refurbished</span>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition">BorgWarner EFR 6758 Turbocharger</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Professionally rebuilt. New bearings and seals. Pressure tested. Compatible with custom manifolds.</p>
+                            <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">local_shipping</span>+$25 Shipping</span>
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">place</span>Austin, TX</span>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-primary transition">
+                            <span class="material-icons">favorite_border</span>
+                        </button>
+                    </div>
+                    <div class="mt-4 flex items-end justify-between border-t border-gray-100 dark:border-white/5 pt-4">
+                        <div>
+                            <p class="text-xs text-gray-400 mb-0.5">Price</p>
+                            <span class="text-2xl font-bold text-gray-900 dark:text-white">$895.00</span>
+                        </div>
+                        <button class="bg-primary/10 hover:bg-primary/20 text-primary font-medium py-2 px-6 rounded-lg transition border border-primary/20">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 3 (Private Seller) -->
+            <div class="group bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-gray-200 dark:border-white/5 overflow-hidden hover:border-primary/50 transition duration-300 flex flex-col sm:flex-row opacity-90 hover:opacity-100">
+                <div class="sm:w-64 h-48 sm:h-auto flex-shrink-0 relative overflow-hidden bg-gray-100 dark:bg-black/20">
+                    <img alt="Mechanical car parts on table" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9oFRiTQ7Cx2dEsxo65kdktfUk-84vQiKNYQphQscs3C3gFJN5UHEIVfn5Ul76MxL5N09hdBLKkB0k6Qke61FLbIt3BUG5xpCiQQ28EQpBl-7ZaUqwe81QhlsihFU2S4r_evGbfTsePo3_B7bwYsOryzwWD6r5K_texkTyjZ9WCXlNJSbu6QAYczsYiSfpvgtsOpZZHTmvAtQBPvnlMMUzzZQqCknEDNBNPjT46WznxZ9rPjz1vHUG87v4XFtfrDo1fbvT9oknpl8"/>
+                </div>
+                <div class="flex-1 p-5 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Private Seller</span>
+                                <span class="text-xs text-gray-500">• Used - Good</span>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition">OEM 2018 Civic Type R Turbo Assembly</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Taken off at 15k miles for upgrade. Fully functional, no shaft play. Original Honda part.</p>
+                            <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">schedule</span>Listed 2 days ago</span>
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">place</span>Seattle, WA</span>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-primary transition">
+                            <span class="material-icons">favorite_border</span>
+                        </button>
+                    </div>
+                    <div class="mt-4 flex items-end justify-between border-t border-gray-100 dark:border-white/5 pt-4">
+                        <div>
+                            <p class="text-xs text-gray-400 mb-0.5">Price</p>
+                            <span class="text-2xl font-bold text-gray-900 dark:text-white">$450.00</span>
+                        </div>
+                        <button class="bg-primary/10 hover:bg-primary/20 text-primary font-medium py-2 px-6 rounded-lg transition border border-primary/20">
+                            Contact Seller
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 4 -->
+            <div class="group bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-gray-200 dark:border-white/5 overflow-hidden hover:border-primary/50 transition duration-300 flex flex-col sm:flex-row">
+                <div class="sm:w-64 h-48 sm:h-auto flex-shrink-0 relative overflow-hidden bg-gray-100 dark:bg-black/20">
+                    <img alt="Car turbocharger close up studio shot" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlqJgq-xS5I5RmbO6y731QEE6rusEimlm-V-Enmwak6hV93v1Oz6LUmviaekL4vbhwLgvPj7e21VNqkw4l4fao83PKHcAaQFndn9jH869BEqxdK3FCT8rg5WRBPTUM69S27mQvz-AQh8kNkBf5XxdYmH-793fmjxwfeekFnne8H0Z4As4X2qeWtJOE2EB7aBX_HCcAuv7iTUDKRdPv0XvIUwAUIG3xgSuUWctrI9F8HGGSaQDnBmDDKZ2Oa_Ka0ufBWkX7xOxGPiY"/>
+                    <div class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
+                        SALE
+                    </div>
+                </div>
+                <div class="flex-1 p-5 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                        Verified Dealer
+                                    </span>
+                                <span class="text-xs text-gray-500">New (Performance)</span>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition">Precision Turbo PT6266 Gen 2 CEA</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Rated for 800HP. V-Band inlet/outlet. Ceramic Ball Bearing. The ultimate upgrade for high horsepower builds.</p>
+                            <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">local_shipping</span>Free Shipping</span>
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">verified_user</span>Life-time Warranty</span>
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">place</span>Miami, FL</span>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-primary transition">
+                            <span class="material-icons">favorite_border</span>
+                        </button>
+                    </div>
+                    <div class="mt-4 flex items-end justify-between border-t border-gray-100 dark:border-white/5 pt-4">
+                        <div>
+                            <p class="text-xs text-gray-400 mb-0.5">Price</p>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-2xl font-bold text-gray-900 dark:text-white">$1,799.00</span>
+                                <span class="text-sm text-gray-500 line-through">$1,950.00</span>
+                            </div>
+                        </div>
+                        <button class="bg-primary hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-lg transition shadow-lg shadow-orange-500/20 flex items-center gap-2">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="flex items-center justify-between border-t border-gray-200 dark:border-white/10 pt-8 mt-8">
+                <button class="flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white dark:bg-surface-dark border border-gray-300 dark:border-white/10 rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition">
+                    <span class="material-icons text-sm mr-2">arrow_back</span> Previous
+                </button>
+                <div class="hidden md:flex space-x-2">
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg">1</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary transition">2</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary transition">3</button>
+                    <span class="px-4 py-2 text-sm font-medium text-gray-500">...</span>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary transition">12</button>
+                </div>
+                <button class="flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white dark:bg-surface-dark border border-gray-300 dark:border-white/10 rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition">
+                    Next <span class="material-icons text-sm ml-2">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-[#1a120b] border-t border-gray-200 dark:border-white/10 mt-12 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-200 uppercase tracking-wider mb-4">Shop</h3>
+                <ul class="space-y-3 text-sm text-gray-500 dark:text-gray-400">
+                    <li><a class="hover:text-primary transition" href="#">New Parts</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Used Parts</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Brands</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Deals</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-200 uppercase tracking-wider mb-4">Support</h3>
+                <ul class="space-y-3 text-sm text-gray-500 dark:text-gray-400">
+                    <li><a class="hover:text-primary transition" href="#">Help Center</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Return Policy</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Warranty Info</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-200 uppercase tracking-wider mb-4">Company</h3>
+                <ul class="space-y-3 text-sm text-gray-500 dark:text-gray-400">
+                    <li><a class="hover:text-primary transition" href="#">About Us</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Careers</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Blog</a></li>
+                    <li><a class="hover:text-primary transition" href="#">Press</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-200 uppercase tracking-wider mb-4">Stay Connected</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Join our newsletter for the latest car mods and deals.</p>
+                <div class="flex gap-2">
+                    <input class="flex-1 min-w-0 px-3 py-2 text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg focus:ring-primary focus:border-primary" placeholder="Enter your email" type="email"/>
+                    <button class="bg-primary hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 border-t border-gray-200 dark:border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <span class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Gear<span class="text-primary">Shift</span></span>
+                <span class="text-sm text-gray-500">© 2023 GearShift Marketplace Inc.</span>
+            </div>
+            <div class="flex gap-6 text-gray-400">
+                <a class="hover:text-white transition" href="#"><span class="sr-only">Facebook</span>FB</a>
+                <a class="hover:text-white transition" href="#"><span class="sr-only">Instagram</span>IG</a>
+                <a class="hover:text-white transition" href="#"><span class="sr-only">Twitter</span>TW</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body></html>

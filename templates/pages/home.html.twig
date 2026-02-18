@@ -1,0 +1,1305 @@
+{# 1. НАСЛЕДОВАНИЕ базового шаблона #}
+{% extends 'base.html.twig' %}
+
+{# 2. ПЕРЕОПРЕДЕЛЕНИЕ заголовка страницы #}
+{% block title %}
+    {{ seo.title|default('О нашей студии RDN.BY') }} | SEO Studio RDN.BY
+{% endblock %}
+
+{# 3. Добавление специфичных стилей для этой страницы #}
+{% block stylesheets %}
+    {{ parent() }} {# ← ВАЖНО: сохраняем родительские стили #}
+    <link rel="stylesheet" href="{{ asset('assets/css/index_home.css') }}">
+{% endblock %}
+{% block schema_org %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            "name": "RDN.BY",
+            "description": "SEO и GEO студия по разработке и продвижению сайтов в Беларуси",
+            "url": "https://rdn.by",
+            "logo": "https://rdn.by/images/logo.png",
+            "telephone": "+375259997490",
+            "email": "info@rdn.by",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "пр. Независимости 58, офис 415",
+                "addressLocality": "Минск",
+                "addressCountry": "BY"
+            },
+            "priceRange": "400-1500 BYN",
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "86"
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "SEO-продвижение",
+            "provider": {
+                "@type": "Organization",
+                "name": "RDN.BY"
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "1500",
+                "priceCurrency": "BYN"
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "GEO-оптимизация для ИИ",
+            "provider": {
+                "@type": "Organization",
+                "name": "RDN.BY"
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "900",
+                "priceCurrency": "BYN"
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Сквозная аналитика",
+            "provider": {
+                "@type": "Organization",
+                "name": "RDN.BY"
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "600",
+                "priceCurrency": "BYN"
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Контекстная реклама",
+            "provider": {
+                "@type": "Organization",
+                "name": "RDN.BY"
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "800",
+                "priceCurrency": "BYN"
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Комплексная диагностика",
+            "provider": {
+                "@type": "Organization",
+                "name": "RDN.BY"
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "400",
+                "priceCurrency": "BYN"
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Сколько стоит SEO-продвижение?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Стоимость SEO-продвижения от 1500 BYN в месяц"
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Что такое GEO-оптимизация?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "GEO-оптимизация это подготовка контента для ИИ-систем"
+                    }
+                }
+            ]
+        }
+    </script>
+{% endblock %}
+
+{# 4. ОСНОВНОЙ КОНТЕНТ страницы #}
+{% block body %}
+
+    <!-- Герой секция -->
+    <section class="pt-32 pb-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-hidden mx-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <!-- Бейдж -->
+                <div class="flex justify-center mb-8 animate-fade-in-up">
+                    <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                        <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span>Агентство узкой квалификации</span>
+                    </div>
+                </div>
+
+                <!-- Заголовок -->
+                <h1 class="font-montserrat font-extrabold text-4xl md:text-5xl lg:text-6xl leading-tight text-center mb-8 animate-fade-in-up" style="animation-delay: 0.1s">
+                    <span class="bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent">RDN</span> — трафик, конверсия, измеримость
+                </h1>
+
+                <!-- Подзаголовок -->
+                <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto text-center mb-12 animate-fade-in-up" style="animation-delay: 0.2s">
+                    SEO, GEO-оптимизация под ИИ-поиск, сквозная аналитика, контекстная реклама.
+                    Работаем с механикой привлечения и удержания. С 2025 года.
+                </p>
+
+                <!-- Кнопки -->
+                <div class="flex flex-col sm:flex-row gap-5 justify-center items-center mb-16 animate-fade-in-up" style="animation-delay: 0.3s">
+                    <a href="#contact" class="group bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary-dark transition-all duration-300 shadow-red hover:shadow-red-lg hover:scale-105 hover:-translate-y-1 flex items-center gap-3 w-full sm:w-auto justify-center">
+                        <span>Обсудить механику вашего трафика</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="#why" class="group border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:border-primary hover:text-primary transition-all duration-300 hover:scale-105 hover:-translate-y-1 w-full sm:w-auto justify-center flex items-center gap-3">
+                        <span>Узнать больше</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Статистика -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-soft border border-gray-200 text-center card-hover scroll-reveal">
+                        <div class="text-3xl font-bold text-primary mb-2">300%</div>
+                        <div class="text-sm text-gray-600">Рост трафика из ИИ</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-soft border border-gray-200 text-center card-hover scroll-reveal">
+                        <div class="text-3xl font-bold text-primary mb-2">14</div>
+                        <div class="text-sm text-gray-600">Дней до первых результатов</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-soft border border-gray-200 text-center card-hover scroll-reveal">
+                        <div class="text-3xl font-bold text-primary mb-2">86</div>
+                        <div class="text-sm text-gray-600">Активных клиентов</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-soft border border-gray-200 text-center card-hover scroll-reveal">
+                        <div class="text-3xl font-bold text-primary mb-2">98%</div>
+                        <div class="text-sm text-gray-600">Точность аналитики</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Разрыв между видимостью и выбором -->
+    <section class="py-24 bg-white" id="why">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <!-- Заголовок -->
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>ПРОБЛЕМА</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Почему SEO перестало работать: разрыв между <span class="text-primary">видимостью и конверсией</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mt-4">Почему SEO перестало работать так, как работало раньше</p>
+                </div>
+
+                <!-- Интерактивная карточка с процессом -->
+                <div class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-3xl border border-gray-200 mb-12 scroll-reveal">
+                    <p class="text-lg text-gray-700 mb-6">Пять лет назад схема была линейной:</p>
+
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+                        <div class="bg-white px-6 py-4 rounded-xl shadow-soft border border-gray-200 w-full md:w-auto text-center group hover:border-primary transition-all duration-300 card-hover">
+                            <span class="font-bold text-primary">подняли позиции</span>
+                        </div>
+                        <svg class="w-6 h-6 text-gray-400 hidden md:block animate-bounce-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <div class="bg-white px-6 py-4 rounded-xl shadow-soft border border-gray-200 w-full md:w-auto text-center group hover:border-primary transition-all duration-300 card-hover">
+                            <span class="font-bold text-primary">получили трафик</span>
+                        </div>
+                        <svg class="w-6 h-6 text-gray-400 hidden md:block animate-bounce-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <div class="bg-white px-6 py-4 rounded-xl shadow-soft border border-gray-200 w-full md:w-auto text-center group hover:border-primary transition-all duration-300 card-hover">
+                            <span class="font-bold text-primary">получили заявки</span>
+                        </div>
+                    </div>
+
+                    <p class="text-lg text-gray-700 mt-8">Сегодня эта цепочка ломается на каждом звене.</p>
+                </div>
+
+                <!-- Карточки с проблемами -->
+                <div class="grid md:grid-cols-2 gap-6 mb-12">
+                    <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 animate-float">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3">Персонализация выдачи</h3>
+                        <p class="text-gray-600">Поисковая выдача персонализирована до уровня, где «топ-3» существует только в теории. Пользователь видит разные результаты в зависимости от истории, географии, устройства, времени суток.</p>
+                        <div class="mt-4 p-3 bg-gray-50 rounded-lg text-sm text-gray-500">
+                            <span class="font-semibold">Факт:</span> Позиция становится удобной метрикой для отчётности — но перестаёт быть прямым драйвером выручки.
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 animate-float">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3">Изменился интент</h3>
+                        <p class="text-gray-600">Раньше пользователь искал «купить [товар]». Сегодня он спрашивает «как выбрать», «в чём разница», «что лучше под мой сценарий», «стоит ли переплачивать».</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="bg-gray-100 px-3 py-1.5 rounded-lg text-sm">как выбрать</span>
+                            <span class="bg-gray-100 px-3 py-1.5 rounded-lg text-sm">в чём разница</span>
+                            <span class="bg-gray-100 px-3 py-1.5 rounded-lg text-sm">что лучше</span>
+                            <span class="bg-gray-100 px-3 py-1.5 rounded-lg text-sm">стоит ли</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка с данными -->
+                <div class="bg-gradient-to-r from-primary/5 to-primary/10 p-8 rounded-3xl border border-primary/20 mb-12 scroll-reveal">
+                    <h4 class="font-bold text-xl mb-4">В B2B и e-commerce мы регулярно видим:</h4>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                            <span class="font-medium">органический трафик +40–70%</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                            <span class="font-medium">конверсия падает в 2–3 раза</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                            <span class="font-medium">CPL формально улучшается</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                            <span class="font-medium">маржа по факту снижается</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вывод -->
+                <div class="text-center p-8 bg-gray-900 text-white rounded-3xl scroll-reveal">
+                    <p class="text-xl font-medium mb-4">Если ваш бренд не присутствовал в момент, когда формировалась гипотеза пользователя, вы начинаете борьбу уже на невыгодной позиции.</p>
+                    <p class="text-2xl font-bold text-primary">Именно поэтому рост видимости перестал автоматически означать рост бизнеса.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Новая видимость — GEO-оптимизация -->
+    <section class="py-24 bg-gray-50" id="geo">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>НОВАЯ ЭРА</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Новая видимость — <span class="text-primary">GEO-оптимизация</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mt-4">Как нейросети выбирают, о ком говорить, и почему это не SEO</p>
+                </div>
+
+                <!-- Объяснение как работает ИИ-поиск -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-12 scroll-reveal">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">ИИ-поиск работает иначе. Он не просто ранжирует страницы. Он синтезирует ответы.</p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-lg mb-4">Модель анализирует:</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span>повторяемость формулировок</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span>устойчивые тезисы</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span>авторитетные источники</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span>агрегаторы</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span>структурированные блоки информации</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-4">И формирует ответ как</h4>
+                            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                                <p class="text-xl font-medium text-gray-800 italic">«усреднённый консенсус»</p>
+                            </div>
+                            <p class="mt-4 text-gray-600">В нише обычно цитируются 5–7 источников. Если бренд не входит в этот круг — он отсутствует в ответах ИИ.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Сравнение SEO vs GEO -->
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 bg-gray-200 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-xl">Традиционное SEO</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Просто ранжирует страницы по ключевым словам и ссылкам.</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2 text-sm text-gray-500">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span>Не учитывает контекст</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-gray-500">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span>Не формирует рекомендации</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-3xl border border-primary/20 shadow-soft card-hover scroll-reveal">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-xl">GEO для ИИ</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">Синтезирует ответы, анализируя множество факторов.</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2 text-sm">
+                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>Учитывает контекст и авторитетность</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>Формирует рекомендации</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задача GEO -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-12 scroll-reveal">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <span class="font-bold text-primary">Задача меняется.</span> Не попасть в топ выдачи. А стать частью информационного слоя, из которого формируется рекомендация.
+                    </p>
+                    <div class="mt-6 p-6 bg-gray-50 rounded-2xl">
+                        <p class="font-medium mb-3">GEO — это работа с:</p>
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>форматами для ИИ</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>структурированными ответами</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>сравнительными моделями</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>экспертными тезисами</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Кнопка -->
+                <div class="text-center scroll-reveal">
+                    <a href="{{ path('app_service_show', {slug: 'geo'}) }}" class="group inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary-dark transition-all duration-300 shadow-red hover:shadow-red-lg hover:scale-105 hover:-translate-y-1">
+                        <span>Подробнее о GEO-оптимизации</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Конверсия из рекомендаций ИИ -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>КОНВЕРСИЯ</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Конверсия из <span class="text-primary">рекомендаций ИИ</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mt-4">Разница между SEO и ИИ-рекомендацией принципиальна</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-gray-50 p-8 rounded-3xl border border-gray-200 card-hover scroll-reveal">
+                        <div class="w-14 h-14 bg-gray-200 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-2xl mb-4">SEO</h3>
+                        <p class="text-gray-600 text-lg">приводит пользователя в момент сомнения.</p>
+                        <div class="mt-6 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
+                                <span class="text-sm text-gray-500">Низкая готовность к покупке</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
+                                <span class="text-sm text-gray-500">Требуется убеждение</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-3xl border border-primary/20 card-hover scroll-reveal">
+                        <div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-2xl mb-4">ИИ-рекомендация</h3>
+                        <p class="text-gray-700 text-lg">приводит его в момент предварительного доверия.</p>
+                        <div class="mt-6 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                                <span class="text-sm">Высокая готовность к покупке</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                                <span class="text-sm">Доверие уже сформировано</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Результаты в карточках -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 text-center card-hover scroll-reveal">
+                        <div class="text-2xl font-bold text-primary mb-2">↓ 40%</div>
+                        <div class="text-sm text-gray-600">Показатель отказов</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 text-center card-hover scroll-reveal">
+                        <div class="text-2xl font-bold text-primary mb-2">-30%</div>
+                        <div class="text-sm text-gray-600">Цикл до заявки</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 text-center card-hover scroll-reveal">
+                        <div class="text-2xl font-bold text-primary mb-2">+65%</div>
+                        <div class="text-sm text-gray-600">Конверсия</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 text-center card-hover scroll-reveal">
+                        <div class="text-2xl font-bold text-primary mb-2">+42%</div>
+                        <div class="text-sm text-gray-600">Закрытие сделок</div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-white p-8 rounded-3xl scroll-reveal">
+                    <p class="text-xl font-medium mb-4">Пользователь приходит не «изучить рынок», а проверить соответствие рекомендации.</p>
+                    <p class="text-2xl font-bold text-primary">Это другая стадия готовности.</p>
+                    <p class="text-lg text-gray-300 mt-4">Поэтому GEO — это не просто дополнительный трафик. Это работа с более тёплым уровнем намерения.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Слепое пятно аналитики -->
+    <section class="py-24 bg-gray-50" id="analytics">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>ПРОБЛЕМА</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Слепое пятно <span class="text-primary">аналитики</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mt-4">Почему данные есть, а решений нет</p>
+                </div>
+
+                <!-- Иконки инструментов -->
+                <div class="flex flex-wrap gap-4 justify-center mb-12 scroll-reveal">
+                    <span class="bg-white px-5 py-3 rounded-xl shadow-soft border border-gray-200 hover:border-primary transition-all duration-300 hover:scale-105 cursor-default">GA4</span>
+                    <span class="bg-white px-5 py-3 rounded-xl shadow-soft border border-gray-200 hover:border-primary transition-all duration-300 hover:scale-105 cursor-default">Метрика</span>
+                    <span class="bg-white px-5 py-3 rounded-xl shadow-soft border border-gray-200 hover:border-primary transition-all duration-300 hover:scale-105 cursor-default">CRM</span>
+                    <span class="bg-white px-5 py-3 rounded-xl shadow-soft border border-gray-200 hover:border-primary transition-all duration-300 hover:scale-105 cursor-default">Сквозная аналитика</span>
+                    <span class="bg-white px-5 py-3 rounded-xl shadow-soft border border-gray-200 hover:border-primary transition-all duration-300 hover:scale-105 cursor-default">Коллтрекинг</span>
+                </div>
+
+                <!-- Основная проблема -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-8 scroll-reveal">
+                    <p class="text-lg text-gray-700 leading-relaxed">Современный маркетинг измеряет всё. Но вопрос <span class="font-bold text-primary">«почему падает конверсия?»</span> часто остаётся без ответа.</p>
+                    <p class="text-lg text-gray-700 leading-relaxed mt-4">Проблема не в количестве данных. Проблема в архитектуре. Классическая аналитика построена на сессиях. Она отвечает на вопрос «сколько». Она плохо отвечает на вопрос «почему».</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3">Проблема архитектуры</h3>
+                        <p class="text-gray-600">Классическая аналитика построена на сессиях. Она отвечает на вопрос «сколько». Она плохо отвечает на вопрос «почему».</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3">Наше решение</h3>
+                        <p class="text-gray-600">Проектируем аналитику под бизнес-логику, моделируем поведение, а не просто устанавливаем счётчики.</p>
+                    </div>
+                </div>
+
+                <!-- Пример пути клиента -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-12 scroll-reveal">
+                    <h4 class="font-bold text-lg mb-6">Пример: путь клиента</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-primary/5 transition-colors duration-300">
+                            <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">1</span>
+                            <span>Пользователь пришёл из рекламы</span>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-primary/5 transition-colors duration-300">
+                            <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">2</span>
+                            <span>Вернулся через органику</span>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-primary/5 transition-colors duration-300">
+                            <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">3</span>
+                            <span>Через неделю зашёл напрямую</span>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-primary/5 transition-colors duration-300">
+                            <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">4</span>
+                            <span>Заключил сделку через менеджера</span>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-gray-600 italic">Модель атрибуции распределит вклад вероятностно. Но не объяснит, где именно произошло формирование доверия.</p>
+                </div>
+
+                <!-- Что мы делаем -->
+                <div class="bg-gradient-to-r from-primary/5 to-primary/10 p-8 rounded-3xl border border-primary/20 scroll-reveal">
+                    <h4 class="font-bold text-xl mb-4">Мы проектируем аналитику под бизнес-логику:</h4>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>где формируется спрос</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>где происходит потеря маржи</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>какие сегменты дают долгосрочную ценность</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>какие каналы создают иллюзию эффективности</span>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-lg font-medium text-gray-800">Это не установка счётчиков. Это моделирование поведения.</p>
+                </div>
+
+                <!-- Кнопка -->
+                <div class="text-center mt-12 scroll-reveal">
+                    <a href="#contact" class="group inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary-dark transition-all duration-300 shadow-red hover:shadow-red-lg hover:scale-105 hover:-translate-y-1">
+                        <span>Проверить, что видит ваша аналитика на самом деле</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контекстная реклама после ИИ-поиска -->
+    <section class="py-24 bg-white" id="context">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>КОНТЕКСТ</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Контекстная реклама <span class="text-primary">после ИИ-поиска</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mt-4">Когда пользователь уже «знает», что искать</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-8 scroll-reveal">
+                    <p class="text-lg text-gray-700 mb-4">Классический подход к контексту — перехватить намерение.</p>
+                    <p class="text-lg text-gray-700 mb-6">Сегодня намерение часто сформировано заранее:</p>
+
+                    <div class="grid md:grid-cols-3 gap-4 mb-8">
+                        <div class="bg-gray-50 p-5 rounded-xl text-center hover:bg-primary/5 transition-colors duration-300">
+                            <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                            <span>в диалоге с ИИ</span>
+                        </div>
+                        <div class="bg-gray-50 p-5 rounded-xl text-center hover:bg-primary/5 transition-colors duration-300">
+                            <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                            <span>в обзорах</span>
+                        </div>
+                        <div class="bg-gray-50 p-5 rounded-xl text-center hover:bg-primary/5 transition-colors duration-300">
+                            <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            <span>в профессиональных сообществах</span>
+                        </div>
+                    </div>
+
+                    <p class="text-lg text-gray-700 font-medium">Пользователь приходит не с вопросом «что выбрать», а с гипотезой «мне рекомендовали X».</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <div class="flex items-center gap-2 text-green-600 mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            <span class="font-bold">CTR растёт</span>
+                        </div>
+                        <p class="text-gray-600">объявления совпадают с ожиданием пользователя</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <div class="flex items-center gap-2 text-red-600 mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/></svg>
+                            <span class="font-bold">Конверсия падает</span>
+                        </div>
+                        <p class="text-gray-600">пользователь не ищет альтернативы, уже готов к покупке</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-primary/5 to-primary/10 p-8 rounded-3xl border border-primary/20 scroll-reveal">
+                    <h4 class="font-bold text-xl mb-4">Решение — сегментация по стадиям принятия решения</h4>
+                    <p class="text-gray-700 mb-6">Отдельная логика объявлений для:</p>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white p-4 rounded-xl text-center">
+                            <span class="font-semibold">исследования</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center">
+                            <span class="font-semibold">сравнения</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center">
+                            <span class="font-semibold">подтверждения</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center">
+                            <span class="font-semibold">финального выбора</span>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-gray-700">Контекст становится частью общей архитектуры, а не изолированным инструментом.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UX + психология принятия решения + оптимизация -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>ПСИХОЛОГИЯ</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        UX + психология принятия решения + <span class="text-primary">оптимизация</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mt-4">Почему качественный трафик не гарантирует продажи</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-12 scroll-reveal">
+                    <p class="text-lg text-gray-700 mb-6">Конверсия — это не элемент интерфейса. Это управляемый когнитивный процесс.</p>
+
+                    <h4 class="font-bold text-xl mb-4">Пользователь проходит три этапа:</h4>
+                    <div class="grid md:grid-cols-3 gap-4 mb-8">
+                        <div class="bg-primary/5 p-6 rounded-xl text-center">
+                            <span class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">1</span>
+                            <span class="font-semibold">Сравнение</span>
+                        </div>
+                        <div class="bg-primary/5 p-6 rounded-xl text-center">
+                            <span class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">2</span>
+                            <span class="font-semibold">Снижение риска</span>
+                        </div>
+                        <div class="bg-primary/5 p-6 rounded-xl text-center">
+                            <span class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">3</span>
+                            <span class="font-semibold">Подтверждение выбора</span>
+                        </div>
+                    </div>
+
+                    <h4 class="font-bold text-xl mb-4">Если сайт:</h4>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            <span>перегружен аргументами</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            <span>не структурирует преимущества</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            <span>не снимает ключевые возражения</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            <span>создаёт лишнюю когнитивную нагрузку</span>
+                        </li>
+                    </ul>
+
+                    <p class="text-lg text-gray-700 font-medium">— даже релевантный трафик не конвертируется.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft scroll-reveal">
+                    <h4 class="font-bold text-xl mb-4">Мы анализируем:</h4>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>поведенческие сценарии</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>точки остановки</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>глубину просмотра</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>микроконверсии</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>реакцию на аргументацию</span>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-lg font-medium text-gray-800">UX — это управление вниманием и восприятием риска.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Техническая среда -->
+    <section class="py-24 bg-white" id="development">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>ТЕХНИЧЕСКАЯ СРЕДА</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Техническая <span class="text-primary">среда</span>
+                    </h2>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-8 scroll-reveal">
+                    <p class="text-lg text-gray-700 mb-6">Если аудит выявляет:</p>
+
+                    <div class="grid sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            <span>ошибки индексации</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>медленную загрузку</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                            <span>конфликты скриптов</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            <span>устаревший дизайн</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                            <span>неэффективную архитектуру</span>
+                        </div>
+                    </div>
+
+                    <p class="text-lg text-gray-700 font-medium">мы исправляем их. Это отдельный объём работ и отдельный бюджет.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <h3 class="font-bold text-xl mb-4">Мы можем:</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>модернизировать сайт</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>полностью пересобрать структуру</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>создать интернет-магазин с профессиональной SEO-архитектурой</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft card-hover scroll-reveal">
+                        <h3 class="font-bold text-xl mb-4">Но важно:</h3>
+                        <p class="text-gray-600 mb-4">Сознательно не позиционируем себя как студию «всё для сайта».</p>
+                        <p class="text-gray-600">Наша специализация — влияние на выручку через механику привлечения и конверсии.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-primary/5 to-primary/10 p-8 rounded-3xl border border-primary/20 scroll-reveal">
+                    <h4 class="font-bold text-xl mb-4">Когда всё работает синхронно:</h4>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>релевантный трафик</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>корректная аналитика</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>психологически выстроенный UX</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>техническая стабильность</span>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-lg font-medium text-gray-800">растут продажи и усиливается узнаваемость бренда.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Узкая квалификация -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>ФИЛОСОФИЯ</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Узкая квалификация — <span class="text-primary">почему это важно</span>
+                    </h2>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-8 scroll-reveal">
+                    <p class="text-lg text-gray-700 mb-6">RDN существует с 2025 года. За это время мы отказались от части услуг.</p>
+                    <p class="text-lg text-gray-700 mb-8">Не потому что не умеем. Потому что фокус повышает управляемость результата.</p>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-xl mb-4 text-red-600">Мы не делаем:</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                    <span>дизайн ради дизайна</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                    <span>SMM ради охватов</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                    <span>контент ради контента</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-xl mb-4 text-green-600">Мы работаем там:</h4>
+                            <p class="text-gray-700">где формируется решение</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft scroll-reveal">
+                    <h4 class="font-bold text-xl mb-4">Экономический эффект узкой специализации:</h4>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>меньше непроверенных гипотез</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>меньше размывания бюджета</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>меньше управленческой сложности</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>быстрее выявляются точки роста</span>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-lg font-medium text-gray-800">И не тратим ваш бюджет на «проверим, сработает ли».</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Цены и принципы -->
+    <section class="py-24 bg-white" id="pricing">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>ЦЕНЫ</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Цены и <span class="text-primary">принципы</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mt-4">Стоимость работы и что влияет на неё</p>
+                </div>
+
+                <div class="bg-white rounded-3xl border border-gray-200 shadow-soft overflow-hidden mb-8 scroll-reveal">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="text-left py-5 px-6 font-bold">Направление</th>
+                            <th class="text-left py-5 px-6 font-bold">Стоимость</th>
+                            <th class="text-left py-5 px-6 font-bold">Сроки</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50 transition-colors duration-300">
+                            <td class="py-5 px-6 font-medium">SEO-продвижение</td>
+                            <td class="py-5 px-6"><span class="font-bold text-primary">1 500 BYN</span> / 45 000 ₽</td>
+                            <td class="py-5 px-6 text-gray-600">3 месяца</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors duration-300">
+                            <td class="py-5 px-6 font-medium">GEO-оптимизация для ИИ</td>
+                            <td class="py-5 px-6"><span class="font-bold text-primary">900 BYN</span> / 27 000 ₽</td>
+                            <td class="py-5 px-6 text-gray-600">1 месяц</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors duration-300">
+                            <td class="py-5 px-6 font-medium">Сквозная аналитика</td>
+                            <td class="py-5 px-6"><span class="font-bold text-primary">600 BYN</span> / 18 000 ₽</td>
+                            <td class="py-5 px-6 text-gray-600">2-4 недели</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors duration-300">
+                            <td class="py-5 px-6 font-medium">Контекстная реклама</td>
+                            <td class="py-5 px-6"><span class="font-bold text-primary">800 BYN</span> / 24 000 ₽</td>
+                            <td class="py-5 px-6 text-gray-600">1 месяц</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors duration-300">
+                            <td class="py-5 px-6 font-medium">Комплексная диагностика</td>
+                            <td class="py-5 px-6"><span class="font-bold text-primary">400 BYN</span> / 12 000 ₽</td>
+                            <td class="py-5 px-6 text-gray-600">24 часа</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Карточка с факторами -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-8 scroll-reveal">
+                    <h4 class="font-bold text-lg mb-4">Факторы, влияющие на стоимость:</h4>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>объём семантики</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>конкурентность ниши</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>архитектура сайта</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>сложность воронки</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span>глубина интеграций</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Принцип -->
+                <div class="bg-gradient-to-r from-primary/5 to-primary/10 p-8 rounded-3xl border border-primary/20 scroll-reveal">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-2xl">Наш принцип</h3>
+                    </div>
+                    <p class="text-lg text-gray-700 mb-4">Цена фиксируется после диагностики. Не меняется в процессе.</p>
+                    <p class="text-lg text-gray-700">Расширение — только по вашей инициативе.</p>
+                </div>
+
+                <!-- Кнопка -->
+                <div class="text-center mt-12 scroll-reveal">
+                    <a href="#contact" class="group inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary-dark transition-all duration-300 shadow-red hover:shadow-red-lg hover:scale-105 hover:-translate-y-1">
+                        <span>Получить расчёт под вашу ситуацию</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как мы начинаем -->
+    <section class="py-24 bg-gray-50" id="approach">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>ПРОЦЕСС</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Как мы начинаем — <span class="text-primary">с разведки, не с продажи</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mt-4">Первый контакт — не презентация</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-soft mb-8 scroll-reveal">
+                    <h4 class="font-bold text-lg mb-6">Мы просим описать:</h4>
+                    <div class="grid sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">1</span>
+                            <span>текущую ситуацию</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">2</span>
+                            <span>KPI</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">3</span>
+                            <span>структуру каналов</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                            <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">4</span>
+                            <span>гипотезы, которые уже проверялись</span>
+                        </div>
+                    </div>
+
+                    <h4 class="font-bold text-lg mb-6">Через 24 часа вы получаете предварительный разбор:</h4>
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div class="bg-primary/5 p-5 rounded-xl text-center">
+                            <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            <span>где видим разрыв</span>
+                        </div>
+                        <div class="bg-primary/5 p-5 rounded-xl text-center">
+                            <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                            <span>какие механики влияют</span>
+                        </div>
+                        <div class="bg-primary/5 p-5 rounded-xl text-center">
+                            <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            <span>есть ли потенциал масштабирования</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-primary/5 rounded-2xl text-center">
+                        <p class="text-xl font-medium">Это бесплатно и без обязательств.</p>
+                        <p class="text-gray-600 mt-2">Если задача вне нашей специализации — скажем прямо.</p>
+                    </div>
+                </div>
+
+                <!-- Кнопка -->
+                <div class="text-center scroll-reveal">
+                    <a href="#contact" class="group inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary-dark transition-all duration-300 shadow-red hover:shadow-red-lg hover:scale-105 hover:-translate-y-1">
+                        <span>Описать ситуацию для разбора</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма обратной связи -->
+    <section class="py-24 bg-white" id="contact">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-12 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>СВЯЖИТЕСЬ С НАМИ</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Готовы обсудить <span class="text-primary">вашу ситуацию?</span>
+                    </h2>
+                </div>
+
+                <div class="bg-white p-8 md:p-12 rounded-3xl border border-gray-200 shadow-soft scroll-reveal">
+                    <form id="contactForm">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Ваше имя</label>
+                                <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" placeholder="Александр">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Телефон</label>
+                                <input type="tel" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" placeholder="+375 29 123-45-67">
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" placeholder="hello@rdn.by">
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Кратко опишите ситуацию</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" placeholder="Что сейчас работает/не работает? Какие цели?"></textarea>
+                        </div>
+
+                        <!-- Капча -->
+                        <div class="flex flex-col sm:flex-row items-center gap-4 mb-6">
+                            <div class="flex items-center gap-3 bg-gray-100 px-4 py-3 rounded-xl w-full sm:w-auto">
+                                <span class="font-mono font-bold text-xl" id="captchaDisplay">4A2B</span>
+                                <button type="button" id="refreshCaptcha" class="text-gray-500 hover:text-primary transition-all duration-300 hover:rotate-90">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                </button>
+                            </div>
+                            <input type="text" id="captchaInput" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" placeholder="Введите код">
+                        </div>
+
+                        <button type="submit" class="w-full bg-primary text-white py-4 rounded-xl font-semibold hover:bg-primary-dark transition-all duration-300 shadow-red hover:shadow-red-lg hover:scale-[1.02] flex items-center justify-center gap-3 group">
+                            <span>Отправить</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+
+                        <p class="text-center text-sm text-gray-500 mt-4">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+                    </form>
+
+                    <div id="formSuccess" class="hidden text-center py-8">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow">
+                            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Спасибо!</h3>
+                        <p class="text-gray-600">Мы свяжемся с вами в ближайшее время</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="py-24 bg-gray-50" id="contacts">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <!-- Бейдж -->
+                    <div class="flex justify-center mb-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2.5 rounded-full text-sm font-medium">
+                            <svg class="w-4 h-4 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20" role="img" aria-label="Проверено"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>КОНТАКТЫ</span>
+                        </div>
+                    </div>
+                    <h2 class="font-montserrat font-bold text-3xl md:text-4xl mt-3">
+                        Свяжитесь <span class="text-primary">с нами</span>
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <a href="mailto:hello@rdn.by" class="group bg-white p-8 rounded-3xl text-center hover:bg-primary/5 transition-all duration-300 border border-gray-200 hover:border-primary card-hover scroll-reveal">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Email</h3>
+                        <p class="text-primary group-hover:scale-105 transition-transform duration-300">info@rdn.by</p>
+                    </a>
+
+                    <a href="https://t.me/rdn_by" class="group bg-white p-8 rounded-3xl text-center hover:bg-primary/5 transition-all duration-300 border border-gray-200 hover:border-primary card-hover scroll-reveal">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Telegram</h3>
+                        <p class="text-primary group-hover:scale-105 transition-transform duration-300">@rdn_by</p>
+                    </a>
+
+                    <a href="tel:+375259997490" class="group bg-white p-8 rounded-3xl text-center hover:bg-primary/5 transition-all duration-300 border border-gray-200 hover:border-primary card-hover scroll-reveal">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Телефон</h3>
+                        <p class="text-primary group-hover:scale-105 transition-transform duration-300">+375 25 999-74-90</p>
+                    </a>
+                </div>
+
+                <div class="mt-12 text-center text-gray-600 scroll-reveal">
+                    <p>Минск, пр. Независимости 58, офис 415</p>
+                    <p class="mt-2">Пн-Пт: 9:00-20:00</p>
+                    <p class="mt-2">Сб-Вс: Выходной. <span class="text-sm">*Можно писать в мессенджеры</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {#  include 'partials/managed_blocks.html.twig' #}
+{% endblock %}
+
+{# 5. Добавление специфичного JavaScript для этой страницы #}
+{% block javascripts %}
+    {{ parent() }} {# ← ВАЖНО: сохраняем родительские скрипты #}
+    <script src="{{ asset('assets/js/index_home.js') }}"></script>
+
+{% endblock %}
+
+{# 6. Дополнительный контент в конце body (если нужно) #}
+{% block body_end %}
+    {# Можно добавить модальные окна, дополнительные виджеты и т.д. #}
+
+{% endblock %}
+

@@ -1,0 +1,652 @@
+{% extends 'base.html.twig' %}
+
+{# 2. ПЕРЕОПРЕДЕЛЕНИЕ заголовка страницы #}
+{% block title %}
+    {{ seo.title|default('GEO-продвижение сайта для ИИ | Оптимизация под Perplexity, Yandex Алиса, ChatGPT, YandexGPT, Gemini') }} | SEO Studio RDN.BY
+{% endblock %}
+
+{# 3. Добавление специфичных стилей для этой страницы #}
+{% block stylesheets %}
+    {{ parent() }} {# ← ВАЖНО: сохраняем родительские стили #}
+    <link rel="stylesheet" href="{{ asset('assets/css/seomain.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="relative min-h-screen seo-grid">
+        {# Анимированный фон #}
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow animation-delay-2000"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+
+            {# 1. Хедер страницы #}
+            <div class="flex justify-between items-center mb-16 lg:mb-24 reveal" style="animation-delay: 0.1s;">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-orange-500 rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-xl">S</span>
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">SEO<span class="text-orange-500">.pro</span></span>
+                </div>
+                <a href="#contact" class="hidden sm:inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    Аудит сайта
+                </a>
+            </div>
+
+            {# 2. Hero секция с главным оффером #}
+            <div class="text-center lg:text-left lg:flex lg:items-center lg:justify-between gap-12 mb-24 lg:mb-32">
+                <div class="lg:w-1/2 reveal" style="animation-delay: 0.2s;">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-sm font-medium mb-6">
+                        <span class="relative flex h-2 w-2 mr-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                        </span>
+                        Реальные результаты, а не обещания
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+                        <span class="bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent">
+                            SEO-продвижение
+                        </span>
+                        <br>в Минске и Беларуси
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-2xl lg:mx-0 mx-auto">
+                        Выводим сайты в ТОП-10 Яндекса и Google. Не продаем «воздух» — показываем реальную экономику и даем гарантию результата в договоре. Более 9 лет экспертизы.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#pricing" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600 transform hover:scale-105 transition-all duration-300 shadow-xl">
+                            Рассчитать стоимость
+                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </a>
+                        <a href="#why" class="inline-flex items-center justify-center px-8 py-4 border-2 border-orange-500 text-lg font-medium rounded-lg text-orange-600 hover:bg-orange-50 transition-all duration-300">
+                            Кейсы и результаты
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 mt-12 lg:mt-0 reveal" style="animation-delay: 0.4s;">
+                    <div class="relative">
+                        {# График роста трафика #}
+                        <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-2xl">
+                            <div class="flex justify-between items-center mb-6">
+                                <span class="text-sm font-medium text-gray-500">Рост органического трафика</span>
+                                <span class="text-2xl font-bold text-green-500">+312%</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Яндекс</span>
+                                        <span class="font-semibold">ТОП-3: 47 запросов</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-orange-500 h-3 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Google</span>
+                                        <span class="font-semibold">ТОП-3: 52 запроса</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-blue-500 h-3 rounded-full" style="width: 84%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {# Иконки поисковиков #}
+                            <div class="flex justify-center gap-4 mt-6 pt-6 border-t border-gray-100">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Janus-_Yandex_logo.svg" alt="Yandex" class="h-8 opacity-70 hover:opacity-100 transition-opacity">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="h-8 opacity-70 hover:opacity-100 transition-opacity">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# 3. Ключевая статистика (как у seowow.pro) #}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24 lg:mb-32 reveal">
+                <div class="stat-card rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-4xl font-bold text-orange-500 mb-2">97,1%</div>
+                    <p class="text-gray-600">проектов достигли ТОП-1</p>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-4xl font-bold text-orange-500 mb-2">25K+</div>
+                    <p class="text-gray-600">запросов в ТОП-3</p>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-4xl font-bold text-orange-500 mb-2">9 лет</div>
+                    <p class="text-gray-600">экспертного опыта</p>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-4xl font-bold text-orange-500 mb-2">82</div>
+                    <p class="text-gray-600">успешных проекта</p>
+                </div>
+            </div>
+
+            {# 4. Важный честный блок в стиле Docpart #}
+            <div class="mb-24 lg:mb-32">
+                <div class="max-w-4xl mx-auto reveal">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 shadow-2xl border-l-8 border-orange-500">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                            <svg class="w-8 h-8 text-orange-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                            </svg>
+                            Почему SEO — это не «волшебная кнопка»
+                        </h2>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                            Сразу скажем честно: если вы ищете того, кто «сделает сайт и он сразу взлетит в ТОП» — скорее всего, вас пытаются обмануть. Мы работаем с SEO с 2015 года и за это время поняли одну простую вещь: <span class="font-semibold text-orange-600">универсального рецепта не существует</span>.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                            Каждый проект — это уникальный набор вводных: ниша, конкуренция в Беларуси, возраст сайта, бюджет, техническое состояние, регион продвижения (Минск или вся РБ). То, что сработало для интернет-магазина автозапчастей, может не подойти для сайта услуг в Минске.
+                        </p>
+                        <div class="bg-orange-50 p-6 rounded-xl mt-8">
+                            <p class="font-semibold text-gray-900">Поэтому мы не обещаем «ТОП за месяц». Мы предлагаем системную работу, прозрачную отчетность и реальные KPI, которые видны в цифрах.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# 5. Услуги SEO (как у makit.by) #}
+            <div class="mb-24 lg:mb-32">
+                <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                        Что мы <span class="text-orange-500">предлагаем</span>
+                    </h2>
+                    <p class="text-xl text-gray-600">Индивидуальные стратегии под ваши бизнес-задачи</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 reveal">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Продвижение по трафику</h3>
+                        <p class="text-gray-600">Масштабируем трафик для e-commerce. Прорабатываем тысячи запросов для максимального охвата аудитории в Беларуси.</p>
+                    </div>
+                    <div class="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 reveal">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Продвижение в Google</h3>
+                        <p class="text-gray-600">Глубокая техническая оптимизация, работа с E-E-A-T факторами для выхода в мировой поисковик.</p>
+                    </div>
+                    <div class="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 reveal">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+                                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Продвижение в Яндекс</h3>
+                        <p class="text-gray-600">Работа с поведенческими факторами, коммерческими сигналами и сервисами Яндекса.</p>
+                    </div>
+                    <div class="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 reveal">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Продвижение молодых сайтов</h3>
+                        <p class="text-gray-600">Безопасный старт без рисков. Используем методики для выхода из «песочницы».</p>
+                    </div>
+                    <div class="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 reveal">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 12v3c0 .621.52 1 1 1h2c1.1 0 2-.9 2-2v-3c0-.552.448-1 1-1h2c.552 0 1 .448 1 1v3c0 1.1.9 2 2 2h2c.48 0 .879-.379.998-.879L18 11.5V5c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1v4c0 .55-.45 1-1 1H8c-.55 0-1-.45-1-1V5c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v6l.002.002L3 12z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">SEO в Европе и США</h3>
+                        <p class="text-gray-600">Выход на западные рынки. Привлекаем платежеспособный трафик на английском и других языках.</p>
+                    </div>
+                    <div class="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 reveal">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">SEO-аудит</h3>
+                        <p class="text-gray-600">Полный технический аудит с рекомендациями. Понимание текущей ситуации — первый шаг к успеху.</p>
+                    </div>
+                </div>
+            </div>
+
+            {# 6. Тарифы и цены (в BYN) #}
+            <div id="pricing" class="mb-24 lg:mb-32">
+                <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                        Стоимость <span class="text-orange-500">SEO-продвижения</span>
+                    </h2>
+                    <p class="text-xl text-gray-600">Прозрачные тарифы без скрытых платежей</p>
+                    <p class="text-sm text-gray-500 mt-2">* Цены указаны в белорусских рублях (BYN)</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    {# Тариф Базовый #}
+                    <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 reveal relative">
+                        <div class="absolute top-0 right-0 bg-blue-100 text-blue-800 px-3 py-1 rounded-bl-xl rounded-tr-xl text-sm font-medium">
+                            Для старта
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Базовый</h3>
+                        <p class="text-gray-600 mb-4">До 100 запросов</p>
+                        <div class="text-4xl font-bold text-orange-500 mb-6">950 BYN</div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Подбор и кластеризация запросов</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Технический аудит и настройка</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Копирайтинг до 8 000 символов</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Внешняя оптимизация</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Регион — Беларусь</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block w-full text-center py-3 px-4 border-2 border-orange-500 text-orange-500 rounded-lg font-medium hover:bg-orange-50 transition-colors">
+                            Выбрать тариф
+                        </a>
+                    </div>
+                    {# Тариф Бизнес (рекомендуемый) #}
+                    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 text-white shadow-2xl transform scale-105 hover:scale-110 transition-all duration-500 reveal relative">
+                        <div class="absolute top-0 right-0 bg-yellow-400 text-gray-900 px-3 py-1 rounded-bl-xl rounded-tr-xl text-sm font-bold">
+                            Популярный
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Бизнес</h3>
+                        <p class="text-orange-100 mb-4">До 250 запросов</p>
+                        <div class="text-4xl font-bold mb-6">1 400 BYN</div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Всё из тарифа «Базовый»</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Юзабилити и рекомендации</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Копирайтинг до 16 000 символов</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Регистрация в каталогах</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block w-full text-center py-3 px-4 bg-white text-orange-600 rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-lg">
+                            Выбрать тариф
+                        </a>
+                    </div>
+                    {# Тариф Премиум #}
+                    <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 reveal">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Премиум</h3>
+                        <p class="text-gray-600 mb-4">Без ограничений</p>
+                        <div class="text-4xl font-bold text-orange-500 mb-6">2 100 BYN</div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Всё из тарифа «Бизнес»</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Копирайтинг до 24 000 символов</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Продвижение на картах</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">Крауд-маркетинг</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-600">2 часа работы веб-мастера</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block w-full text-center py-3 px-4 border-2 border-orange-500 text-orange-500 rounded-lg font-medium hover:bg-orange-50 transition-colors">
+                            Выбрать тариф
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {# 7. Сравнительная таблица: когда нужно SEO (стиль makit.by) #}
+            <div class="mb-24 lg:mb-32">
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 shadow-2xl reveal">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+                        Вам нужно SEO, если...
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">Вы планируете занять лидерские позиции в нише надолго</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">Нужен стабильный и масштабируемый поток клиентов из поиска</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">На ваш товар/услугу уже сформирован поисковый спрос</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">Вы хотите снизить стоимость привлечения клиента (CPL) в долгосроке</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">Ваш бизнес ориентирован только на офлайн-продажи</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">Результат нужен «еще вчера» (SEO — это долгосрочная стратегия)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">Вы не готовы к техническим изменениям и работе над контентом</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">У вас разовые продажи низкомаржинального товара</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# 8. Кейсы (как у seowow.pro) #}
+            <div class="mb-24 lg:mb-32">
+                <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                        Реальные <span class="text-orange-500">кейсы</span>
+                    </h2>
+                    <p class="text-xl text-gray-600">Цифры, которые говорят сами за себя</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 reveal">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center mr-4">
+                                <span class="text-orange-600 font-bold">1</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900">Кулинарный портал</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Вывели в ТОП-3 497 ключевых слов, из них 357 в ТОП-1. Трафик вырос с 270 до 1200 визитов в день.</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-green-600">+344% рост</span>
+                            <span class="text-gray-500">3 месяца работы</span>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 reveal">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center mr-4">
+                                <span class="text-orange-600 font-bold">2</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900">Интернет-магазин автозапчастей</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Увеличили трафик с 700 до 2500 посетителей в неделю (+257%) за 4 месяца.</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-green-600">+257% рост</span>
+                            <span class="text-gray-500">4 месяца работы</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# 9. Этапы работ (как у makit.by) #}
+            <div class="mb-24 lg:mb-32">
+                <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                        Как мы <span class="text-orange-500">работаем</span>
+                    </h2>
+                    <p class="text-xl text-gray-600">Прозрачный процесс с понятными результатами</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 reveal group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 font-bold text-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">01</div>
+                            <h3 class="text-lg font-semibold text-gray-900">Анализ и стратегия</h3>
+                        </div>
+                        <p class="text-gray-600">Погружаемся в бизнес, изучаем конкурентов, собираем семантику, проверяем сайт на санкции.</p>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 reveal group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 font-bold text-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">02</div>
+                            <h3 class="text-lg font-semibold text-gray-900">Техническая подготовка</h3>
+                        </div>
+                        <p class="text-gray-600">Устраняем ошибки, настраиваем мета-теги, делаем сайт понятным для поисковых роботов.</p>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 reveal group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 font-bold text-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">03</div>
+                            <h3 class="text-lg font-semibold text-gray-900">Оптимизация контента</h3>
+                        </div>
+                        <p class="text-gray-600">Работаем с текстами, перелинковкой, коммерческими факторами и поведенческими метриками.</p>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 reveal group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 font-bold text-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">04</div>
+                            <h3 class="text-lg font-semibold text-gray-900">Внешняя оптимизация</h3>
+                        </div>
+                        <p class="text-gray-600">Наращиваем качественную ссылочную массу, работаем с авторитетными площадками.</p>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 reveal group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 font-bold text-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">05</div>
+                            <h3 class="text-lg font-semibold text-gray-900">Аналитика и отчеты</h3>
+                        </div>
+                        <p class="text-gray-600">Ежемесячные отчеты о позициях, трафике и выполненных работах. Полная прозрачность.</p>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 reveal group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 font-bold text-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">06</div>
+                            <h3 class="text-lg font-semibold text-gray-900">Расширение семантики</h3>
+                        </div>
+                        <p class="text-gray-600">Постоянно ищем новые точки роста и добавляем запросы для увеличения трафика.</p>
+                    </div>
+                </div>
+            </div>
+
+            {# 10. FAQ секция #}
+            <div class="mb-24 lg:mb-32">
+                <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                        Частые вопросы о <span class="text-orange-500">SEO</span>
+                    </h2>
+                    <p class="text-xl text-gray-600">Честные ответы без воды</p>
+                </div>
+                <div class="max-w-3xl mx-auto space-y-4 reveal">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <button class="faq-btn w-full flex justify-between items-center text-left" onclick="toggleFaq(this)">
+                            <span class="text-lg font-semibold text-gray-900">Как быстро сайт попадет в ТОП?</span>
+                            <svg class="w-5 h-5 text-orange-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer hidden mt-4 text-gray-600">
+                            <p>Первые результаты обычно видны через 3-6 месяцев системной работы. Для высококонкурентных ниш может потребоваться до 12 месяцев. Мы не обещаем «ТОП за месяц», но даем реальные KPI и показываем динамику.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <button class="faq-btn w-full flex justify-between items-center text-left" onclick="toggleFaq(this)">
+                            <span class="text-lg font-semibold text-gray-900">Есть ли гарантия попадания в ТОП?</span>
+                            <svg class="w-5 h-5 text-orange-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer hidden mt-4 text-gray-600">
+                            <p>Поисковики официально заявляют, что никто не может гарантировать ТОП. Но мы даем гарантию результата в договоре: если не достигнем согласованных KPI, вернем деньги. Мы заинтересованы в результате не меньше вас.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <button class="faq-btn w-full flex justify-between items-center text-left" onclick="toggleFaq(this)">
+                            <span class="text-lg font-semibold text-gray-900">От чего зависит стоимость SEO?</span>
+                            <svg class="w-5 h-5 text-orange-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer hidden mt-4 text-gray-600">
+                            <p>От конкуренции в нише, текущего состояния сайта, региона продвижения (Минск или вся РБ) и количества запросов. Мы считаем стоимость индивидуально под каждый проект.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# 11. Контактная форма #}
+            <div id="contact" class="max-w-3xl mx-auto reveal">
+                <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 lg:p-12 text-white shadow-2xl">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold mb-4">Хотите обсудить SEO?</h2>
+                        <p class="text-orange-100 text-lg">Заполните форму — мы свяжемся и предложим стратегию для вашего бизнеса</p>
+                    </div>
+                    <form class="space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <input type="text" placeholder="Ваше имя"
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-orange-200 focus:outline-none focus:ring-2 focus:ring-white transition-all">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Телефон"
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-orange-200 focus:outline-none focus:ring-2 focus:ring-white transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Email"
+                                   class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-orange-200 focus:outline-none focus:ring-2 focus:ring-white transition-all">
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Сайт (если есть)"
+                                   class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-orange-200 focus:outline-none focus:ring-2 focus:ring-white transition-all">
+                        </div>
+                        <div>
+                            <textarea rows="4" placeholder="Расскажите о вашем проекте, целях и регионе продвижения..."
+                                      class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-orange-200 focus:outline-none focus:ring-2 focus:ring-white transition-all"></textarea>
+                        </div>
+                        <button type="submit"
+                                class="w-full py-4 px-6 bg-white text-orange-600 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors transform hover:scale-105 transition-all duration-300 shadow-xl">
+                            Получить стратегию продвижения
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
+
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+            answer.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .animation-delay-2000 { animation-delay: 2s; }
+        .rotate-180 { transform: rotate(180deg); }
+    </style>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="max-w-6xl mx-auto px-4 py-16">
+    <h1 class="text-4xl font-bold mb-8">Блог</h1>
+    <div class="grid md:grid-cols-2 gap-6">
+        {% for post in posts %}
+            <article class="border rounded-2xl p-6 bg-white shadow-sm">
+                <p class="text-sm text-gray-500">{{ post.publishedAt|date('d.m.Y') }}</p>
+                <h2 class="text-2xl font-semibold mt-2 mb-3">{{ post.title }}</h2>
+                <p class="text-gray-700 mb-4">{{ post.excerpt }}</p>
+                <a class="text-red-600 font-semibold" href="{{ path('app_blog_post', {slug: post.slug}) }}">Читать →</a>
+            </article>
+        {% else %}
+            <p>Пока нет публикаций.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

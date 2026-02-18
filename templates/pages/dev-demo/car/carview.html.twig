@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Part Details Page - Apex Auto Parts</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f48c25",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#221910",
+                        "surface-dark": "#2d241b", // Slightly lighter than bg-dark for cards
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #221910;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3d342b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f48c25;
+        }
+
+        /* Utility for aspect ratio if not supported natively */
+        .aspect-w-4 { position: relative; padding-bottom: 75%; }
+        .aspect-w-4 > * { position: absolute; height: 100%; width: 100%; top: 0; left: 0; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-gray-100 font-display min-h-screen flex flex-col">
+<!-- Navbar -->
+<nav class="sticky top-0 z-50 bg-white dark:bg-[#1a120b] border-b border-gray-200 dark:border-white/10 backdrop-blur-md bg-opacity-90 dark:bg-opacity-90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                <div class="w-8 h-8 rounded bg-primary flex items-center justify-center">
+                    <span class="material-icons text-white text-lg">settings</span>
+                </div>
+                <span class="font-bold text-xl tracking-tight text-gray-900 dark:text-white">TURBO<span class="text-primary">MARKET</span></span>
+            </div>
+            <!-- Search -->
+            <div class="hidden md:flex flex-1 mx-8 max-w-2xl">
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="material-icons text-gray-400">search</span>
+                    </div>
+                    <input class="block w-full pl-10 pr-3 py-2 border border-gray-200 dark:border-white/10 rounded-lg leading-5 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm" placeholder="Search by part number, vehicle, or keyword..." type="text"/>
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+                        <span class="material-icons text-gray-400 hover:text-primary">filter_list</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                    <span class="material-icons">notifications_none</span>
+                    <span class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-primary ring-2 ring-white dark:ring-[#1a120b]"></span>
+                </button>
+                <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                    <span class="material-icons">shopping_cart</span>
+                </button>
+                <div class="h-8 w-8 rounded-full bg-gradient-to-tr from-primary to-orange-400 p-[2px] cursor-pointer">
+                    <img alt="User avatar" class="h-full w-full rounded-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXdUASth4tsivjcCsZYubwduLcBEcwqpODzsAzJlpGeXw92XPLY0hSuvCbBSmuUokJN6zBH4KArOb7lC0QWyf1_rQyHbXJ5elawGiGQ4d5fpKhGJJhaVem_9ccxWnr0NFkiM6G6YOAJ-yvo86YAL5PBEB-Y3qWWh_Kl6_8QM6iKGa1nrzX-fJTOUTMhIp_0f2obZNmWu-WTw-tf4SYL2EzhouiGJMn4QKuL_gAf7-_aQKXd1yMNhLcw90VyEjKyHW_rnjCgwEa3qs"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <!-- Breadcrumbs -->
+    <nav aria-label="Breadcrumb" class="flex mb-6 text-sm text-gray-500 dark:text-gray-400">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a class="hover:text-primary transition-colors" href="#">Home</a>
+            </li>
+            <li><span class="material-icons text-sm mx-1">chevron_right</span></li>
+            <li>
+                <a class="hover:text-primary transition-colors" href="#">Engine Parts</a>
+            </li>
+            <li><span class="material-icons text-sm mx-1">chevron_right</span></li>
+            <li>
+                <a class="hover:text-primary transition-colors" href="#">Turbochargers</a>
+            </li>
+            <li><span class="material-icons text-sm mx-1">chevron_right</span></li>
+            <li aria-current="page">
+                <span class="text-gray-900 dark:text-gray-200 font-medium">Garrett GT2860R</span>
+            </li>
+        </ol>
+    </nav>
+    <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start">
+        <!-- Left Column: Gallery -->
+        <div class="lg:col-span-7">
+            <div class="flex flex-col gap-4">
+                <!-- Main Image -->
+                <div class="w-full aspect-[4/3] bg-surface-dark rounded-xl overflow-hidden border border-white/5 relative group">
+                    <img alt="Detailed view of a turbocharger auto part" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" data-alt="Close up of a shiny metal turbocharger" id="main-product-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBYBLgeIL9VC6sOwQS_UfbPdTgDK9bmQ53RNXZqw0NPg5ARbthxcrVehEtPnxOh3SI5j7Tm8b6QQEZZ7RPZXD_LkynFpCPe_zZ70ASL7t2YTYPJdeS8anr3HP9mJ87zOitvutwEk3aYwiUOnNgRq1Ob9rTg0Z6KZJkHbQ8pEDL529MnPqm1sWQ9HaIHnfmbMYvtGqgJnnE3j1B9cH4ZZ5Dg6KfT0HoAIs_ifPqrkNDXPyEpRIAwH0dtvwy84f7ZHX2RZULDFLjIIw"/>
+                    <div class="absolute top-4 left-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary text-white shadow-lg shadow-primary/20">
+                                Verified Part
+                            </span>
+                    </div>
+                    <button class="absolute bottom-4 right-4 bg-black/60 hover:bg-primary text-white p-2 rounded-lg backdrop-blur-sm transition-colors">
+                        <span class="material-icons text-xl">zoom_in</span>
+                    </button>
+                </div>
+                <!-- Thumbnails -->
+                <div class="grid grid-cols-4 gap-4" id="product-thumbnails">
+                    <button class="relative aspect-square rounded-lg overflow-hidden border-2 border-primary ring-2 ring-primary/20">
+                        <img alt="Turbocharger front view" class="w-full h-full object-cover" data-alt="Turbocharger front view thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJdOPMf_LfuY7kmVCpjw3lB9mO7AOsr_ozfR4wFS0ZyOOAidb8wuZBkjDfV7uQpH1-KvCcOWkWfRbslkbZvLdZzSYZ5BhdgpRTL-xUrkDN_A0oD-hxaLDIcz--ePaFq8vTSS1lr14ZGEIQcF4Be8OfM3G3iiqBgRDG88cjdZgSNCGDRGkRsdvArtGSJYiTwC6qpgPbJGbOD1htZLkh4kMie9NUwiW0aYVdJIUf-AEs0H129428At2j1Kx80OGvxYZUlB_lgUhEMCo"/>
+                    </button>
+                    <button class="relative aspect-square rounded-lg overflow-hidden border border-white/10 hover:border-primary/50 transition-colors opacity-70 hover:opacity-100">
+                        <img alt="Turbocharger side view" class="w-full h-full object-cover" data-alt="Turbocharger side view thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUYhQ1G28jFmd8Nwr1RgqMLbGwDM4MjuEp0cLma9lO1Qe2c2F4UAveBwqYGzc0HC0WYSQh7XFkMqlJ07SkbFfFOsXHqB10b6WztphLy4E0cf2osunt05FUdBRIb3pLeFCNFBccQo8xioQASNgTGGOYuzOeI6Pfxy6NRnb6TwBaxa7Y1v1ECZLQRNF3wE5E4LCOOazHVtmToUX83E70tYfjZxOBMZxf16h60ZAtfgo6NiZXMh3-Qod-tNDX7nuVbJ9I--DuH1ugs9I"/>
+                    </button>
+                    <button class="relative aspect-square rounded-lg overflow-hidden border border-white/10 hover:border-primary/50 transition-colors opacity-70 hover:opacity-100">
+                        <img alt="Turbocharger installed in engine bay" class="w-full h-full object-cover" data-alt="Turbocharger installed context thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUdBWfic7-Q7D48748KVRSHDzWc4RLHcM7zYLPqkgW5ZPXg3qjwiMM0_z1F8etSBH8kBpJBdrLrFtB9uwhc3siECp-W_7i6Yofk2Y_VvAN3OMn-CYMB1sRPwC_MVpzm0EmxJ41_kvtqUc2P2dRJsz_RoKuvjWAkppRMqhdgD3-jbG4nO1V6yzzoPtKIE1nlnY1HAcQy9JdophuTpstQg4ntnj7Q3_F9exCChcnrDjsOZMrwsXsG2UMdvF4hjDtzMmOVNorHso4B-U"/>
+                    </button>
+                    <button class="relative aspect-square rounded-lg overflow-hidden border border-white/10 hover:border-primary/50 transition-colors opacity-70 hover:opacity-100">
+                        <img alt="Turbocharger side view" class="w-full h-full object-cover" data-alt="Turbocharger side view thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUYhQ1G28jFmd8Nwr1RgqMLbGwDM4MjuEp0cLma9lO1Qe2c2F4UAveBwqYGzc0HC0WYSQh7XFkMqlJ07SkbFfFOsXHqB10b6WztphLy4E0cf2osunt05FUdBRIb3pLeFCNFBccQo8xioQASNgTGGOYuzOeI6Pfxy6NRnb6TwBaxa7Y1v1ECZLQRNF3wE5E4LCOOazHVtmToUX83E70tYfjZxOBMZxf16h60ZAtfgo6NiZXMh3-Qod-tNDX7nuVbJ9I--DuH1ugs9I"/>
+                    </button>
+                    <button class="relative aspect-square rounded-lg overflow-hidden border border-white/10 hover:border-primary/50 transition-colors opacity-70 hover:opacity-100">
+                        <img alt="Turbocharger installed in engine bay" class="w-full h-full object-cover" data-alt="Turbocharger installed context thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUdBWfic7-Q7D48748KVRSHDzWc4RLHcM7zYLPqkgW5ZPXg3qjwiMM0_z1F8etSBH8kBpJBdrLrFtB9uwhc3siECp-W_7i6Yofk2Y_VvAN3OMn-CYMB1sRPwC_MVpzm0EmxJ41_kvtqUc2P2dRJsz_RoKuvjWAkppRMqhdgD3-jbG4nO1V6yzzoPtKIE1nlnY1HAcQy9JdophuTpstQg4ntnj7Q3_F9exCChcnrDjsOZMrwsXsG2UMdvF4hjDtzMmOVNorHso4B-U"/>
+                    </button>
+
+                </div>
+            </div>
+            <!-- Description & Specs Mobile/Desktop Flow -->
+            <div class="mt-10 border-t border-white/10 pt-10">
+                <div class="flex flex-wrap border-b border-white/10 mb-6">
+                    <button class="tab-btn px-6 py-3 text-sm font-bold uppercase tracking-wider text-primary border-b-2 border-primary transition-all" id="tab-characteristics" onclick="switchTab('characteristics')">Характеристики</button>
+                    <button class="tab-btn px-6 py-3 text-sm font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-all" id="tab-auto" onclick="switchTab('auto')">Авто</button>
+                    <button class="tab-btn px-6 py-3 text-sm font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-all" id="tab-analogs" onclick="switchTab('analogs')">Аналоги</button>
+                    <button class="tab-btn px-6 py-3 text-sm font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-all" id="tab-payment" onclick="switchTab('payment')">Оплата</button>
+                    <button class="tab-btn px-6 py-3 text-sm font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-all" id="tab-shipping" onclick="switchTab('shipping')">Доставка</button>
+                </div>
+                <div class="tab-panel" id="characteristics-panel">
+                    <div class="bg-surface-dark rounded-xl overflow-hidden border border-white/5 mb-8">
+                        <dl class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-6 py-4 border-b border-white/5 sm:border-r"><dt class="text-sm font-medium text-gray-400">Manufacturer</dt><dd class="mt-1 text-sm text-white">Garrett Advancing Motion</dd></div>
+                            <div class="px-6 py-4 border-b border-white/5"><dt class="text-sm font-medium text-gray-400">Part Number</dt><dd class="mt-1 text-sm text-white font-mono">GT2860R-707160-5</dd></div>
+                            <div class="px-6 py-4 border-b border-white/5 sm:border-r"><dt class="text-sm font-medium text-gray-400">Horsepower Rating</dt><dd class="mt-1 text-sm text-white">250 - 360 HP</dd></div>
+                            <div class="px-6 py-4 border-b border-white/5"><dt class="text-sm font-medium text-gray-400">Bearing Type</dt><dd class="mt-1 text-sm text-white">Ball Bearing</dd></div>
+                        </dl>
+                    </div>
+                    <div class="prose prose-invert max-w-none text-gray-400">
+                        <p class="mb-4">Genuine Garrett GT2860R "Disco Potato" turbocharger. This unit was removed from a project car that saw less than 2,000 miles of use.</p>
+                        <ul class="list-disc pl-5 space-y-2 marker:text-primary">
+                            <li>Compressor Wheel: 47.2mm Inducer / 60.1mm Exducer</li>
+                            <li>Turbine Wheel: 53.9mm Exducer / 76 Trim</li>
+                            <li>Turbine Housing: 0.64 A/R</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-panel hidden" id="auto-panel">
+                    <div class="bg-surface-dark rounded-xl p-6 border border-white/5">
+                        <h4 class="text-white font-bold mb-4">Compatible Models</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-400">
+                            <div class="flex items-center gap-2"><span class="material-icons text-primary text-sm">check_circle</span> Nissan Silvia S14</div>
+                            <div class="flex items-center gap-2"><span class="material-icons text-primary text-sm">check_circle</span> Nissan Silvia S15</div>
+                            <div class="flex items-center gap-2"><span class="material-icons text-primary text-sm">check_circle</span> Skyline R32</div>
+                            <div class="flex items-center gap-2"><span class="material-icons text-primary text-sm">check_circle</span> Skyline R33</div>
+                            <div class="flex items-center gap-2"><span class="material-icons text-primary text-sm">check_circle</span> Skyline R34</div>
+                            <div class="flex items-center gap-2"><span class="material-icons text-primary text-sm">check_circle</span> Nissan 180SX (with modifications)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-panel hidden" id="analogs-panel">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-surface-dark rounded-lg border border-white/5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-12 bg-gray-800 rounded overflow-hidden"><img alt="Analog" class="w-full h-full object-cover" src=""/></div>
+                                <div>
+                                    <p class="text-white font-medium">HKS GT-RS Sport Turbo Kit</p>
+                                    <p class="text-xs text-gray-500">Ref: 11004-AN011</p>
+                                </div>
+                            </div>
+                            <span class="text-primary font-bold">$1,240.00</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-surface-dark rounded-lg border border-white/5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-12 bg-gray-800 rounded overflow-hidden"><img alt="Analog" class="w-full h-full object-cover" src=""/></div>
+                                <div>
+                                    <p class="text-white font-medium">Tomei Arms M7960 Turbine Kit</p>
+                                    <p class="text-xs text-gray-500">Ref: 173019</p>
+                                </div>
+                            </div>
+                            <span class="text-primary font-bold">$980.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-panel hidden" id="payment-panel">
+                    <div class="bg-surface-dark rounded-xl p-6 border border-white/5">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <span class="material-icons text-3xl text-primary mb-2">credit_card</span>
+                                <p class="text-white font-bold text-sm">Bank Cards</p>
+                                <p class="text-xs text-gray-500 mt-1">Visa, Mastercard, MIR</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="material-icons text-3xl text-primary mb-2">account_balance</span>
+                                <p class="text-white font-bold text-sm">Bank Transfer</p>
+                                <p class="text-xs text-gray-500 mt-1">Invoice for legal entities</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="material-icons text-3xl text-primary mb-2">payments</span>
+                                <p class="text-white font-bold text-sm">Cash on Pickup</p>
+                                <p class="text-xs text-gray-500 mt-1">Pay at our LA warehouse</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-panel hidden" id="shipping-panel">
+                    <div class="prose prose-invert max-w-none text-gray-400 text-sm">
+                        <h4 class="text-white">Delivery Methods</h4>
+                        <ul class="list-disc pl-5 space-y-2 marker:text-primary">
+                            <li><strong>Express Shipping:</strong> 1-3 business days via UPS/FedEx ($45.00)</li>
+                            <li><strong>Standard Ground:</strong> 5-7 business days ($15.00)</li>
+                            <li><strong>Free Shipping:</strong> On orders over $1,500</li>
+                            <li><strong>Local Pickup:</strong> Available at our Los Angeles facility (Free)</li>
+                        </ul>
+                        <p class="mt-4">Orders are processed within 24 hours of payment. International shipping available upon request.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right Column: Purchasing & Seller Info -->
+        <div class="mt-10 lg:mt-0 lg:col-span-5 lg:sticky lg:top-24">
+            <div class="bg-surface-dark border border-white/5 rounded-2xl p-6 shadow-xl shadow-black/20">
+                <!-- Header Info -->
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-white leading-tight">Garrett GT2860R Ball Bearing Turbocharger</h1>
+                        <p class="text-sm text-gray-400 mt-2">Compatible with Nissan SR20DET Engines</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-red-500 transition-colors">
+                        <span class="material-icons">favorite_border</span>
+                    </button>
+                </div>
+                <!-- Price -->
+                <div class="flex items-end gap-3 mb-6">
+                    <span class="text-4xl font-bold text-primary">$850.00</span>
+                    <span class="text-lg text-gray-500 line-through mb-1.5">$1,150.00</span>
+                    <span class="mb-1.5 px-2 py-0.5 rounded text-xs font-semibold bg-green-900/30 text-green-400 border border-green-800">Save 26%</span>
+                </div>
+                <div class="h-px bg-white/10 w-full mb-6"></div>
+                <!-- Seller Card -->
+                <div class="flex items-center gap-4 mb-6 group cursor-pointer">
+                    <div class="relative">
+                        <img alt="Seller Avatar" class="h-14 w-14 rounded-full object-cover border-2 border-primary/20 group-hover:border-primary transition-colors" data-alt="Portrait of a male auto parts seller" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC0I5s0YVvsEzODBlKrVaKzAbh3lYdFFS8988s5ezLn31eGMeaKEgRK4zgyOb0Rj47UwptXRm0b-OGAiJ6SFjB2fpqN3rIIGLFXES68oI8UwQDAtiZg6dtk4dchB4_k7yC3JdBXbWYC6n6Rnoj4FPaotvfDfkCx8eWOeQXNdDPUiRrS33AC8DGkZJ5NZWp66UjUaCn5b1xktGrJ-dqRWknYDDgjqPuN10qO3loGjMH7h3wOb_UVhrbXQcIFzKYgGIz20bix5PtJGA"/>
+                        <span class="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-green-500 border-2 border-surface-dark"></span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-white font-semibold group-hover:text-primary transition-colors">Apex Performance</h4>
+                            <span class="text-xs text-gray-500">Member since 2019</span>
+                        </div>
+                        <div class="flex items-center gap-1 mt-1">
+                            <div class="flex text-primary text-sm">
+                                <span class="material-icons text-[16px]">star</span>
+                                <span class="material-icons text-[16px]">star</span>
+                                <span class="material-icons text-[16px]">star</span>
+                                <span class="material-icons text-[16px]">star</span>
+                                <span class="material-icons text-[16px]">star_half</span>
+                            </div>
+                            <span class="text-sm text-gray-400">(4.8) • 128 Reviews</span>
+                        </div>
+                        <div class="flex items-center gap-1 mt-1 text-xs text-gray-500">
+                            <span class="material-icons text-[14px]">location_on</span>
+                            <span>Los Angeles, CA</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Actions -->
+                <div class="space-y-3">
+                    <button class="w-full bg-primary hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-lg shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 transform active:scale-[0.98]">
+                        <span class="material-icons">shopping_cart</span>
+                        Add to Cart
+                    </button>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="w-full bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-4 rounded-lg border border-white/10 transition-colors flex items-center justify-center gap-2">
+                            <span class="material-icons text-primary text-sm">chat_bubble</span>
+                            Message
+                        </button>
+                        <button class="w-full bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-4 rounded-lg border border-white/10 transition-colors flex items-center justify-center gap-2">
+                            <span class="material-icons text-primary text-sm">call</span>
+                            Call Seller
+                        </button>
+                    </div>
+                </div>
+                <!-- Trust Badges -->
+                <div class="grid grid-cols-3 gap-2 mt-6 pt-6 border-t border-white/10">
+                    <div class="text-center">
+                        <span class="material-icons text-gray-500 text-2xl mb-1">verified_user</span>
+                        <p class="text-[10px] uppercase tracking-wide text-gray-400 font-medium">Buyer<br/>Protection</p>
+                    </div>
+                    <div class="text-center border-l border-white/5">
+                        <span class="material-icons text-gray-500 text-2xl mb-1">local_shipping</span>
+                        <p class="text-[10px] uppercase tracking-wide text-gray-400 font-medium">Fast<br/>Shipping</p>
+                    </div>
+                    <div class="text-center border-l border-white/5">
+                        <span class="material-icons text-gray-500 text-2xl mb-1">build</span>
+                        <p class="text-[10px] uppercase tracking-wide text-gray-400 font-medium">Fitment<br/>Guarantee</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Shipping Estimator -->
+            <div class="mt-6 bg-surface-dark border border-white/5 rounded-xl p-4">
+                <h4 class="text-white font-medium text-sm mb-3 flex items-center gap-2">
+                    <span class="material-icons text-primary text-lg">local_shipping</span>
+                    Shipping Estimate
+                </h4>
+                <div class="flex gap-2">
+                    <input class="bg-black/20 border border-white/10 rounded px-3 py-2 text-sm text-white w-full focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Zip Code" type="text"/>
+                    <button class="text-sm font-medium text-primary hover:text-white px-3 transition-colors">Calculate</button>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">Free shipping on orders over $1500</p>
+            </div>
+        </div>
+    </div>
+    <!-- Related Parts -->
+    <div class="mt-16 mb-8">
+        <div class="flex justify-between items-end mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-white">Related Parts</h2>
+                <p class="text-gray-400 mt-1">People who viewed this item also looked at</p>
+            </div>
+            <div class="flex gap-2">
+                <button class="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-colors">
+                    <span class="material-icons">chevron_left</span>
+                </button>
+                <button class="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-colors">
+                    <span class="material-icons">chevron_right</span>
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Related Item 1 -->
+            <div class="group bg-surface-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1">
+                <div class="aspect-[4/3] bg-gray-800 relative overflow-hidden">
+                    <img alt="Intercooler piping kit" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Aluminum intercooler piping kit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX41mUhns5jzKVePZl34X9g65CxQIxCb5Uhnli8ezapBWBeXcdjX2r2A4TM-CgfCH5-7T_RIxe84dsZSrlMDOI85ijH2ugxkQWnQkpoOSdvWE92D31DUGfp-0GFSPfwsNa6vKGXJ-5FK7be1OEWa5G7Ajm4-vvkaF5aoZLo69YnnS8M4C51nW_4xVeifyWkKwKQLSK8IlxiSRP_xlPqmiBDxWT-F1pKqh1hggaRKCMinFXpIPAt1JE8f8N5AaRlrKxgkuT4nxy1wE"/>
+                    <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-md px-2 py-1 rounded text-xs text-white font-medium">New</div>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-primary font-medium mb-1">Cooling</p>
+                    <h3 class="text-white font-medium text-sm leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">Front Mount Intercooler Kit for Nissan S13/S14</h3>
+                    <div class="flex items-center justify-between mt-3">
+                        <span class="text-white font-bold">$345.00</span>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="material-icons text-primary text-[14px] mr-0.5">star</span> 4.5
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Related Item 2 -->
+            <div class="group bg-surface-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1">
+                <div class="aspect-[4/3] bg-gray-800 relative overflow-hidden">
+                    <img alt="Performance exhaust manifold" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Stainless steel exhaust manifold" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8DOYYkKWTUQlCJZeMZqXBcsk2bn2tCMsLPhICO7s2VXKpq2aFtwsFchgCkAweGBRB0v1HLMs7OXHrs2-RYu_XT7qhtvxkv8nJRdSPq6z3pXe9NEZDANb9FSawSqE_0TEXoe3Esinnl2QIWuJfI9UhRKGTB85cms7VtiQ820AQmQx8F_-6uDof5ohWOXeIttp4N7G0lQWz0U93t93mT0e8zdDluJeh4bsvh28cG0C8PM5l_r9vxuIRUKPBYpGUBZKb1O0EMMoJtKM"/>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-primary font-medium mb-1">Exhaust</p>
+                    <h3 class="text-white font-medium text-sm leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">Stainless Steel Turbo Manifold T28 Flange</h3>
+                    <div class="flex items-center justify-between mt-3">
+                        <span class="text-white font-bold">$189.00</span>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="material-icons text-primary text-[14px] mr-0.5">star</span> 4.9
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Related Item 3 -->
+            <div class="group bg-surface-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1">
+                <div class="aspect-[4/3] bg-gray-800 relative overflow-hidden">
+                    <img alt="High performance fuel injectors" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Set of fuel injectors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwFp3XaDbuwWXrjfMhbhL-81l_KARp1N3zw-MFMPyTJoFePmEJFSH8u22IqwgHD7KEJQp8Me-3BhQlxkHeHd1-pyKtXR19Cg479N_3AUE1Fpg8r9_HF7tzW7DNWCg4D0-Ew_UEZbQx1-nM_ZdeJZy3NlzgshqpSw3_ivqr1P9cLuOqpOwKONMm8r11OfTTnND70dNQe4gYyOhi83P-BDAQ1otvGBaqPd-hG8N3mAcU0VLzj4KZ7mG-3MUTSjIC6jaoJ6RHXqhWiRI"/>
+                    <div class="absolute top-2 right-2 bg-red-600/90 backdrop-blur-md px-2 py-1 rounded text-xs text-white font-medium">-15%</div>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-primary font-medium mb-1">Fuel System</p>
+                    <h3 class="text-white font-medium text-sm leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">550cc Fuel Injectors Side Feed (Set of 4)</h3>
+                    <div class="flex items-center justify-between mt-3">
+                        <span class="text-white font-bold">$299.99</span>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="material-icons text-primary text-[14px] mr-0.5">star</span> 4.7
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Related Item 4 -->
+            <div class="group bg-surface-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1">
+                <div class="aspect-[4/3] bg-gray-800 relative overflow-hidden">
+                    <img alt="Engine control unit ECU" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Black engine control unit box" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSaKylwhaAKltP6TiIBjMFlOUfVgQNaTIUAfhQ7pJrORjObuxBfiO2Z80WgKmm1YS9OV1ILi_BbwUZ-eXxLApyRD_Z4PcZukUO4YEnrdsNrxOQE79Xo-LIHRgpK5BgoPyhIfVM7Ea9VfH_I1DUuhB0BhQQWT2mPYrWk6eGe3zsD4RVX_hLbqVPOcwxQOhRMZcKjLanskJ8olF3Mer6qN8Lpw1CUkKrF-uQZ9XQ85vYcEPgBvyIc79oSqh71-k4BZGlM2UlwAUof8s"/>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-primary font-medium mb-1">Electronics</p>
+                    <h3 class="text-white font-medium text-sm leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">Haltech Elite 1500 ECU &amp; Wiring Harness</h3>
+                    <div class="flex items-center justify-between mt-3">
+                        <span class="text-white font-bold">$1,450.00</span>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="material-icons text-primary text-[14px] mr-0.5">star</span> 5.0
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-dark border-t border-white/5 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-6 h-6 rounded bg-primary flex items-center justify-center">
+                        <span class="material-icons text-white text-xs">settings</span>
+                    </div>
+                    <span class="font-bold text-lg text-white">TURBO<span class="text-primary">MARKET</span></span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    The world's leading marketplace for high-performance auto parts. Connect with trusted sellers and find exactly what you need.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4">Shop</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a class="hover:text-primary transition-colors" href="#">New Arrivals</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Best Sellers</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Categories</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Clearance</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4">Support</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Return Policy</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Shipping Info</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4">Subscribe</h3>
+                <p class="text-gray-400 text-sm mb-3">Get the latest deals on parts.</p>
+                <div class="flex">
+                    <input class="bg-black/20 border border-white/10 rounded-l-lg px-3 py-2 text-sm text-white w-full focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Your email" type="email"/>
+                    <button class="bg-primary hover:bg-orange-600 text-white px-4 py-2 rounded-r-lg text-sm font-medium transition-colors">Join</button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-gray-500">© 2023 TurboMarket Inc. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a class="text-gray-500 hover:text-white transition-colors" href="#"><span class="sr-only">Facebook</span>FB</a>
+                <a class="text-gray-500 hover:text-white transition-colors" href="#"><span class="sr-only">Twitter</span>TW</a>
+                <a class="text-gray-500 hover:text-white transition-colors" href="#"><span class="sr-only">Instagram</span>IG</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 hidden cursor-zoom-out" id="lightbox">
+    <button class="absolute top-6 right-6 text-white text-4xl hover:text-primary transition-colors" onclick="closeLightbox()"><span class="material-icons">close</span></button>
+    <img alt="Enlarged view" class="max-w-full max-h-full object-contain rounded-lg" id="lightbox-img" src=""/>
+</div>
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+        document.getElementById(tabId + '-panel').classList.remove('hidden');
+
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('text-primary', 'border-b-2', 'border-primary');
+            b.classList.add('text-gray-400');
+        });
+
+        const activeBtn = document.getElementById('tab-' + tabId);
+        activeBtn.classList.add('text-primary', 'border-b-2', 'border-primary');
+        activeBtn.classList.remove('text-gray-400');
+    }
+
+    const mainImg = document.getElementById('main-product-image');
+    const thumbnails = document.querySelectorAll('#product-thumbnails button');
+
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            const img = thumb.querySelector('img');
+            if (img) {
+                mainImg.src = img.src;
+                thumbnails.forEach(t => t.classList.remove('border-primary', 'ring-2', 'ring-primary/20'));
+                thumb.classList.add('border-primary', 'ring-2', 'ring-primary/20');
+            }
+        });
+    });
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    mainImg.onclick = () => {
+        lightboxImg.src = mainImg.src;
+        lightbox.classList.remove('hidden');
+    };
+
+    document.querySelector('.material-icons[text="zoom_in"]').parentElement.onclick = () => {
+        lightboxImg.src = mainImg.src;
+        lightbox.classList.remove('hidden');
+    };
+
+    function closeLightbox() {
+        lightbox.classList.add('hidden');
+    }
+
+    lightbox.onclick = (e) => {
+        if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
+    };
+</script></body></html>

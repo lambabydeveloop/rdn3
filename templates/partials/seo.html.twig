@@ -1,0 +1,25 @@
+<meta property="og:title" content="{{ seo.title|default('RDN.BY') }}">
+<meta property="og:description" content="{{ seo.description|default('') }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ seo.canonical|default(app.request.uri) }}">
+<meta property="og:site_name" content="RDN.BY">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo.title|default('RDN.BY') }}">
+<meta name="twitter:description" content="{{ seo.description|default('') }}">
+
+<script type="application/ld+json">
+{{ {
+    '@context': 'https://schema.org',
+    '@type': seo.schema_type|default('WebSite'),
+    'name': seo.title|default('RDN.BY'),
+    'description': seo.description|default('SEO и GEO студия'),
+    'url': seo.canonical|default(app.request.uri),
+    'publisher': {
+        '@type': 'Organization',
+        'name': 'RDN.BY',
+        'url': app.request.schemeAndHttpHost,
+        'logo': app.request.schemeAndHttpHost ~ '/logo.png'
+    }
+}|json_encode(constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_PRETTY_PRINT'))|raw }}
+</script>

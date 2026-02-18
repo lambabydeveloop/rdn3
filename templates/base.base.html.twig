@@ -1,0 +1,86 @@
+<!--<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {# SEO Meta Tags #}
+    <title>{% block title %}{{ meta_title|default('Название компании') }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ meta_description|default('Описание по умолчанию') }}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{{ meta_keywords|default('') }}{% endblock %}">
+    <meta name="author" content="Название компании">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ app.request.uri }}">
+
+    {# Open Graph / Facebook #}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ app.request.uri }}">
+    <meta property="og:title" content="{% block og_title %}{{ meta_title|default('Название компании') }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ meta_description|default('') }}{% endblock %}">
+    <meta property="og:image" content="{{ absolute_url(asset(og_image|default('/images/og-default.jpg'))) }}">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Название компании">
+
+    {# Twitter Card #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ app.request.uri }}">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ meta_title|default('') }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ meta_description|default('') }}{% endblock %}">
+    <meta name="twitter:image" content="{{ absolute_url(asset(og_image|default('/images/og-default.jpg'))) }}">
+
+    {# Favicon #}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+
+    {# Schema.org JSON-LD #}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Название вашей компании",
+            "url": "{{ app.request.schemeAndHttpHost }}",
+        "logo": "{{ absolute_url(asset('/images/logo.png')) }}",
+        "description": "Описание вашей компании",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Ваш адрес",
+            "addressLocality": "Город",
+            "postalCode": "123456",
+            "addressCountry": "RU"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+7-xxx-xxx-xx-xx",
+            "contactType": "customer service",
+            "availableLanguage": ["Russian"]
+        },
+        "sameAs": [
+            "https://facebook.com/yourpage",
+            "https://twitter.com/yourpage",
+            "https://linkedin.com/company/yourpage"
+        ]
+    }
+    </script>
+
+    {% block schema_org %}{% endblock %}
+
+    {# CSS #}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/css/index_home.css') }}">
+    {% endblock %}
+</head>
+<body>
+{% include 'partials/header.html.twig' %}
+
+<main>
+    {% block body %}{% endblock %}
+</main>
+
+{% include 'partials/footer.html.twig' %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/index_home.js') }}"></script>
+{% endblock %}
+</body>
+</html>-->

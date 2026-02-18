@@ -1,0 +1,79 @@
+<!-- ========== HEADER ========== -->
+<header class="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
+    <nav class="mt-4 relative max-w-7xl w-full bg-white/95 backdrop-blur-md border border-gray-200 rounded-[24px] mx-2 flex flex-wrap md:flex-nowrap items-center justify-between p-1 ps-4 md:py-0 sm:mx-auto shadow-sm">
+        <div class="flex items-center">
+            <!-- Logo -->
+            <a class="flex-none rounded-md inline-block font-montserrat font-black text-3xl tracking-tight focus:outline-hidden focus:opacity-80" href="/" aria-label="RDN">
+                <span class="text-gray-900 hover:text-primary transition-colors duration-300">RDN<span class="text-primary">.</span></span>
+            </a>
+        </div>
+
+        <div class="flex items-center gap-1 md:order-4 md:ms-4">
+            <a class="w-full sm:w-auto whitespace-nowrap py-2.5 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-[24px] bg-primary text-white hover:bg-primary-dark focus:outline-hidden focus:bg-primary-dark disabled:opacity-50 disabled:pointer-events-none transition-all duration-300 shadow-lg hover:shadow-xl" href="#contact">
+                Получить разбор
+            </a>
+
+            <div class="md:hidden">
+                <!-- Toggle Button -->
+                <button type="button" class="hs-collapse-toggle flex justify-center items-center size-10 bg-white border border-gray-200 text-gray-700 rounded-full hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50" id="hs-navbar-collapse" aria-expanded="false" aria-controls="hs-navbar-menu" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-menu">
+                    <svg class="hs-collapse-open:hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+                    <svg class="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+                <!-- End Toggle Button -->
+            </div>
+        </div>
+
+        <div id="hs-navbar-menu" class="hidden hs-collapse overflow-hidden transition-all duration-300 basis-full grow md:block" aria-labelledby="hs-navbar-collapse" role="region">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-6 mt-3 md:mt-0 py-2 md:py-0 md:ps-7">
+
+                <!-- Услуги Dropdown -->
+                <div class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] [--is-collapse:true] md:[--is-collapse:false]">
+                    <button id="hs-header-base-dropdown" type="button" class="hs-dropdown-toggle w-full md:w-auto py-2 md:py-3 px-4 md:px-1 inline-flex items-center gap-x-1 text-gray-700 hover:text-primary font-medium focus:outline-hidden focus:text-primary transition-colors duration-300" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                        Услуги
+                        <svg class="hs-dropdown-open:-rotate-180 md:hs-dropdown-open:rotate-0 duration-300 shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+
+                    <div class="hs-dropdown-menu transition-[opacity,margin] duration-300 hs-dropdown-open:opacity-100 opacity-0 md:w-64 hidden z-10 bg-white md:shadow-xl md:rounded-2xl md:border md:border-gray-200 before:absolute before:-top-4 before:start-0 before:w-full before:h-5" role="menu" aria-orientation="vertical" aria-labelledby="hs-header-base-dropdown">
+                        <div class="py-1 md:py-3 px-1 space-y-0.5">
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'seo'}) }}">
+                                SEO-продвижение
+                            </a>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'geo'}) }}">
+                                GEO-оптимизация для ИИ
+                            </a>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'analytics'}) }}">
+                                Сквозная аналитика
+                            </a>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'ads'}) }}">
+                                Контекстная реклама
+                            </a>
+                            <div class="border-t border-gray-200 my-2"></div>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'razrabotka'}) }}">
+                                Разработка сайтов
+                            </a>
+                            <div class="border-t border-gray-200 my-2"></div>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_services') }}">
+                                Все услуги
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Услуги Dropdown -->
+
+                <a class="py-2 md:py-3 px-4 md:px-1 text-gray-700 hover:text-primary font-medium focus:outline-hidden focus:text-primary transition-all duration-300" href="#pricing">Цены</a>
+                <a class="py-2 md:py-3 px-4 md:px-1 text-gray-700 hover:text-primary font-medium focus:outline-hidden focus:text-primary transition-all duration-300" href="{{ path('app_blog_index') }}">Блог</a>
+                <a class="py-2 md:py-3 px-4 md:px-1 text-gray-700 hover:text-primary font-medium focus:outline-hidden focus:text-primary transition-all duration-300" href="{{ path('app_contacts') }}">Контакты</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- ========== END HEADER ========== -->
+
+<script>
+    // Инициализация Preline компонентов после загрузки страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof HSStaticMethods !== 'undefined') {
+            HSStaticMethods.autoInit();
+        }
+    });
+</script>

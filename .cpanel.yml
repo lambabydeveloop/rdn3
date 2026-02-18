@@ -1,0 +1,6 @@
+---
+deployment:
+    tasks:
+        - export REPOPATH=/home/rdnby/repositories/rdn3/*
+        - export SITEPATH=/home/rdnby/public_html/
+        - /bin/rsync -rav --exclude '.git' --exclude '.cpanel.yml' --del $REPOPATH $SITEPATH

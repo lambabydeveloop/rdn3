@@ -1,0 +1,11 @@
+{% if managed_blocks is defined and managed_blocks|length > 0 %}
+<section class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-2xl font-bold mb-6">Управляемые блоки из CMS</h2>
+    {% for block in managed_blocks %}
+        {% if block.css %}<style>{{ block.css|raw }}</style>{% endif %}
+        <div class="mb-6 custom-{{ block.name|lower|replace({' ':'-'}) }}">
+            {{ block.html|raw }}
+        </div>
+    {% endfor %}
+</section>
+{% endif %}
