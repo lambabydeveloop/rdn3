@@ -1,0 +1,20 @@
+/* Стили для анимации появления при скролле */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Фоновые элементы */
+.gradient-bg {
+    background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.4) 0%, rgba(233, 226, 226, 0) 90%);
+}
+.ai-grid {
+    background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
