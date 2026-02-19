@@ -59,4 +59,4 @@ Disallow: /api/
 Disallow: /private/
 
 # Sitemap
-Sitemap: {{ app.request.schemeAndHttpHost }}/sitemap.xml
+Sitemap: https://www.rdn.by/
