@@ -1,79 +1,182 @@
-<!-- ========== HEADER ========== -->
-<header class="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
-    <nav class="mt-4 relative max-w-7xl w-full bg-white/95 backdrop-blur-md border border-gray-200 rounded-[24px] mx-2 flex flex-wrap md:flex-nowrap items-center justify-between p-1 ps-4 md:py-0 sm:mx-auto shadow-sm">
-        <div class="flex items-center">
-            <!-- Logo -->
-            <a class="flex-none rounded-md inline-block font-montserrat font-black text-3xl tracking-tight focus:outline-hidden focus:opacity-80" href="/" aria-label="RDN">
-                <span class="text-gray-900 hover:text-primary transition-colors duration-300">RDN<span class="text-primary">.</span></span>
-            </a>
+<!-- ========== HERO SECTION ========== -->
+<section class="relative bg-white/60 bg-blur-md overflow-hidden py-16 sm:py-24 lg:py-32">
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-8 items-center border-b border-gray-100 pb-20 lg:pb-32">
+      
+      <!-- Left Content -->
+      <div class="lg:col-span-6 relative z-10 flex flex-col justify-center">
+        <!-- Subtitle -->
+        <div class="flex items-center gap-4 mb-8">
+          <div class="h-[2px] bg-black w-10"></div>
+          <span class="text-[11px] font-bold tracking-[0.2em] text-gray-500 uppercase">Лучшие решения по лучшим ценам</span>
         </div>
-
-        <div class="flex items-center gap-1 md:order-4 md:ms-4">
-            <a class="w-full sm:w-auto whitespace-nowrap py-2.5 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-[24px] bg-primary text-white hover:bg-primary-dark focus:outline-hidden focus:bg-primary-dark disabled:opacity-50 disabled:pointer-events-none transition-all duration-300 shadow-lg hover:shadow-xl" href="#contact">
-                Получить разбор
-            </a>
-
-            <div class="md:hidden">
-                <!-- Toggle Button -->
-                <button type="button" class="hs-collapse-toggle flex justify-center items-center size-10 bg-white border border-gray-200 text-gray-700 rounded-full hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50" id="hs-navbar-collapse" aria-expanded="false" aria-controls="hs-navbar-menu" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-menu">
-                    <svg class="hs-collapse-open:hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-                    <svg class="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </button>
-                <!-- End Toggle Button -->
-            </div>
+        
+        <!-- Main Title -->
+        <h1 class="text-6xl sm:text-7xl lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-black mb-8" style="font-family: 'Helvetica Neue', Arial, sans-serif;">
+          DIGITAL AI<br/>STUDIO
+        </h1>
+        
+        <!-- Description -->
+        <div class="pl-5 border-l-2 border-black mb-12">
+          <p class="text-xl sm:text-[22px] text-gray-500 font-medium leading-[1.5] max-w-[28rem]">
+            Мы создаем цифровые продукты, которые помогают бизнесу расти. 
+            <br> <br>
+            Разработка, доработка, SEO, GEO (Generative Engine Optimization), Реклама, Аналитика - все, что поможет Вам зарабатывать больше
+          </p>
         </div>
-
-        <div id="hs-navbar-menu" class="hidden hs-collapse overflow-hidden transition-all duration-300 basis-full grow md:block" aria-labelledby="hs-navbar-collapse" role="region">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-6 mt-3 md:mt-0 py-2 md:py-0 md:ps-7">
-
-                <!-- Услуги Dropdown -->
-                <div class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] [--is-collapse:true] md:[--is-collapse:false]">
-                    <button id="hs-header-base-dropdown" type="button" class="hs-dropdown-toggle w-full md:w-auto py-2 md:py-3 px-4 md:px-1 inline-flex items-center gap-x-1 text-gray-700 hover:text-primary font-medium focus:outline-hidden focus:text-primary transition-colors duration-300" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-                        Услуги
-                        <svg class="hs-dropdown-open:-rotate-180 md:hs-dropdown-open:rotate-0 duration-300 shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                    </button>
-
-                    <div class="hs-dropdown-menu transition-[opacity,margin] duration-300 hs-dropdown-open:opacity-100 opacity-0 md:w-64 hidden z-10 bg-white md:shadow-xl md:rounded-2xl md:border md:border-gray-200 before:absolute before:-top-4 before:start-0 before:w-full before:h-5" role="menu" aria-orientation="vertical" aria-labelledby="hs-header-base-dropdown">
-                        <div class="py-1 md:py-3 px-1 space-y-0.5">
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'seo'}) }}">
-                                SEO-продвижение
-                            </a>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'geo'}) }}">
-                                GEO-оптимизация для ИИ
-                            </a>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'analytics'}) }}">
-                                Сквозная аналитика
-                            </a>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'ads'}) }}">
-                                Контекстная реклама
-                            </a>
-                            <div class="border-t border-gray-200 my-2"></div>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_service_show', {slug: 'razrabotka'}) }}">
-                                Разработка сайтов
-                            </a>
-                            <div class="border-t border-gray-200 my-2"></div>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-all duration-300" href="{{ path('app_services') }}">
-                                Все услуги
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Услуги Dropdown -->
-
-                <a class="py-2 md:py-3 px-4 md:px-1 text-gray-700 hover:text-primary font-medium focus:outline-hidden focus:text-primary transition-all duration-300" href="#pricing">Цены</a>
-                <a class="py-2 md:py-3 px-4 md:px-1 text-gray-700 hover:text-primary font-medium focus:outline-hidden focus:text-primary transition-all duration-300" href="{{ path('app_blog_index') }}">Блог</a>
-                <a class="py-2 md:py-3 px-4 md:px-1 text-gray-700 hover:text-primary font-medium focus:outline-hidden focus:text-primary transition-all duration-300" href="{{ path('app_contacts') }}">Контакты</a>
-            </div>
+        
+        <!-- Buttons -->
+        <div class="flex flex-wrap items-center gap-4">
+          <!-- Black Button -->
+          <a href="/services" class="group relative inline-flex items-center justify-center px-8 py-5 border border-black bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-500 hover:bg-white focus:outline-hidden overflow-hidden">
+            <span class="relative z-10 transition-opacity duration-300 group-hover:opacity-0">НАШИ УСЛУГИ</span>
+            <span class="absolute left-0 inset-y-0 w-0 z-20 overflow-hidden bg-white flex items-center text-black border-r-2 border-transparent group-hover:w-full group-hover:border-black transition-all duration-500 ease-out">
+              <span class="pl-8 pr-8 whitespace-nowrap">НАШИ УСЛУГИ</span>
+            </span>
+          </a>
+          
+          <!-- White Button -->
+          <a href="/about" class="group relative inline-flex items-center justify-center px-8 py-5 border border-black bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-500 hover:bg-black focus:outline-hidden overflow-hidden">
+            <span class="relative z-10 transition-opacity duration-300 group-hover:opacity-0 flex items-center gap-2">
+              О НАС
+              <span class="material-symbols-outlined text-[16px] font-bold" style="font-size: 16px;">arrow_outward</span>
+            </span>
+            <span class="absolute left-0 inset-y-0 w-0 z-20 overflow-hidden bg-black flex items-center text-white border-r-2 border-transparent group-hover:w-[101%] group-hover:border-white transition-all duration-500 ease-out">
+              <span class="pl-8 pr-8 whitespace-nowrap flex items-center gap-2">
+                О НАС
+                <span class="material-symbols-outlined text-[16px] font-bold" style="font-size: 16px;">arrow_outward</span>
+              </span>
+            </span>
+          </a>
         </div>
-    </nav>
-</header>
-<!-- ========== END HEADER ========== -->
+      </div>
+
+      <!-- Right Side (Visual elements over the fixed 3D canvas) -->
+      <div class="lg:col-span-6 relative mt-20 lg:mt-0 h-[450px] sm:h-[550px] lg:h-[650px] flex items-center justify-center">
+        <!-- Faint Background Text -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden transform lg:translate-x-12">
+          <span class="text-[9rem] md:text-[14rem] lg:text-[20rem] font-black text-transparent whitespace-nowrap" style="-webkit-text-stroke: 1px rgba(0,0,0,0.03);">WEB STUDIO</span>
+        </div>
+        
+        <!-- Local 3D AI Network Scene -->
+        <div id="hero-3d-scene" class="absolute inset-0 z-10 pointer-events-auto cursor-crosshair"></div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+
+
 
 <script>
-    // Инициализация Preline компонентов после загрузки страницы
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof HSStaticMethods !== 'undefined') {
-            HSStaticMethods.autoInit();
-        }
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById('hero-3d-scene');
+    if (!container || typeof THREE === 'undefined') return;
+
+    // 1. Core Setup
+    const scene = new THREE.Scene();
+    
+    // Camera
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.z = 10;
+
+    // Renderer (optimized for speed)
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); 
+    container.appendChild(renderer.domElement);
+
+    // 2. AI Network Sphere (Icosahedron)
+    // A wireframe sphere with points that looks like a neural network
+    const geometry = new THREE.IcosahedronGeometry(3.5, 2);
+    
+    // Wireframe material
+    const matLines = new THREE.LineBasicMaterial({
+        color: 0x000000,
+        transparent: true,
+        opacity: 0.15
     });
+    
+    // Points material
+    const matPoints = new THREE.PointsMaterial({
+        color: 0x000000,
+        size: 0.05,
+        transparent: true,
+        opacity: 0.6
+    });
+
+    const wireframe = new THREE.LineSegments(new THREE.WireframeGeometry(geometry), matLines);
+    const points = new THREE.Points(geometry, matPoints);
+
+    // Group them
+    const networkSphere = new THREE.Group();
+    networkSphere.add(wireframe);
+    networkSphere.add(points);
+    scene.add(networkSphere);
+
+    // 3. Mouse Interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX - windowHalfX);
+        mouseY = (event.clientY - windowHalfY);
+    });
+
+    // Handle Resize
+    const updateLayout = () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    };
+    window.addEventListener('resize', updateLayout);
+
+    // 4. Animation Loop
+    const clock = new THREE.Clock();
+    
+    // Only animate if container is in viewport (Optimization)
+    let isVisible = true;
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+        });
+        observer.observe(container);
+    }
+
+    function run() {
+        requestAnimationFrame(run);
+        if (!isVisible) return; // Save battery & resources!
+
+        const t = clock.getElapsedTime();
+
+        // Smooth mouse target rotation
+        targetX = mouseX * 0.001;
+        targetY = mouseY * 0.001;
+
+        networkSphere.rotation.y += 0.05 * (targetX - networkSphere.rotation.y);
+        networkSphere.rotation.x += 0.05 * (targetY - networkSphere.rotation.x);
+        
+        // Constant slow idle rotation
+        networkSphere.rotation.z += 0.001;
+        networkSphere.rotation.y += 0.002;
+
+        // Subtle floating
+        networkSphere.position.y = Math.sin(t) * 0.2;
+
+        // Deform vertices slightly to make it look "alive" (breathing)
+        const scale = 1 + Math.sin(t * 2) * 0.02;
+        networkSphere.scale.set(scale, scale, scale);
+
+        renderer.render(scene, camera);
+    }
+    run();
+});
 </script>
+

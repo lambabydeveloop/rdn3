@@ -1,3 +1,25 @@
-body {
-    background-color: skyblue;
-}
+@import "tailwindcss";
+
+@import "../../node_modules/preline/css/themes/moon.css";
+/* Preline UI */
+@source "../../node_modules/preline/dist/*.js";
+@import "../../node_modules/preline/variants.css";
+
+/* Plugins */
+@plugin "@tailwindcss/forms";
+
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Base theme tokens + mappings */
+/* @import "../../node_modules/preline/css/themes/theme.css";
+
+Optional: predefined themes (import only what you need) 
+@import "../../node_modules/preline/css/themes/moon.css";
+@import "../../node_modules/preline/css/themes/harvest.css";
+@import "../../node_modules/preline/css/themes/retro.css";
+@import "../../node_modules/preline/css/themes/ocean.css";
+@import "../../node_modules/preline/css/themes/bubblegum.css";
+@import "../../node_modules/preline/css/themes/autumn.css";*/
+
+

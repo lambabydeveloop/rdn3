@@ -1,498 +1,227 @@
 {% extends 'base.html.twig' %}
 
-{# 2. ПЕРЕОПРЕДЕЛЕНИЕ заголовка страницы #}
 {% block title %}
-    {{ seo.title|default('') }} | SEO Studio RDN.BY
+    {{ seo.title|default('Контакты - RDN.BY') }}
 {% endblock %}
 
-{# 3. Добавление специфичных стилей для этой страницы #}
 {% block stylesheets %}
-    {{ parent() }} {# ← ВАЖНО: сохраняем родительские стили #}
+    {{ parent() }}
     <style>
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .contacts-grid {
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
-        .contact-card {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s ease;
-        }
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .map-container {
-            height: 400px;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .social-icon {
-            transition: all 0.3s ease;
-        }
-        .social-icon:hover {
-            transform: translateY(-3px) scale(1.1);
-        }
-        .rotate-180 {
-            transform: rotate(180deg);
+        /* Brutalist map styling overrides */
+        .leaflet-container {
+            font-family: 'Inter', sans-serif !important;
+            border: 1px solid black;
         }
         .leaflet-popup-content-wrapper {
-            border-radius: 0.75rem !important;
-            font-family: 'Inter', sans-serif !important;
+            border-radius: 0 !important;
+            border: 1px solid black;
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1) !important;
         }
-        .leaflet-popup-content {
-            margin: 12px 16px !important;
-            font-size: 14px !important;
+        .leaflet-popup-tip {
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+        }
+        .filter-grayscale {
+            filter: grayscale(100%) contrast(1.2);
         }
     </style>
 {% endblock %}
 
 {% block body %}
-    <div class="relative min-h-screen contacts-grid">
-        {# Анимированный фон #}
-        <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
-            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float animation-delay-2000"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse-slow"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-
-            {# 1. Хедер страницы #}
-            <div class="flex justify-between items-center mb-16 lg:mb-24 reveal" style="animation-delay: 0.1s;">
-                <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <span class="text-2xl font-bold text-gray-800">Digital<span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">.pro</span></span>
+    <main class="relative bg-white z-10 w-full overflow-hidden" id="main-content">
+        
+        {# Hero Секция #}
+        <section class="section-overlap bg-white relative z-10 pt-48 pb-24 px-6 lg:px-12 border-b border-gray-200" id="contacts-hero">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex justify-between items-end mb-8 js-reveal text-xs md:text-sm font-bold tracking-widest text-gray-500 uppercase">
+                    <span>СВЯЗАТЬСЯ С НАМИ</span>
+                    <span class="text-black">ШТАБ-КВАРТИРА / МИНСК</span>
                 </div>
-                <a href="/services" class="hidden sm:inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    Все услуги
-                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-            </div>
-
-            {# 2. Hero секция #}
-            <div class="text-center max-w-4xl mx-auto mb-16 lg:mb-24 reveal" style="animation-delay: 0.2s;">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
-                    Свяжитесь с <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">нами</span>
+                <h1 class="text-6xl md:text-9xl font-black tracking-tighter uppercase mb-16 max-w-5xl leading-none js-reveal">
+                    ГЛОБАЛЬНЫЙ<br>ОХВАТ
                 </h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Ответим на вопросы, рассчитаем стоимость, поможем выбрать стратегию.
-                    Работаем с клиентами по всему миру.
-                </p>
-            </div>
-
-            {# 3. Карточки с контактами (быстрый доступ) #}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 lg:mb-24 reveal" style="animation-delay: 0.3s;">
-                <div class="contact-card rounded-2xl p-6 text-center">
-                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" clip-rule="evenodd" />
-                        </svg>
+                <hr class="border-black mb-16 js-reveal">
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 js-reveal text-lg text-black font-medium uppercase tracking-widest">
+                    <div class="md:col-span-1 text-gray-400 text-[10px] font-bold">ИНФОРМАЦИЯ</div>
+                    <div class="md:col-span-1">
+                        <a href="tel:+375291234567" class="hover:text-gray-500 transition-colors inline-block pb-1 border-b border-black hover:border-gray-500">+375 25 999 74 90</a><br>
+                        <span class="text-[10px] text-gray-400">9:00 - 21:00 ПН-ВС</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Телефон</h3>
-                    <a href="tel:+375291234567" class="text-xl font-bold text-purple-600 hover:text-purple-700 transition-colors">
-                        +375 (29) 123-45-67
-                    </a>
-                    <p class="text-xs text-gray-500 mt-2">ежедневно с 9:00 до 21:00</p>
-                </div>
-
-                <div class="contact-card rounded-2xl p-6 text-center">
-                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clip-rule="evenodd" />
-                        </svg>
+                    <div class="md:col-span-1">
+                        <a href="mailto:info@digital.pro" class="hover:text-gray-500 transition-colors inline-block pb-1 border-b border-black hover:border-gray-500">INFO@RDN.BY</a><br>
+                        <span class="text-[10px] text-gray-400">ОТВЕТ В ТЕЧЕНИЕ 2 ЧАСОВ</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Email</h3>
-                    <a href="mailto:info@digital.pro" class="text-xl font-bold text-purple-600 hover:text-purple-700 transition-colors break-all">
-                        info@digital.pro
-                    </a>
-                    <p class="text-xs text-gray-500 mt-2">ответ в течение 2 часов</p>
-                </div>
-
-                <div class="contact-card rounded-2xl p-6 text-center">
-                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
+                    <div class="md:col-span-1">
+                        <div class="flex flex-col space-y-2">
+                            <a href="#" class="hover:text-gray-500 transition-colors">TELEGRAM</a>
+                            <a href="#" class="hover:text-gray-500 transition-colors">LINKEDIN</a>
+                        </div>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Офис в Минске</h3>
-                    <p class="text-gray-600">
-                        ул. Скрыганова, 14<br>офис 502, БЦ «Космонавт»
-                    </p>
-                    <p class="text-xs text-gray-500 mt-2">м. Площадь Победы</p>
-                </div>
-
-                <div class="contact-card rounded-2xl p-6 text-center">
-                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                            <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Мессенджеры</h3>
-                    <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-2xl text-green-600 social-icon">📱</a>
-                        <a href="#" class="text-2xl text-blue-600 social-icon">💬</a>
-                        <a href="#" class="text-2xl text-purple-600 social-icon">📲</a>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">Telegram, Viber, WhatsApp</p>
                 </div>
             </div>
+        </section>
 
-            {# 4. Карта и форма обратной связи #}
-            <div class="grid lg:grid-cols-2 gap-8 mb-24 lg:mb-32 reveal" style="animation-delay: 0.4s;">
-                {# Карта #}
-                <div class="space-y-6">
-                    <h2 class="text-2xl font-bold text-gray-900 flex items-center">
-                        <svg class="w-6 h-6 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        Как нас найти
-                    </h2>
-                    <div class="map-container" id="map"></div>
-                    <div class="bg-white/80 backdrop-blur-sm rounded-xl p-4 text-sm text-gray-600">
-                        <span class="font-semibold">Схема проезда:</span> от метро «Площадь Победы» 5 минут пешком по ул. Скрыганова. Вход в БЦ «Космонавт» с проспекта Независимости, 5 этаж.
+        {# HQ & Map Section #}
+        <section class="section-overlap bg-[rgb(249,249,249)] relative z-10 py-32 px-6 lg:px-12" id="contacts-map">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-2xl font-black tracking-widest uppercase mb-16 border-b border-black pb-4 js-reveal">ГЛАВНЫЙ ОФИС</h2>
+                
+                <div class="grid lg:grid-cols-12 gap-12 js-reveal">
+                    <!-- Text Info -->
+                    <div class="lg:col-span-4">
+                        <address class="not-italic text-xl text-black font-light leading-relaxed mb-8">
+                            ул. Скрыганова, 14<br>
+                            офис 502, БЦ «Космонавт»<br>
+                            Минск, 220030
+                        </address>
+                        <p class="text-xs text-gray-500 font-bold tracking-widest uppercase mb-4">КАК ДОБРАТЬСЯ</p>
+                        <ul class="text-sm text-gray-600 space-y-2 border-l border-gray-300 pl-4">
+                            <li>5 Мин от м. Площадь Победы</li>
+                            <li>Вход с проспекта Независимости</li>
+                            <li>Этаж 5, левое крыло</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Leaflet Map -->
+                    <div class="lg:col-span-8 h-[500px] bg-gray-200 border border-black relative z-10 filter-grayscale" id="map">
+                        <!-- Map injected by JS -->
                     </div>
                 </div>
+            </div>
+        </section>
 
-                {# Форма обратной связи #}
-                <div class="space-y-6">
-                    <h2 class="text-2xl font-bold text-gray-900 flex items-center">
-                        <svg class="w-6 h-6 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                        </svg>
-                        Напишите нам
-                    </h2>
-                    <div class="contact-card rounded-3xl p-8">
-                        <form class="space-y-6">
-                            <div class="grid sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Ваше имя *</label>
-                                    <input type="text" required
-                                           class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Телефон *</label>
-                                    <input type="tel" required
-                                           class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
-                                </div>
-                            </div>
+        {# Legal Documents #}
+        <section class="section-overlap bg-black text-white relative z-10 py-32 px-6 lg:px-12" id="contacts-legal">
+            <div class="max-w-7xl mx-auto js-reveal">
+                <h2 class="text-2xl font-black tracking-widest uppercase mb-16 border-b border-gray-800 pb-4 text-gray-400">ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ</h2>
+                
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <!-- Legal Info -->
+                    <div>
+                        <ul class="space-y-6 text-sm font-medium tracking-wide">
+                            <li class="flex justify-between border-b border-gray-800 pb-4">
+                                <span class="text-gray-500 uppercase text-[10px] font-bold">Организация</span>
+                                <span>ООО «Диджитал Про»</span>
+                            </li>
+                            <li class="flex justify-between border-b border-gray-800 pb-4">
+                                <span class="text-gray-500 uppercase text-[10px] font-bold">УНП</span>
+                                <span>123456789</span>
+                            </li>
+                            <li class="flex justify-between border-b border-gray-800 pb-4 hidden md:flex">
+                                <span class="text-gray-500 uppercase text-[10px] font-bold">Юридический адрес</span>
+                                <span class="text-right">220030, г. Минск, ул. Скрыганова,<br>д. 14, офис 502</span>
+                            </li>
+                            <li class="flex justify-between border-b border-gray-800 pb-4">
+                                <span class="text-gray-500 uppercase text-[10px] font-bold">Р/с</span>
+                                <span>BY00 1234 5678 9012 3456 7890 1234</span>
+                            </li>
+                            <li class="flex justify-between border-b border-gray-800 pb-4">
+                                <span class="text-gray-500 uppercase text-[10px] font-bold">Банк</span>
+                                <span>ОАО «Банк развития»</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Documents -->
+                    <div class="space-y-4">
+                        <a href="#" class="group flex items-center justify-between p-6 border border-gray-800 hover:border-gray-500 transition-colors bg-white/5">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                                <input type="email" required
-                                       class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
+                                <p class="font-bold text-lg uppercase mb-1">Договор на оказание услуг</p>
+                                <p class="text-[10px] text-gray-400 font-bold tracking-widest">PDF / 245 KB</p>
                             </div>
+                            <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                        </a>
+                        <a href="#" class="group flex items-center justify-between p-6 border border-gray-800 hover:border-gray-500 transition-colors bg-white/5">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Какая услуга интересует?</label>
-                                <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
-                                    <option value="">Выберите из списка</option>
-                                    <option value="geo">GEO-продвижение для ИИ</option>
-                                    <option value="seo">SEO-продвижение</option>
-                                    <option value="analytics">Веб-аналитика</option>
-                                    <option value="ads">Контекстная реклама</option>
-                                    <option value="dev">Разработка сайтов</option>
-                                    <option value="complex">Комплексное решение</option>
-                                    <option value="other">Другое</option>
-                                </select>
+                                <p class="font-bold text-lg uppercase mb-1">Политика конфиденциальности</p>
+                                <p class="text-[10px] text-gray-400 font-bold tracking-widest">PDF / 180 KB</p>
                             </div>
+                            <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                        </a>
+                        <a href="#" class="group flex items-center justify-between p-6 border border-gray-800 hover:border-gray-500 transition-colors bg-white/5">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Сообщение</label>
-                                <textarea rows="4"
-                                          class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
-                                          placeholder="Расскажите о вашем проекте, целях и бюджете..."></textarea>
+                                <p class="font-bold text-lg uppercase mb-1">Реквизиты компании</p>
+                                <p class="text-[10px] text-gray-400 font-bold tracking-widest">PDF / 120 KB</p>
                             </div>
-                            <div class="flex items-start">
-                                <input type="checkbox" id="agree" class="mt-1 mr-3 rounded border-gray-300 text-purple-600 focus:ring-purple-500">
-                                <label for="agree" class="text-sm text-gray-600">
-                                    Соглашаюсь на обработку персональных данных и принимаю
-                                    <a href="#" class="text-purple-600 hover:underline">политику конфиденциальности</a>
-                                </label>
-                            </div>
-                            <button type="submit"
-                                    class="w-full py-4 px-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-colors transform hover:scale-105 transition-all duration-300 shadow-xl">
-                                Отправить сообщение
-                            </button>
-                        </form>
+                            <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                        </a>
                     </div>
                 </div>
             </div>
+        </section>
 
-            {# 5. Команда #}
-            <div class="mb-24 lg:mb-32 reveal" style="animation-delay: 0.5s;">
-                <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
-                    Ключевые <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">специалисты</span>
-                </h2>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="contact-card rounded-2xl p-6 text-center">
-                        <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-end justify-center overflow-hidden">
-                            <svg class="w-20 h-20 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Алексей Константинов</h3>
-                        <p class="text-sm text-purple-600 mb-3">Руководитель, SEO-стратег</p>
-                        <p class="text-xs text-gray-500">12 лет опыта, сертифицированный специалист Google и Яндекс</p>
-                    </div>
-                    <div class="contact-card rounded-2xl p-6 text-center">
-                        <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-end justify-center overflow-hidden">
-                            <svg class="w-20 h-20 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Екатерина Смирнова</h3>
-                        <p class="text-sm text-purple-600 mb-3">Аналитик данных</p>
-                        <p class="text-xs text-gray-500">9 лет в веб-аналитике, эксперт по сквозной аналитике</p>
-                    </div>
-                    <div class="contact-card rounded-2xl p-6 text-center">
-                        <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-end justify-center overflow-hidden">
-                            <svg class="w-20 h-20 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Дмитрий Волков</h3>
-                        <p class="text-sm text-purple-600 mb-3">Tech Lead, Symfony-разработчик</p>
-                        <p class="text-xs text-gray-500">10 лет в разработке, сертифицированный Symfony Developer</p>
-                    </div>
-                    <div class="contact-card rounded-2xl p-6 text-center">
-                        <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-end justify-center overflow-hidden">
-                            <svg class="w-20 h-20 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Мария Петрова</h3>
-                        <p class="text-sm text-purple-600 mb-3">Специалист по контекстной рекламе</p>
-                        <p class="text-xs text-gray-500">8 лет, сертификаты Google Ads и Яндекс.Директ</p>
-                    </div>
-                </div>
-            </div>
-
-            {# 6. Реквизиты и документы #}
-            <div class="mb-24 lg:mb-32 reveal" style="animation-delay: 0.6s;">
-                <div class="contact-card rounded-3xl p-8 lg:p-12">
-                    <div class="grid md:grid-cols-2 gap-12">
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                                <svg class="w-5 h-5 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0h8v12H6V4z" clip-rule="evenodd" />
-                                </svg>
-                                Юридическая информация
-                            </h3>
-                            <ul class="space-y-4 text-gray-600">
-                                <li>
-                                    <span class="font-semibold">ООО «Диджитал Про»</span>
-                                </li>
-                                <li>
-                                    <span class="font-semibold">УНП:</span> 123456789
-                                </li>
-                                <li>
-                                    <span class="font-semibold">Юридический адрес:</span><br>
-                                    220030, г. Минск, ул. Скрыганова, д. 14, офис 502
-                                </li>
-                                <li>
-                                    <span class="font-semibold">Р/с:</span> BY00 1234 5678 9012 3456 7890 1234
-                                </li>
-                                <li>
-                                    <span class="font-semibold">Банк:</span> ОАО «Банк развития», г. Минск
-                                </li>
-                                <li>
-                                    <span class="font-semibold">Код:</span> 123
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                                <svg class="w-5 h-5 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm0 2h8v12H6V4z" clip-rule="evenodd" />
-                                </svg>
-                                Документы
-                            </h3>
-                            <div class="space-y-4">
-                                <a href="#" class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group">
-                                    <svg class="w-8 h-8 text-purple-600 mr-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
-                                    </svg>
-                                    <div class="flex-1">
-                                        <p class="font-semibold text-gray-900">Договор на оказание услуг</p>
-                                        <p class="text-xs text-gray-500">PDF, 245 КБ</p>
-                                    </div>
-                                    <svg class="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                </a>
-                                <a href="#" class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group">
-                                    <svg class="w-8 h-8 text-purple-600 mr-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
-                                    </svg>
-                                    <div class="flex-1">
-                                        <p class="font-semibold text-gray-900">Политика конфиденциальности</p>
-                                        <p class="text-xs text-gray-500">PDF, 180 КБ</p>
-                                    </div>
-                                    <svg class="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                </a>
-                                <a href="#" class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group">
-                                    <svg class="w-8 h-8 text-purple-600 mr-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
-                                    </svg>
-                                    <div class="flex-1">
-                                        <p class="font-semibold text-gray-900">Реквизиты компании</p>
-                                        <p class="text-xs text-gray-500">PDF, 120 КБ</p>
-                                    </div>
-                                    <svg class="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {# 7. График работы #}
-            <div class="grid md:grid-cols-3 gap-6 mb-24 lg:mb-32 reveal" style="animation-delay: 0.7s;">
-                <div class="contact-card rounded-2xl p-6 text-center">
-                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Пн-Пт</h3>
-                    <p class="text-2xl font-bold text-purple-600">9:00 - 21:00</p>
-                </div>
-                <div class="contact-card rounded-2xl p-6 text-center">
-                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Суббота</h3>
-                    <p class="text-2xl font-bold text-purple-600">10:00 - 18:00</p>
-                </div>
-                <div class="contact-card rounded-2xl p-6 text-center">
-                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2h-1.586A2 2 0 0112 16.414V10a2 2 0 00-2-2H4V4z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Воскресенье</h3>
-                    <p class="text-2xl font-bold text-purple-600">Выходной</p>
-                    <p class="text-xs text-gray-500 mt-2">онлайн-заявки принимаем круглосуточно</p>
-                </div>
-            </div>
-
-            {# 8. Социальные сети #}
-            <div class="text-center reveal" style="animation-delay: 0.8s;">
-                <h3 class="text-xl font-bold text-gray-900 mb-6">Мы в социальных сетях</h3>
-                <div class="flex justify-center space-x-6">
-                    <a href="#" class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white text-2xl social-icon shadow-lg">
-                        f
-                    </a>
-                    <a href="#" class="w-12 h-12 bg-gradient-to-br from-sky-400 to-sky-500 rounded-xl flex items-center justify-center text-white text-2xl social-icon shadow-lg">
-                        tg
-                    </a>
-                    <a href="#" class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-2xl social-icon shadow-lg">
-                        in
-                    </a>
-                    <a href="#" class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white text-2xl social-icon shadow-lg">
-                        yt
-                    </a>
-                    <a href="#" class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center text-white text-2xl social-icon shadow-lg">
-                        vk
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
 
     {# Leaflet JS #}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    {# GSAP & Map Initialization #}
     <script>
-        function reveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
-                }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Leaflet Init
+            if(document.getElementById('map')) {
+                const map = L.map('map', {
+                    scrollWheelZoom: false // disable scroll zoom so it doesn't hook the page scroll
+                }).setView([53.9045, 27.5615], 15);
+
+                // Using cartodb light layer for a stark white/gray map to match brutalist aesthetic
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                const customIcon = L.divIcon({
+                    className: 'custom-pin',
+                    html: `<div style="background: black; width: 16px; height: 16px; border-radius: 50%;"></div>`,
+                    iconSize: [16, 16],
+                    iconAnchor: [8, 8]
+                });
+
+                L.marker([53.9045, 27.5615], {icon: customIcon}).addTo(map)
+                    .bindPopup(`<strong style="text-transform:uppercase; font-size:12px;">RDN.BY HQ</strong>`);
             }
-        }
 
-        window.addEventListener('scroll', reveal);
-        window.addEventListener('load', reveal);
+            // GSAP Animations
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+            gsap.registerPlugin(ScrollTrigger);
 
-        // Инициализация карты
-        window.addEventListener('load', function() {
-            const map = L.map('map').setView([53.9045, 27.5615], 16);
+            const revealElements = document.querySelectorAll('.js-reveal');
+            revealElements.forEach((el) => {
+                gsap.fromTo(el, 
+                    { y: 40, opacity: 0 }, 
+                    {
+                        y: 0, 
+                        opacity: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; CartoDB'
-            }).addTo(map);
-
-            // Маркер офиса
-            const marker = L.marker([53.9045, 27.5615]).addTo(map);
-
-            // Всплывающее окно с информацией
-            marker.bindPopup(`
-                <div style="text-align: center;">
-                    <strong>Digital Pro</strong><br>
-                    ул. Скрыганова, 14, офис 502<br>
-                    БЦ «Космонавт»
-                </div>
-            `).openPopup();
-        });
-
-        // Анимация FAQ (если понадобится)
-        function toggleFaq(button) {
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector('svg');
-            answer.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
-        }
-
-        // Плавный скролл к якорям
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Parallax Section Effect Layering
+            const sections = document.querySelectorAll('.section-overlap');
+            sections.forEach((section, index) => {
+                section.style.zIndex = index + 10;
+                if (index > 0) {
+                    const prevSection = sections[index - 1];
+                    gsap.to(prevSection, {
+                        yPercent: 15,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top bottom",
+                            end: "top top",
+                            scrub: true
+                        }
+                    });
                 }
             });
         });
     </script>
-
-    <style>
-        .animation-delay-2000 { animation-delay: 2s; }
-        .rotate-180 { transform: rotate(180deg); }
-        .leaflet-popup-content-wrapper {
-            border-radius: 0.75rem !important;
-            font-family: 'Inter', sans-serif !important;
-        }
-        .leaflet-popup-content {
-            margin: 12px 16px !important;
-            font-size: 14px !important;
-        }
-    </style>
 {% endblock %}

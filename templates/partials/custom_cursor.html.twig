@@ -1,0 +1,168 @@
+<div id="custom-cursor-container" style="position: fixed; top: 0; left: 0; width: 100px; height: 100px; pointer-events: none; z-index: 999999; mix-blend-mode: difference; display: none; transition: opacity 0.3s ease;"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Only init cursor on non-touch devices (desktops)
+    if(window.matchMedia("(pointer: coarse)").matches) {
+        document.body.classList.remove("cursor-none");
+        return;
+    }
+    
+    // Un-hide the container
+    const container = document.getElementById('custom-cursor-container');
+    container.style.display = 'block';
+
+    // 1. Core Setup for the tiny cursor
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.z = 25; // Adjusted distance so it fits in the 100x100 box
+
+    // High performance tiny renderer (canvas needs to be larger than the sphere to accommodate scaling without clipping)
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(100, 100);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
+    container.appendChild(renderer.domElement);
+
+    // 2. AI Network Sphere
+    const geometry = new THREE.IcosahedronGeometry(4.5, 1); // Reduced radius so the sphere itself is smaller
+    
+    const matLines = new THREE.LineBasicMaterial({
+        color: 0xffffff, // White because of mix-blend-mode difference
+        transparent: true,
+        opacity: 0.15 // Even lower opacity to make lines look like extremely thin spiderwebs
+    });
+    
+    const matPoints = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.5, // Smaller points 
+        transparent: true,
+        opacity: 0.6 // Paler points
+    });
+
+    const wireframe = new THREE.LineSegments(new THREE.WireframeGeometry(geometry), matLines);
+    const points = new THREE.Points(geometry, matPoints);
+
+    const cursorSphere = new THREE.Group();
+    cursorSphere.add(wireframe);
+    cursorSphere.add(points);
+    scene.add(cursorSphere);
+
+    // 3. Variables for interpolation (smooth mouse follow and scale)
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = mouseX;
+    let currentY = mouseY;
+    
+    let targetScale = 1;
+    let currentScale = 1;
+    let targetRotationSpeed = 0.01; // Slightly faster base rotation
+    let currentRotationSpeed = 0.01;
+
+    // 4. Listeners
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    document.addEventListener('mousedown', () => {
+        targetScale = 1.3;
+        targetRotationSpeed = 0.08; // Spin faster on click
+    });
+    
+    document.addEventListener('mouseup', () => {
+        targetScale = window.hovering ? 1.5 : 1;
+        targetRotationSpeed = window.hovering ? 0.04 : 0.01;
+    });
+
+    // Check for hover events on all interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .cursor-pointer');
+    
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            window.hovering = true;
+            targetScale = 1.6;
+            targetRotationSpeed = 0.04; // Smooth gentle spin on hover
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            window.hovering = false;
+            targetScale = 1;
+            targetRotationSpeed = 0.01; // Return to slow spin
+        });
+    });
+
+    // Dynamic color inversion based on background using elementFromPoint is heavy, 
+    // so we just rely on hovering specific dark containers if needed
+
+    // 5. Dynamic Contrast & Animation Loop
+    let frameCount = 0;
+    
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // --- Dynamic Context Opacity Check ---
+        // Every ~6 frames, check the background color under the cursor
+        // Because `mix-blend-mode: difference` relies on opacity, we need high opacity on black backgrounds 
+        // to get stark white, while keeping low opacity on white backgrounds for a gentle grey.
+        frameCount++;
+        if (frameCount % 6 === 0) {
+            // Because our container is pointer-events: none, this perfectly selects the actual page element 
+            const underCursor = document.elementFromPoint(mouseX, mouseY);
+            if (underCursor) {
+                // Traverse up slightly to find background color if element is transparent
+                let el = underCursor;
+                let isDark = false;
+                
+                while(el && el !== document.documentElement) {
+                    const style = window.getComputedStyle(el);
+                    const bg = style.backgroundColor;
+                    
+                    // Ignore transparent or highly translucent backgrounds while searching up
+                    if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+                        // Extract rgb from rgb(r, g, b) or rgba(r, g, b, a)
+                        const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+                        if (match) {
+                            // Calculate perceived brightness
+                            const brightness = (+match[1] * 299 + +match[2] * 587 + +match[3] * 114) / 1000;
+                            if (brightness < 128) {
+                                isDark = true;
+                            }
+                            break; // Stop looking once we found a solid color
+                        }
+                    }
+                    el = el.parentElement;
+                }
+                
+                // Dynamically adjust material opacity based on background brightness
+                if (isDark) {
+                    matLines.opacity = 0.8;  // Thick/White on black
+                    matPoints.opacity = 1.0;
+                } else {
+                    matLines.opacity = 0.15; // Pale on white
+                    matPoints.opacity = 0.6;
+                }
+            }
+        }
+
+        // Lerp position (Smooth delayed follow effect)
+        currentX += (mouseX - currentX) * 0.25;
+        currentY += (mouseY - currentY) * 0.25;
+        
+        // Move container via CSS transform (translate3d handles hardware acceleration)
+        container.style.transform = `translate3d(${currentX - 50}px, ${currentY - 50}px, 0)`;
+
+        // Lerp scale
+        currentScale += (targetScale - currentScale) * 0.15;
+        cursorSphere.scale.set(currentScale, currentScale, currentScale);
+
+        // Lerp rotation speed
+        currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 0.1;
+        
+        cursorSphere.rotation.x += currentRotationSpeed;
+        cursorSphere.rotation.y += currentRotationSpeed * 0.8;
+
+        renderer.render(scene, camera);
+    }
+    animate();
+});
+</script>

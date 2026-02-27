@@ -1,19 +1,146 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Блог - RDN.BY{% endblock %}
+
 {% block body %}
-<section class="max-w-6xl mx-auto px-4 py-16">
-    <h1 class="text-4xl font-bold mb-8">Блог</h1>
-    <div class="grid md:grid-cols-2 gap-6">
-        {% for post in posts %}
-            <article class="border rounded-2xl p-6 bg-white shadow-sm">
-                <p class="text-sm text-gray-500">{{ post.publishedAt|date('d.m.Y') }}</p>
-                <h2 class="text-2xl font-semibold mt-2 mb-3">{{ post.title }}</h2>
-                <p class="text-gray-700 mb-4">{{ post.excerpt }}</p>
-                <a class="text-red-600 font-semibold" href="{{ path('app_blog_post', {slug: post.slug}) }}">Читать →</a>
-            </article>
-        {% else %}
-            <p>Пока нет публикаций.</p>
-        {% endfor %}
-    </div>
-</section>
+    <main class="relative bg-white z-10 w-full overflow-hidden" id="main-content">
+        
+        {# Hero #}
+        <section class="section-overlap bg-white relative z-10 pt-48 pb-24 px-6 lg:px-12 border-b border-gray-200" id="blog-hero">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex justify-between items-end mb-8 js-reveal text-xs md:text-sm font-bold tracking-widest text-gray-500 uppercase">
+                    <span>НОВЕЙШИЕ ДАННЫЕ</span>
+                    <span class="text-black">ЖУРНАЛ</span>
+                </div>
+                <h1 class="text-6xl md:text-9xl font-black tracking-tighter uppercase mb-16 leading-none js-reveal">
+                    СИГНАЛ /<br>ШУМ
+                </h1>
+                <hr class="border-black mb-16 js-reveal">
+            </div>
+        </section>
+
+        {# Articles Mosaic List #}
+        <section class="section-overlap bg-white text-black relative z-10 py-32 px-6 lg:px-12" id="blog-list">
+            <div class="max-w-[90rem] mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+                    {% for post in posts %}
+                        {% set i = loop.index0 % 6 %}
+                        
+                        {# Base Classes #}
+                        {% set wrapperClass = 'col-span-12 js-reveal' %}
+                        {% set containerClass = 'group flex flex-col justify-between p-8 lg:p-12 relative overflow-hidden transition-all duration-700 hover:-translate-y-2' %}
+                        
+                        {# Shape & Size Logic #}
+                        {% if i == 0 %}
+                            {# Big Rectangle #}
+                            {% set wrapperClass = wrapperClass ~ ' md:col-span-12 lg:col-span-8' %}
+                            {% set containerClass = containerClass ~ ' min-h-[450px] bg-black text-white rounded-[2rem] md:rounded-[4rem]' %}
+                        {% elseif i == 1 %}
+                            {# Tall Arch #}
+                            {% set wrapperClass = wrapperClass ~ ' md:col-span-6 lg:col-span-4' %}
+                            {% set containerClass = containerClass ~ ' min-h-[450px] bg-gray-50 text-black rounded-t-[10rem] rounded-b-[2rem]' %}
+                        {% elseif i == 2 %}
+                            {# Wide Pill #}
+                            {% set wrapperClass = wrapperClass ~ ' md:col-span-6 lg:col-span-5' %}
+                            {% set containerClass = containerClass ~ ' min-h-[350px] bg-white border border-gray-200 text-black rounded-[4rem] md:rounded-[10rem] items-center text-center px-12' %}
+                        {% elseif i == 3 %}
+                            {# Black Block #}
+                            {% set wrapperClass = wrapperClass ~ ' md:col-span-12 lg:col-span-7' %}
+                            {% set containerClass = containerClass ~ ' min-h-[350px] bg-black text-white rounded-[2rem] hover:bg-gray-900' %}
+                        {% elseif i == 4 %}
+                            {# Sharp Leaf 1 #}
+                            {% set wrapperClass = wrapperClass ~ ' md:col-span-6 lg:col-span-6' %}
+                            {% set containerClass = containerClass ~ ' min-h-[400px] bg-[rgb(249,249,249)] text-black rounded-tr-[5rem] rounded-bl-[5rem] rounded-tl-xl rounded-br-xl' %}
+                        {% elseif i == 5 %}
+                            {# Sharp Leaf 2 #}
+                            {% set wrapperClass = wrapperClass ~ ' md:col-span-6 lg:col-span-6' %}
+                            {% set containerClass = containerClass ~ ' min-h-[400px] bg-white border border-gray-200 text-black rounded-tl-[5rem] rounded-br-[5rem] rounded-tr-xl rounded-bl-xl' %}
+                        {% endif %}
+                        
+                        <article class="{{ wrapperClass }}">
+                            <a href="{{ path('app_blog_post', {slug: post.slug}) }}" class="{{ containerClass }} h-full">
+                                
+                                {# Hover Effect Gradient for Black cards #}
+                                {% if 'bg-black' in containerClass %}
+                                    <div class="absolute inset-0 bg-gradient-to-t from-gray-800/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                                {% endif %}
+
+                                <div class="relative z-10 flex flex-col h-full {% if i == 2 %}justify-center{% else %}justify-between{% endif %} w-full">
+                                    <div class="mb-auto {% if i == 2 %}mb-8{% endif %}">
+                                        <span class="text-[10px] font-bold tracking-widest uppercase mb-6 block {% if 'text-white' in containerClass %}text-gray-400{% else %}text-gray-500{% endif %}">
+                                            {{ post.publishedAt|date('d F Y') }}
+                                        </span>
+                                        <h2 class="text-2xl lg:text-4xl font-black uppercase leading-none mb-6 {% if 'text-white' in containerClass %}group-hover:text-gray-300{% else %}group-hover:text-gray-600{% endif %} transition-colors">
+                                            {{ post.title }}
+                                        </h2>
+                                    </div>
+                                    
+                                    <div class="mt-8 flex {% if i == 2 %}justify-center{% else %}justify-between items-end{% endif %}">
+                                        {% if i != 2 %}
+                                            <p class="text-xs md:text-sm font-medium leading-relaxed max-w-sm hidden sm:block {% if 'text-white' in containerClass %}text-gray-300{% else %}text-gray-600{% endif %}">
+                                                {{ post.excerpt|slice(0, 100) ~ '...' }}
+                                            </p>
+                                        {% endif %}
+                                        
+                                        <div class="w-12 h-12 flex-shrink-0 rounded-full border flex items-center justify-center {% if 'text-white' in containerClass %}border-white/30 text-white group-hover:bg-white group-hover:text-black{% else %}border-black/30 text-black group-hover:bg-black group-hover:text-white{% endif %} transition-all duration-300 transform group-hover:rotate-45">
+                                            <span class="material-symbols-outlined text-xl">arrow_upward</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    {% else %}
+                        <div class="col-span-12">
+                            <p class="text-gray-500 font-bold uppercase tracking-widest js-reveal">ЖУРНАЛ ПУСТ. ПУБЛИКАЦИИ НЕ НАЙДЕНЫ.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    {# GSAP Scroll Animations #}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+            gsap.registerPlugin(ScrollTrigger);
+
+            const revealElements = document.querySelectorAll('.js-reveal');
+            revealElements.forEach((el) => {
+                gsap.fromTo(el, 
+                    { y: 40, opacity: 0 }, 
+                    {
+                        y: 0, 
+                        opacity: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
+
+            const sections = document.querySelectorAll('.section-overlap');
+            sections.forEach((section, index) => {
+                section.style.zIndex = index + 10;
+                if (index > 0) {
+                    const prevSection = sections[index - 1];
+                    gsap.to(prevSection, {
+                        yPercent: 15,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top bottom",
+                            end: "top top",
+                            scrub: true
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 {% endblock %}

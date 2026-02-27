@@ -1,0 +1,136 @@
+{# partials/home/projects.html.twig #}
+<section class="section-overlap bg-black/85 backdrop-blur-2xl text-white relative z-10 py-32 px-6 lg:px-12" id="projects">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-24 js-reveal">
+            <div>
+                <h2 class="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-2">НАШИ ПРОЕКТЫ</h2>
+                <div class="h-1 w-24 bg-white mt-6"></div>
+            </div>
+            <a href="#global-contact" class="hidden md:inline-flex items-center text-[10px] font-bold tracking-widest uppercase text-gray-400 hover:text-white transition-colors mt-8">
+                ХОЧУ ТАКЖЕ <span class="material-symbols-outlined ml-2 text-sm">arrow_outward</span>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Project 1 -->
+            <article class="group relative bg-[#0a0a0a]/60 backdrop-blur-md border border-gray-800 p-8 hover:border-white transition-all duration-500 js-reveal transform hover:-translate-y-2 flex flex-col h-full bg-noise">
+                <!-- Background mock -->
+                <div class="absolute inset-0 opacity-10 mix-blend-overlay group-hover:opacity-20 transition-opacity" style="background-image: linear-gradient(to bottom right, #333, #000);"></div>
+                
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="flex justify-between items-start mb-12">
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-gray-500 border border-gray-700 px-2 py-1 bg-black/40 backdrop-blur-md">АВТОМОБИЛИ</span>
+                        <a href="https://estart.by" target="_blank" class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-100 shadow-xl border border-gray-200">
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                    </div>
+                    
+                    <h3 class="text-3xl font-black uppercase mb-4 tracking-tight"><a href="https://estart.by" target="_blank" class="hover:text-gray-300">ESTART.BY</a></h3>
+                    <p class="text-[11px] font-bold text-gray-400 uppercase mb-6 tracking-widest pb-4 border-b border-gray-800 block">Выездной ремонт авто</p>
+                    
+                    <p class="text-sm text-gray-500 leading-relaxed mb-8 flex-grow">
+                        Разработка сложной архитектуры платформы для выездных СТО. Интеграция онлайн системы заявок для мастеров, сложной CRM части для механиков под индивидуальные UX требования.
+                    </p>
+                    
+                    <div class="mt-auto">
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div>
+                                <div class="text-[10px] font-bold uppercase text-gray-600 mb-1 tracking-widest">КОНВЕРСИЯ</div>
+                                <div class="text-xl font-black tracking-tight">+180%</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold uppercase text-gray-600 mb-1 tracking-widest">ЗАЯВКИ</div>
+                                <div class="text-xl font-black tracking-tight">>60 / ДЕНЬ</div>
+                            </div>
+                        </div>
+                        <a href="/blog" class="inline-flex items-center text-[10px] font-bold tracking-widest uppercase text-white hover:text-gray-400 transition-colors">
+                            Перейти в блог <span class="material-symbols-outlined ml-2 text-sm">menu_book</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="group relative bg-[#0a0a0a]/60 backdrop-blur-md border border-gray-800 p-8 hover:border-white transition-all duration-500 js-reveal transform hover:-translate-y-2 flex flex-col h-full bg-noise delay-100">
+                <div class="absolute inset-0 opacity-10 mix-blend-overlay group-hover:opacity-20 transition-opacity" style="background-image: linear-gradient(to bottom right, #444, #111);"></div>
+                
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="flex justify-between items-start mb-12">
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-gray-500 border border-gray-700 px-2 py-1 bg-black/40 backdrop-blur-md">АГРЕГАТОР</span>
+                        <a href="https://gayka.by" target="_blank" class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-100 shadow-xl border border-gray-200">
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                    </div>
+                    
+                    <h3 class="text-3xl font-black uppercase mb-4 tracking-tight"><a href="https://gayka.by" target="_blank" class="hover:text-gray-300">GAYKA.BY</a></h3>
+                    <p class="text-[11px] font-bold text-gray-400 uppercase mb-6 tracking-widest pb-4 border-b border-gray-800 block">Доска запчастей</p>
+                    
+                    <p class="text-sm text-gray-500 leading-relaxed mb-8 flex-grow">
+                        Полноценная доска объявлений автомобильных запчастей. Высоконагруженный ElasticSearch каталог, сложнейшая фасетная автомобильная фильтрация и система личных P2P профилей для продавцов.
+                    </p>
+                    
+                    <div class="mt-auto">
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div>
+                                <div class="text-[10px] font-bold uppercase text-gray-600 mb-1 tracking-widest">ТОВАРНЫЙ ФИД</div>
+                                <div class="text-xl font-black tracking-tight">1M+ SKU</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold uppercase text-gray-600 mb-1 tracking-widest">TTFB TIME</div>
+                                <div class="text-xl font-black tracking-tight">< 0.3 СЕК</div>
+                            </div>
+                        </div>
+                        <a href="/blog" class="inline-flex items-center text-[10px] font-bold tracking-widest uppercase text-white hover:text-gray-400 transition-colors">
+                            Перейти в блог <span class="material-symbols-outlined ml-2 text-sm">menu_book</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="group relative bg-[#0a0a0a]/60 backdrop-blur-md border border-gray-800 p-8 hover:border-white transition-all duration-500 js-reveal transform hover:-translate-y-2 flex flex-col h-full bg-noise delay-200">
+                <div class="absolute inset-0 opacity-10 mix-blend-overlay group-hover:opacity-20 transition-opacity" style="background-image: linear-gradient(to bottom right, #222, #000);"></div>
+                
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="flex justify-between items-start mb-12">
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-gray-500 border border-gray-700 px-2 py-1 bg-black/40 backdrop-blur-md">E-COMMERCE</span>
+                        <a href="https://lamba.by" target="_blank" class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-100 shadow-xl border border-gray-200">
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                    </div>
+                    
+                    <h3 class="text-3xl font-black uppercase mb-4 tracking-tight"><a href="https://lamba.by" target="_blank" class="hover:text-gray-300">LAMBA.BY</a></h3>
+                    <p class="text-[11px] font-bold text-gray-400 uppercase mb-6 tracking-widest pb-4 border-b border-gray-800 block">Магазин новых деталей</p>
+                    
+                    <p class="text-sm text-gray-500 leading-relaxed mb-8 flex-grow">
+                        Магазин запчастей под ключ. Синхронизация остатков по API, интеграция банковского эквайринга, смарт-корзины, и мощного движка поиска по VIN-коду кузова и артикулу TEC DOC.
+                    </p>
+                    
+                    <div class="mt-auto">
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div>
+                                <div class="text-[10px] font-bold uppercase text-gray-600 mb-1 tracking-widest">SEO ТРАФИК</div>
+                                <div class="text-xl font-black tracking-tight">ТОП-3 YANDEX</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold uppercase text-gray-600 mb-1 tracking-widest">CPA (ЛИД)</div>
+                                <div class="text-xl font-black tracking-tight">-40% ЦЕНЫ</div>
+                            </div>
+                        </div>
+                        <a href="/blog" class="inline-flex items-center text-[10px] font-bold tracking-widest uppercase text-white hover:text-gray-400 transition-colors">
+                            Перейти в блог <span class="material-symbols-outlined ml-2 text-sm">menu_book</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+        
+        <div class="md:hidden mt-8 text-center js-reveal">
+            <a href="#global-contact" class="inline-flex items-center text-[10px] font-bold tracking-widest uppercase text-white border border-gray-700 px-6 py-4 hover:bg-white hover:text-black transition-colors w-full justify-center">
+                ОБСУДИТЬ ВАШ ПРОЕКТ
+            </a>
+        </div>
+    </div>
+</section>

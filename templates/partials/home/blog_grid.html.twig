@@ -1,0 +1,71 @@
+{# partials/home/blog_grid.html.twig #}
+<section class="section-overlap bg-white text-black relative z-10 py-32 px-6 lg:px-12 border-t border-b border-black" id="blog-preview">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-16 js-reveal border-b-2 border-black pb-8">
+            <h2 class="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none">ЖУРНАЛ /<br>БАЗА ЗНАНИЙ</h2>
+            <a href="/blog" class="hidden md:flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:text-black transition-colors group">
+                ЧИТАТЬ ВСЕ СТАТЬИ 
+                <span class="material-symbols-outlined text-sm transform transition-transform group-hover:translate-x-2">arrow_right_alt</span>
+            </a>
+        </div>
+
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 md:auto-rows-[300px]">
+            
+            <!-- Large Featured Article (spans 4 cols, 2 rows) -->
+            <article class="md:col-span-4 lg:col-span-4 md:row-span-2 group relative bg-black text-white hover:bg-zinc-900 overflow-hidden transition-all duration-700 js-reveal">
+                <!-- Abstract visual element -->
+                <div class="absolute inset-0 opacity-10 blur-xl group-hover:blur-md scale-110 group-hover:scale-100 transition-all duration-1000 bg-gradient-to-br from-gray-500 via-gray-700 to-black"></div>
+                
+                <div class="relative z-10 flex flex-col justify-end h-full p-8 md:p-12 md:hover:pl-16 transition-all duration-500">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-[10px] font-bold tracking-widest text-black bg-white px-3 py-1 uppercase border border-white">MUST READ</span>
+                        <span class="text-[10px] font-bold tracking-widest text-gray-400 uppercase">12 ФЕВ 2026</span>
+                    </div>
+                    <a href="/blog" class="absolute inset-0 z-20"><span class="sr-only">Читать статью</span></a>
+                    <h3 class="text-3xl md:text-5xl lg:text-6xl font-black uppercase leading-[1.1] tracking-tight mb-6 group-hover:text-gray-300 transition-colors">
+                        Как нейросети <br class="hidden md:block">убьют классическое SEO<br class="hidden md:block"> в 2027 году
+                    </h3>
+                    <div class="overflow-hidden">
+                        <p class="text-gray-400 text-sm max-w-xl mb-0 md:opacity-0 md:-translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500 ease-out">
+                            Аналитика внедрения AI Overview от Google в бета-тестах. Готов ли ваш бизнес к смене парадигмы или вы уже теряете трафик конкурентам?
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Medium Article (spans 2 cols, 1 row) -->
+            <article class="md:col-span-2 lg:col-span-2 md:row-span-1 group relative bg-[rgb(249,249,249)] border border-gray-200 hover:border-black overflow-hidden transition-all duration-500 js-reveal">
+                <a href="/blog" class="absolute inset-0 z-20"><span class="sr-only">Читать статью</span></a>
+                <div class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-500 text-black">
+                    <span class="material-symbols-outlined text-3xl">north_east</span>
+                </div>
+                
+                <div class="p-8 flex flex-col justify-between h-full relative z-10 group-hover:-translate-y-2 transition-transform duration-500">
+                    <span class="text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-4 block border-b border-gray-300 pb-2">КЕЙС ТАРГЕТ / 12 АВГ</span>
+                    <h3 class="text-2xl font-black uppercase leading-tight tracking-tight mt-auto group-hover:text-gray-600 transition-colors">Снизили CPA в 3 раза для выездного СТО</h3>
+                </div>
+            </article>
+
+            <!-- Medium Article (spans 2 cols, 1 row) -->
+            <article class="md:col-span-2 lg:col-span-2 md:row-span-1 group relative bg-[rgb(249,249,249)] border border-gray-200 hover:border-black overflow-hidden transition-all duration-500 js-reveal delay-100">
+                <a href="/blog" class="absolute inset-0 z-20"><span class="sr-only">Читать статью</span></a>
+                <div class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 text-black">
+                    <span class="material-symbols-outlined text-3xl">arrow_forward</span>
+                </div>
+                
+                <div class="p-8 flex flex-col justify-between h-full relative z-10 group-hover:translate-x-2 transition-transform duration-500">
+                    <span class="text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-4 block border-b border-gray-300 pb-2">РАЗРАБОТКА / 05 АВГ</span>
+                    <h3 class="text-2xl font-black uppercase leading-tight tracking-tight mt-auto group-hover:text-gray-600 transition-colors">Оптимизация Core Web Vitals на PHP</h3>
+                </div>
+            </article>
+
+        </div>
+        
+        <div class="md:hidden mt-8 text-center js-reveal">
+            <a href="/blog" class="inline-flex items-center justify-center text-[10px] font-bold tracking-widest uppercase text-black border border-black px-6 py-4 hover:bg-black hover:text-white transition-colors w-full">
+                ЧИТАТЬ ВСЕ СТАТЬИ
+            </a>
+        </div>
+    </div>
+</section>

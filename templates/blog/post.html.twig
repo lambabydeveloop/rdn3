@@ -1,12 +1,57 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ post.title }} - RDN.BY{% endblock %}
+
 {% block body %}
-<article class="max-w-4xl mx-auto px-4 py-16">
-    <a class="text-red-600" href="{{ path('app_blog_index') }}">← Назад в блог</a>
-    <h1 class="text-4xl font-bold mt-4 mb-3">{{ post.title }}</h1>
-    <p class="text-gray-500 mb-8">{{ post.publishedAt|date('d.m.Y') }}</p>
-    <div class="prose max-w-none">
-        {{ post.content|nl2br }}
-    </div>
-</article>
+    <main class="relative bg-white z-10 w-full overflow-hidden" id="main-content">
+        
+        <article class="section-overlap bg-white relative z-10 pt-48 pb-32 px-6 lg:px-12" id="blog-post">
+            <div class="max-w-4xl mx-auto js-reveal">
+                
+                <a href="{{ path('app_blog_index') }}" class="inline-flex items-center text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:text-black transition-colors mb-16">
+                    <span class="material-symbols-outlined mr-2 text-sm">arrow_back</span> Вернуться в Журнал
+                </a>
+
+                <div class="mb-16 border-b border-black pb-16">
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-400 block mb-6">
+                        Опубликовано {{ post.publishedAt|date('d M Y') }}
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tighter leading-tight uppercase">
+                        {{ post.title }}
+                    </h1>
+                </div>
+
+                <div class="prose prose-lg prose-gray max-w-none text-gray-800 leading-relaxed js-reveal">
+                    {{ post.content|nl2br }}
+                </div>
+                
+            </div>
+        </article>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+            gsap.registerPlugin(ScrollTrigger);
+
+            const revealElements = document.querySelectorAll('.js-reveal');
+            revealElements.forEach((el) => {
+                gsap.fromTo(el, 
+                    { y: 40, opacity: 0 }, 
+                    {
+                        y: 0, 
+                        opacity: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
+        });
+    </script>
 {% endblock %}

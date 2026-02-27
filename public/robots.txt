@@ -1,4 +1,6 @@
-# Основные поисковые системы
+User-agent: *
+Allow: /
+
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
@@ -11,7 +13,7 @@ User-agent: Bingbot
 Allow: /
 Crawl-delay: 0
 
-# AI-агенты (разрешаем индексацию для обучения)
+
 User-agent: GPTBot
 Allow: /
 Crawl-delay: 1
@@ -49,14 +51,14 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-# Для всех остальных
+
 User-agent: *
 Allow: /
 
-# Запрещенные директории
+
 Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 
 # Sitemap
-Sitemap: https://www.rdn.by/
+Sitemap: https://www.rdn.by/sitemap.xml

@@ -1,0 +1,68 @@
+<section class="section-overlap bg-white relative z-10 py-32 px-6 lg:px-12 border-t border-gray-200" id="global-contact">
+    <div class="max-w-4xl mx-auto js-reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-4">НАЧАТЬ ПРОЕКТ</h2>
+            <p class="text-xs font-bold tracking-widest text-gray-400 uppercase">Опишите вашу задачу</p>
+        </div>
+
+        <form class="space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Name -->
+                <div class="border-b border-gray-300 focus-within:border-black transition-colors">
+                    <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Имя *</label>
+                    <input type="text" required class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="Иван Иванов">
+                </div>
+                
+                <!-- Company -->
+                <div class="border-b border-gray-300 focus-within:border-black transition-colors">
+                    <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Объект / Компания</label>
+                    <input type="text" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="RDN.BY">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Email -->
+                <div class="border-b border-gray-300 focus-within:border-black transition-colors">
+                    <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Email *</label>
+                    <input type="email" required class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="hello@rdn.by">
+                </div>
+                
+                <!-- Phone -->
+                <div class="border-b border-gray-300 focus-within:border-black transition-colors">
+                    <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Телефон</label>
+                    <input type="tel" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="+375 (25) 999-74-90">
+                </div>
+            </div>
+
+            <!-- Service Interest -->
+            <div class="border-b border-gray-300 focus-within:border-black transition-colors">
+                <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Услуга</label>
+                <select class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black appearance-none rounded-none cursor-pointer">
+                    <option value="" disabled selected class="text-gray-300">Выберите услугу</option>
+                    <option value="seo">SEO-Продвижение</option>
+                    <option value="geo">GEO (Продвижение в нейросетях)</option>
+                    <option value="dev">Разработка Сайта</option>
+                    <option value="ads">Контекстная Реклама</option>
+                    <option value="analytics">Веб-Аналитика</option>
+                    <option value="complex">Комплексный маркетинг</option>
+                </select>
+            </div>
+
+            <!-- Message -->
+            <div class="border-b border-gray-300 focus-within:border-black transition-colors">
+                <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Детали проекта</label>
+                <textarea rows="4" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300 resize-none" placeholder="Кратко опишите вашу задачу, текущую ситуацию и желаемый результат..."></textarea>
+            </div>
+
+            <!-- Submit -->
+            <div class="pt-8 text-center md:text-right">
+                <button type="submit" class="group relative inline-flex items-center justify-center px-12 py-5 border border-black bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-500 hover:bg-white focus:outline-none overflow-hidden w-full md:w-auto">
+                    <span class="relative z-10 transition-opacity duration-300 group-hover:opacity-0">ОТПРАВИТЬ ЗАЯВКУ</span>
+                    <span class="absolute left-0 inset-y-0 w-0 z-20 overflow-hidden bg-white flex items-center justify-center text-black border-r-2 border-transparent group-hover:w-[105%] group-hover:border-black transition-all duration-500 ease-out">
+                        <span class="px-12 whitespace-nowrap">ОТПРАВИТЬ ЗАЯВКУ</span>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
