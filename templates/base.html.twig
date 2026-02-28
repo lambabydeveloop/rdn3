@@ -289,8 +289,7 @@ document.addEventListener('StartRDNLibsLoading', () => {
     const scripts = [
         "{{ asset('assets/libs/three/three.min.js') }}",
         "{{ asset('assets/libs/gsap/gsap.min.js') }}",
-        "{{ asset('assets/libs/gsap/ScrollTrigger.min.js') }}",
-        "{{ asset('assets/libs/preline/dist/preline.js') }}"
+        "{{ asset('assets/libs/gsap/ScrollTrigger.min.js') }}"
     ];
     
     let loadedCount = 0;
@@ -324,6 +323,7 @@ document.addEventListener('StartRDNLibsLoading', () => {
 {# Scripts #}
 {% block javascripts %}
     {# Child templates will use parent() to inject their local, non-blocking scripts here #}
+    <script src="{{ asset('assets/libs/preline/dist/preline.js') }}" defer></script>
 {% endblock %}
 </body>
 </html>
