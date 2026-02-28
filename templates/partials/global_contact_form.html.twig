@@ -9,13 +9,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Name -->
                 <div class="border-b border-gray-300 focus-within:border-black transition-colors">
-                    <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Имя *</label>
+                    <label for="contact-name" class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Имя *</label>
                     <input type="text" id="contact-name" name="name" required class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="Иван Иванов">
                 </div>
                 
                 <!-- Company -->
                 <div class="border-b border-gray-300 focus-within:border-black transition-colors">
-                    <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Объект / Компания</label>
+                    <label for="contact-company" class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Объект / Компания</label>
                     <input type="text" id="contact-company" name="company" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="RDN.BY">
                 </div>
             </div>
@@ -23,20 +23,20 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Email -->
                 <div class="border-b border-gray-300 focus-within:border-black transition-colors">
-                    <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Email *</label>
+                    <label for="contact-email" class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Email *</label>
                     <input type="email" id="contact-email" name="email" required class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="hello@rdn.by">
                 </div>
                 
                 <!-- Phone -->
                 <div class="border-b border-gray-300 focus-within:border-black transition-colors">
-                    <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Телефон</label>
+                    <label for="contact-phone" class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Телефон</label>
                     <input type="tel" id="contact-phone" name="phone" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="+375 (25) 999-74-90">
                 </div>
             </div>
 
             <!-- Service Interest -->
             <div class="border-b border-gray-300 focus-within:border-black transition-colors">
-                <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Услуга</label>
+                <label for="contact-service" class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Услуга</label>
                 <select id="contact-service" name="service" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black appearance-none rounded-none cursor-pointer">
                     <option value="" disabled selected class="text-gray-300">Выберите услугу</option>
                     <option value="SEO-Продвижение">SEO-Продвижение</option>
@@ -50,7 +50,7 @@
 
             <!-- Message -->
             <div class="border-b border-gray-300 focus-within:border-black transition-colors">
-                <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Детали проекта</label>
+                <label for="contact-message" class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Детали проекта</label>
                 <textarea id="contact-message" name="message" rows="4" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300 resize-none" placeholder="Кратко опишите вашу задачу, текущую ситуацию и желаемый результат..."></textarea>
             </div>
 

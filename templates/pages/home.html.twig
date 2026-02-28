@@ -9,7 +9,6 @@
 {# 3. Добавление специфичных стилей для этой страницы #}
 {% block stylesheets %}
     {{ parent() }} {# ← ВАЖНО: сохраняем родительские стили #}
-    <link rel="stylesheet" href="{{ asset('assets/css/index_home.css') }}">
 {% endblock %}
 {% block schema_org %}
     <script type="application/ld+json">
