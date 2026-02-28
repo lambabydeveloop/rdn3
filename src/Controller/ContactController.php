@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Transport\TransportInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
 
 class ContactController extends AbstractController
 {
     #[Route('/api/contact', name: 'app_api_contact', methods: ['POST'])]
-    public function send(Request $request, MailerInterface $mailer): JsonResponse
+    public function send(Request $request, TransportInterface $mailer): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
