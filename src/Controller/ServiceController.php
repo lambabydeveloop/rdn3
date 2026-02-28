@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ServiceController extends AbstractController
 {
-    private array $services = [
+    public const SERVICES = [
         'seo' => [
             'title' => 'SEO-продвижение сайтов в Минске и РБ | Комплексное SEO под ключ',
             'description' => 'Профессиональное SEO-продвижение сайтов в Беларуси. Выводим в ТОП-10 Яндекс и Google. Оплата за результат. Честные кейсы и прозрачная отчетность.',
@@ -45,7 +45,7 @@ class ServiceController extends AbstractController
     public function index(): Response
     {
         return $this->render('pages/services/index.html.twig', [
-            'services' => $this->services,
+            'services' => self::SERVICES,
             'seo' => [
                 'title' => 'Все услуги digital-агентства | SEO, GEO, аналитика, реклама, разработка',
                 'description' => 'Комплексный подход к развитию вашего бизнеса в интернете: SEO-продвижение, GEO-оптимизация для ИИ, веб-аналитика, контекстная реклама и разработка сайтов под ключ.',
@@ -58,11 +58,11 @@ class ServiceController extends AbstractController
     #[Route('/services/{slug}', name: 'app_service_show')]
     public function show(string $slug): Response
     {
-        if (!isset($this->services[$slug])) {
+        if (!isset(self::SERVICES[$slug])) {
             throw $this->createNotFoundException('Услуга не найдена');
         }
 
-        $service = $this->services[$slug];
+        $service = self::SERVICES[$slug];
 
         return $this->render($service['template'], [
             'service' => $service,

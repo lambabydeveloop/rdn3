@@ -2,50 +2,49 @@
 
 namespace App\Controller;
 
-use App\Service\ContentService;
+use App\Entity\Article;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/blog')]
 class BlogController extends AbstractController
 {
-    public function __construct(private ContentService $contentService) {}
-
-    #[Route('', name: 'app_blog_index')]
-    public function index(): Response
+    #[Route('/blog', name: 'app_blog_index')]
+    public function index(EntityManagerInterface $em): Response
     {
-        $posts = $this->contentService->getPosts();
-
+        $articles = $em->getRepository(Article::class)->findBy(['status' => 'published'], ['createdAt' => 'DESC']);
+        
         return $this->render('blog/index.html.twig', [
-            'posts' => $posts,
-            'seo' => [
-                'title' => 'Блог RDN.BY: SEO, GEO и AI Search',
-                'description' => 'Практические статьи по SEO, индексированию и AI-поиску.',
-                'canonical' => $this->generateUrl('app_blog_index', [], true),
-                'schema_type' => 'Blog',
-                'robots' => 'index, follow',
-            ],
+            'articles' => $articles,
         ]);
     }
 
-    #[Route('/{slug}', name: 'app_blog_post')]
-    public function show(string $slug): Response
+    #[Route('/blog/{slug}', name: 'app_blog_show')]
+    public function show(string $slug, EntityManagerInterface $em): Response
     {
-        $post = $this->contentService->getPostBySlug($slug);
-        if (!$post) {
-            throw $this->createNotFoundException('Статья не найдена.');
+        $article = $em->getRepository(Article::class)->findOneBy(['slug' => $slug]);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Статья не найдена');
         }
 
-        return $this->render('blog/post.html.twig', [
-            'post' => $post,
-            'seo' => [
-                'title' => $post['title'],
-                'description' => $post['excerpt'],
-                'canonical' => $this->generateUrl('app_blog_post', ['slug' => $slug], true),
-                'schema_type' => 'BlogPosting',
-                'robots' => 'index, follow',
-            ],
+        // If it's a draft, only allow viewing by admins
+        if ($article->getStatus() !== 'published' && !$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createNotFoundException('Статья пока не опубликована');
+        }
+
+        // Fetch recent articles for the sidebar tree, excluding the current one
+        $recentArticles = $em->getRepository(Article::class)->findBy(
+            ['status' => 'published'],
+            ['createdAt' => 'DESC'],
+            5
+        );
+        $recentArticles = array_filter($recentArticles, fn($a) => $a->getId() !== $article->getId());
+
+        return $this->render('blog/show.html.twig', [
+            'article' => $article,
+            'recentArticles' => array_slice($recentArticles, 0, 4),
         ]);
     }
 }

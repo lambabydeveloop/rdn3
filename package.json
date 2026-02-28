@@ -9,6 +9,13 @@
         "terser": "^5.30.0"
     },
     "dependencies": {
+        "@editorjs/delimiter": "^1.4.2",
+        "@editorjs/editorjs": "^2.31.3",
+        "@editorjs/header": "^2.8.8",
+        "@editorjs/image": "^2.10.3",
+        "@editorjs/list": "^2.0.9",
+        "@editorjs/marker": "^1.4.0",
+        "@editorjs/quote": "^2.7.6",
         "@tailwindcss/cli": "^4.1.18",
         "@tailwindcss/forms": "^0.5.11",
         "package.json": "^2.0.1",

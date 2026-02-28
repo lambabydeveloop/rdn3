@@ -1,146 +1,99 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Блог - RDN.BY{% endblock %}
+{% block title %}Блог - RDN{% endblock %}
 
 {% block body %}
-    <main class="relative bg-white z-10 w-full overflow-hidden" id="main-content">
-        
-        {# Hero #}
-        <section class="section-overlap bg-white relative z-10 pt-48 pb-24 px-6 lg:px-12 border-b border-gray-200" id="blog-hero">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex justify-between items-end mb-8 js-reveal text-xs md:text-sm font-bold tracking-widest text-gray-500 uppercase">
-                    <span>НОВЕЙШИЕ ДАННЫЕ</span>
-                    <span class="text-black">ЖУРНАЛ</span>
-                </div>
-                <h1 class="text-[13vw] sm:text-[10vw] md:text-9xl break-words hyphens-auto leading-none font-black tracking-tighter uppercase mb-8 js-reveal">
-                    СИГНАЛ /<br>ШУМ
-                </h1>
-                <hr class="border-black mb-16 js-reveal">
-            </div>
-        </section>
+<div class="pt-32 pb-24 px-4 sm:px-8 max-w-[1600px] mx-auto bg-gray-50 dark:bg-transparent min-h-screen">
+    <div class="text-center mb-16 md:mb-24 relative">
+        <h1 class="text-5xl md:text-7xl font-black text-black dark:text-white tracking-tight leading-none mb-6">Блог <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">RDN</span></h1>
+        <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">Последние новости, кейсы и полезные статьи от нашей команды экспертов.</p>
+    </div>
 
-        {# Articles Mosaic List #}
-        <section class="section-overlap bg-white text-black relative z-10 py-32 px-6 lg:px-12" id="blog-list">
-            <div class="max-w-[90rem] mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-                    {% for post in posts %}
-                        {% set i = loop.index0 % 6 %}
-                        
-                        {# Base Classes #}
-                        {% set wrapperClass = 'col-span-12 js-reveal' %}
-                        {% set containerClass = 'group flex flex-col justify-between p-8 lg:p-12 relative overflow-hidden transition-all duration-700 hover:-translate-y-2' %}
-                        
-                        {# Shape & Size Logic #}
-                        {% if i == 0 %}
-                            {# Big Rectangle #}
-                            {% set wrapperClass = wrapperClass ~ ' md:col-span-12 lg:col-span-8' %}
-                            {% set containerClass = containerClass ~ ' min-h-[450px] bg-black text-white rounded-[2rem] md:rounded-[4rem]' %}
-                        {% elseif i == 1 %}
-                            {# Tall Arch #}
-                            {% set wrapperClass = wrapperClass ~ ' md:col-span-6 lg:col-span-4' %}
-                            {% set containerClass = containerClass ~ ' min-h-[450px] bg-gray-50 text-black rounded-t-[10rem] rounded-b-[2rem]' %}
-                        {% elseif i == 2 %}
-                            {# Wide Pill #}
-                            {% set wrapperClass = wrapperClass ~ ' md:col-span-6 lg:col-span-5' %}
-                            {% set containerClass = containerClass ~ ' min-h-[350px] bg-white border border-gray-200 text-black rounded-[4rem] md:rounded-[10rem] items-center text-center px-12' %}
-                        {% elseif i == 3 %}
-                            {# Black Block #}
-                            {% set wrapperClass = wrapperClass ~ ' md:col-span-12 lg:col-span-7' %}
-                            {% set containerClass = containerClass ~ ' min-h-[350px] bg-black text-white rounded-[2rem] hover:bg-gray-900' %}
-                        {% elseif i == 4 %}
-                            {# Sharp Leaf 1 #}
-                            {% set wrapperClass = wrapperClass ~ ' md:col-span-6 lg:col-span-6' %}
-                            {% set containerClass = containerClass ~ ' min-h-[400px] bg-[rgb(249,249,249)] text-black rounded-tr-[5rem] rounded-bl-[5rem] rounded-tl-xl rounded-br-xl' %}
-                        {% elseif i == 5 %}
-                            {# Sharp Leaf 2 #}
-                            {% set wrapperClass = wrapperClass ~ ' md:col-span-6 lg:col-span-6' %}
-                            {% set containerClass = containerClass ~ ' min-h-[400px] bg-white border border-gray-200 text-black rounded-tl-[5rem] rounded-br-[5rem] rounded-tr-xl rounded-bl-xl' %}
-                        {% endif %}
-                        
-                        <article class="{{ wrapperClass }}">
-                            <a href="{{ path('app_blog_post', {slug: post.slug}) }}" class="{{ containerClass }} h-full">
-                                
-                                {# Hover Effect Gradient for Black cards #}
-                                {% if 'bg-black' in containerClass %}
-                                    <div class="absolute inset-0 bg-gradient-to-t from-gray-800/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                                {% endif %}
+    <!-- The Grid Container -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[auto]">
+        {% for article in articles %}
+            {% set patternIndex = loop.index0 % 6 %}
+            
+            {# Compute CSS classes for grid layout based on pattern index #}
+            {% set gridClass = '' %}
+            {% set isHeroCard = false %}
+            {% set textDark = 'text-black dark:text-white' %}
+            
+            {% if patternIndex == 0 %}
+                {% set gridClass = 'md:col-span-2 lg:col-span-2 lg:row-span-2 h-[450px] lg:h-auto' %}
+                {% set isHeroCard = true %}
+            {% elseif patternIndex == 1 %}
+                {% set gridClass = 'min-h-[300px]' %}
+            {% elseif patternIndex == 2 %}
+                {% set gridClass = 'lg:row-span-2 min-h-[400px] lg:h-auto' %}
+            {% elseif patternIndex == 3 %}
+                {% set gridClass = 'md:col-span-2 lg:col-span-2 min-h-[350px]' %}
+            {% elseif patternIndex == 4 %}
+                {% set gridClass = 'md:col-span-2 lg:col-span-2 min-h-[300px]' %}
+            {% elseif patternIndex == 5 %}
+                {% set gridClass = 'min-h-[300px]' %}
+            {% endif %}
 
-                                <div class="relative z-10 flex flex-col h-full {% if i == 2 %}justify-center{% else %}justify-between{% endif %} w-full">
-                                    <div class="mb-auto {% if i == 2 %}mb-8{% endif %}">
-                                        <span class="text-[10px] font-bold tracking-widest uppercase mb-6 block {% if 'text-white' in containerClass %}text-gray-400{% else %}text-gray-500{% endif %}">
-                                            {{ post.publishedAt|date('d F Y') }}
-                                        </span>
-                                        <h2 class="text-2xl lg:text-4xl font-black uppercase leading-none mb-6 {% if 'text-white' in containerClass %}group-hover:text-gray-300{% else %}group-hover:text-gray-600{% endif %} transition-colors">
-                                            {{ post.title }}
-                                        </h2>
-                                    </div>
-                                    
-                                    <div class="mt-8 flex {% if i == 2 %}justify-center{% else %}justify-between items-end{% endif %}">
-                                        {% if i != 2 %}
-                                            <p class="text-xs md:text-sm font-medium leading-relaxed max-w-sm hidden sm:block {% if 'text-white' in containerClass %}text-gray-300{% else %}text-gray-600{% endif %}">
-                                                {{ post.excerpt|slice(0, 100) ~ '...' }}
-                                            </p>
-                                        {% endif %}
-                                        
-                                        <div class="w-12 h-12 flex-shrink-0 rounded-full border flex items-center justify-center {% if 'text-white' in containerClass %}border-white/30 text-white group-hover:bg-white group-hover:text-black{% else %}border-black/30 text-black group-hover:bg-black group-hover:text-white{% endif %} transition-all duration-300 transform group-hover:rotate-45">
-                                            <span class="material-symbols-outlined text-xl">arrow_upward</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                    {% else %}
-                        <div class="col-span-12">
-                            <p class="text-gray-500 font-bold uppercase tracking-widest js-reveal">ЖУРНАЛ ПУСТ. ПУБЛИКАЦИИ НЕ НАЙДЕНЫ.</p>
+            {# Is this a card with a major background image? #}
+            {% if isHeroCard and article.coverImage %}
+                {% set hasCoverBg = true %}
+                {% set textDark = 'text-white' %}
+            {% else %}
+                {% set hasCoverBg = false %}
+            {% endif %}
+            
+            <article class="relative bg-white dark:bg-[#1a1a1a] shadow-sm border border-black/5 dark:border-white/5 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group flex flex-col hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 transition-all duration-300 {{ gridClass }}">
+                
+                {% if hasCoverBg %}
+                    <img src="{{ article.coverImage }}" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
+                {% endif %}
+
+                <a href="{{ path('app_blog_show', {slug: article.slug}) }}" class="absolute inset-0 z-30"></a>
+
+                <div class="p-8 md:p-10 lg:p-12 flex flex-col h-full relative z-20 justify-end flex-grow">
+                    
+                    {# If it's a normal card but it HAS an image, show a thumbnail block #}
+                    {% if not hasCoverBg and article.coverImage and patternIndex != 2 %}
+                        <div class="w-full h-32 md:h-40 rounded-2xl md:rounded-[1.5rem] overflow-hidden mb-6 lg:mb-8 bg-gray-100 dark:bg-black/20 flex-shrink-0">
+                            <img src="{{ article.coverImage }}" class="w-full h-full object-cover">
                         </div>
-                    {% endfor %}
+                    {% elseif not hasCoverBg and article.coverImage and patternIndex == 2 %}
+                        <div class="w-full h-40 lg:h-1/2 rounded-2xl md:rounded-[1.5rem] overflow-hidden mb-6 lg:mb-8 bg-gray-100 dark:bg-black/20 flex-shrink-0">
+                            <img src="{{ article.coverImage }}" class="w-full h-full object-cover">
+                        </div>
+                    {% endif %}
+
+                    {# Header elements #}
+                    <div class="flex items-center gap-3 mb-4 mt-auto">
+                        <span class="text-[0.65rem] font-bold tracking-widest uppercase {{ hasCoverBg ? 'text-indigo-400' : 'text-indigo-500 dark:text-indigo-400' }}">Статья</span>
+                        <span class="w-1 h-1 rounded-full {{ hasCoverBg ? 'bg-white/30' : 'bg-black/10 dark:bg-white/10' }}"></span>
+                        <time class="text-xs font-semibold {{ hasCoverBg ? 'text-white/80' : 'text-gray-400' }}">{{ article.createdAt|date('d F Y') }}</time>
+                    </div>
+                    
+                    <h2 class="text-2xl {% if isHeroCard %}md:text-4xl lg:text-5xl lg:max-w-3xl{% endif %} {% if patternIndex == 3 %}md:text-3xl{% endif %} font-black mb-4 leading-tight {{ textDark }}">{{ article.title }}</h2>
+                    
+                    {% if article.seoDescription %}
+                        <p class="text-[0.95rem] md:text-base font-medium line-clamp-2 md:line-clamp-3 {% if isHeroCard %}lg:max-w-2xl text-lg{% endif %} {{ hasCoverBg ? 'text-white/70' : 'text-gray-500 dark:text-gray-400' }}">{{ article.seoDescription }}</p>
+                    {% endif %}
+                    
+                    <div class="mt-8 flex items-center justify-between">
+                        <div class="flex items-center gap-2 text-sm font-semibold {{ hasCoverBg ? 'text-white/80 group-hover:text-white' : 'text-black dark:text-white group-hover:text-indigo-500' }} transform group-hover:translate-x-3 transition-all duration-300">
+                            Читать <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </div>
+                    </div>
+
                 </div>
+            </article>
+        {% else %}
+            <div class="col-span-full border border-black/5 dark:border-white/5 bg-white dark:bg-[#1a1a1a] rounded-[2rem] flex flex-col items-center justify-center py-32 text-gray-500 shadow-sm">
+                <div class="w-20 h-20 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center mb-6">
+                    <svg class="w-10 h-10 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-black dark:text-white mb-2">Стака пусты</h3>
+                <p class="text-lg">Здесь пока нет опубликованных статей. Зайдите позже!</p>
             </div>
-        </section>
-
-    </main>
-
-    {# GSAP Scroll Animations #}
-    <script>
-        document.addEventListener('RDNLibsLoaded', () => {
-            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-            gsap.registerPlugin(ScrollTrigger);
-
-            const revealElements = document.querySelectorAll('.js-reveal');
-            revealElements.forEach((el) => {
-                gsap.fromTo(el, 
-                    { y: 40, opacity: 0 }, 
-                    {
-                        y: 0, 
-                        opacity: 1,
-                        duration: 1,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 85%',
-                            toggleActions: 'play none none reverse'
-                        }
-                    }
-                );
-            });
-
-            const sections = document.querySelectorAll('.section-overlap');
-            sections.forEach((section, index) => {
-                section.style.zIndex = index + 10;
-                if (index > 0) {
-                    const prevSection = sections[index - 1];
-                    gsap.to(prevSection, {
-                        yPercent: 15,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: section,
-                            start: "top bottom",
-                            end: "top top",
-                            scrub: true
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

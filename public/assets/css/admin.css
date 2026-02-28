@@ -1,0 +1,66 @@
+/* Admin Theme Custom Styles */
+
+/* Base Glassmorphism classes */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-panel,
+[data-theme='theme-moon'] .glass-panel {
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Sidebar transition classes */
+.sidebar-container {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out;
+    will-change: transform, opacity;
+}
+
+.sidebar-closed .sidebar-container {
+    transform: translateX(-100%);
+    opacity: 0.5;
+}
+
+@media (min-width: 1024px) {
+    .sidebar-closed .sidebar-container {
+        transform: translateX(-100%);
+    }
+}
+
+/* Dashboard Content Transition */
+.main-content {
+    transition: margin-left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scrollbars for widget areas */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.3);
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(150, 150, 150, 0.5);
+}
+
+/* Slow spin animation for backgrounds */
+.animate-spin-slow {
+    animation: spin 30s linear infinite;
+}
+
+/* Active links glow */
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 2px 0 0 0 white;
+}

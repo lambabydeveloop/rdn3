@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="theme-moon">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RDN Admin Panel{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/build/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+
+    {% block stylesheets %}{% endblock %}
+
+    <script src="{{ asset('assets/libs/gsap/gsap.min.js') }}" defer></script>
+</head>
+<body class="bg-[#e5e5e5] dark:bg-[#050505] text-[#111] dark:text-[#eee] font-sans antialiased admin-dashboard selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
+    
+    {% block body %}{% endblock %}
+
+    <script src="{{ asset('assets/js/admin.js') }}" defer></script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

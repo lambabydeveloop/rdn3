@@ -1,0 +1,283 @@
+{% extends 'base.html.twig' %}
+
+{# Custom SEO Meta #}
+{% block title %}{{ article.seoTitle ?: article.title }} - RDN{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Schema.org JSON-LD Configuration -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ absolute_url(path('app_blog_show', {slug: article.slug})) }}"
+      },
+      "headline": "{{ article.title|escape('js') }}",
+      {% if article.seoDescription %}
+      "description": "{{ article.seoDescription|escape('js') }}",
+      {% endif %}
+      {% if article.coverImage %}
+      "image": "{{ absolute_url(article.coverImage) }}",
+      {% endif %}  
+      "datePublished": "{{ article.createdAt|date('c') }}",
+      "dateModified": "{{ (article.updatedAt ?: article.createdAt)|date('c') }}",
+      "author": {
+        "@type": "Organization",
+        "name": "RDN"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "RDN",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ absolute_url('/logo.png') }}"
+        }
+      }
+    }
+    </script>
+    
+    <style>
+        .article-content {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: inherit;
+        }
+        .article-content p { margin-bottom: 1.5rem; }
+        .article-content h2 { font-size: 2rem; font-weight: 800; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--tw-prose-headings); }
+        .article-content h3 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: var(--tw-prose-headings); }
+        .article-content h4 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--tw-prose-headings); }
+        .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+        .article-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+        .article-content li { margin-bottom: 0.5rem; }
+        .article-content blockquote {
+            border-left: 4px solid #6366f1; /* Indigo-500 */
+            background: rgba(99, 102, 241, 0.05);
+            padding: 1.5rem;
+            border-radius: 0 1rem 1rem 0;
+            font-style: italic;
+            margin: 2.5rem 0;
+            opacity: 0.95;
+        }
+        .article-content blockquote footer {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            opacity: 0.7;
+            font-style: normal;
+        }
+        .article-content figure {
+            margin: 3.5rem 0;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            background: rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .article-content figure {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .article-content figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .article-content figcaption {
+            text-align: center;
+            padding: 1rem 1.5rem;
+            font-size: 0.875rem;
+            opacity: 0.6;
+            margin: 0;
+        }
+        .article-content mark.cdx-marker {
+            background-color: rgba(99, 102, 241, 0.2);
+            color: inherit;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+    </style>
+{% endblock %}
+
+{% block meta %}
+    <meta name="title" content="{{ article.seoTitle ?: article.title }}">
+    {% if article.seoDescription %}
+    <meta name="description" content="{{ article.seoDescription }}">
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+<div class="pt-32 pb-24 px-4 sm:px-8 bg-gray-50 dark:bg-black/5 min-h-screen">
+    
+    <div class="max-w-[1600px] mx-auto flex flex-col xl:flex-row gap-8 items-start">
+        
+        <!-- Left Sidebar: Tree & Back button -->
+        <aside class="w-full xl:w-72 shrink-0 xl:sticky xl:top-32 hidden lg:flex flex-col gap-6 z-10">
+            <a href="{{ path('app_blog_index') }}" class="inline-flex items-center gap-3 text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white font-medium transition-colors group px-2">
+                <div class="w-10 h-10 rounded-full bg-white dark:bg-[#1a1a1a] shadow-sm flex items-center justify-center group-hover:-translate-x-1 group-hover:bg-indigo-500 group-hover:text-white transition-all transform border border-black/5 dark:border-white/5">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                </div>
+                Вернуться в блог
+            </a>
+
+            <div class="bg-white dark:bg-[#1a1a1a] rounded-[2rem] p-8 shadow-sm border border-black/5 dark:border-white/5 flex flex-col gap-4">
+                <h3 class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2">Последние статьи</h3>
+                
+                <ul class="flex flex-col gap-5 relative">
+                    <div class="absolute left-2.5 top-3 bottom-3 w-px bg-black/5 dark:bg-white/5 -z-10"></div>
+                    
+                    {% for recent in recentArticles|default([]) %}
+                    <li class="relative pl-8 group">
+                        <div class="absolute left-1.5 top-2 w-2 h-2 rounded-full bg-indigo-500/20 ring-4 ring-white dark:ring-[#1a1a1a] group-hover:bg-indigo-500 group-hover:scale-125 transition-all"></div>
+                        <a href="{{ path('app_blog_show', {slug: recent.slug}) }}" class="block text-sm font-medium text-black dark:text-white line-clamp-2 leading-snug group-hover:text-indigo-500 transition-colors">
+                            {{ recent.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content (Middle Col) -->
+        <main class="flex-1 min-w-0 w-full relative z-10">
+            <!-- Draft Alert -->
+            {% if article.status == 'draft' %}
+                <div class="mb-4 bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 rounded-3xl p-4 text-center font-medium backdrop-blur-md">
+                    ⚠️ Черновик. Недоступно публично.
+                </div>
+            {% endif %}
+
+            <article class="bg-white dark:bg-[#1a1a1a] shadow-sm border border-black/5 dark:border-white/5 rounded-[2.5rem] overflow-hidden text-black dark:text-[rgba(255,255,255,0.85)] flex flex-col w-full h-full relative">
+                
+                {% if article.coverImage %}
+                    <div class="w-full h-[50vh] xl:h-[60vh] relative bg-black">
+                        <img src="{{ article.coverImage }}" alt="{{ article.title }}" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-at from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16 lg:p-24 z-10">
+                            <div class="text-xs md:text-sm font-semibold text-white/80 mb-4 uppercase tracking-widest">
+                                {{ article.createdAt|date('d.m.Y') }}
+                                {% if article.updatedAt and article.updatedAt > article.createdAt %}
+                                    <span class="mx-2 opacity-50">•</span> Обновлено {{ article.updatedAt|date('d.m.Y') }}
+                                {% endif %}
+                            </div>
+                            <h1 class="text-4xl md:text-5xl lg:text-7xl font-black mb-0 leading-[1.1] tracking-tight text-white max-w-5xl text-wrap">{{ article.title }}</h1>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="{{ article.coverImage ? 'pt-8 md:pt-16' : 'pt-16' }} px-8 md:px-16 lg:px-24">
+                    {% if not article.coverImage %}
+                        <header class="mb-12 border-b border-black/5 dark:border-white/5 pb-8">
+                            <div class="text-xs font-semibold text-indigo-500 mb-4 uppercase tracking-widest">
+                                {{ article.createdAt|date('d.m.Y') }}
+                                {% if article.updatedAt and article.updatedAt > article.createdAt %}
+                                    <span class="text-gray-400 mx-2">•</span> <span class="text-gray-400">Обновлено {{ article.updatedAt|date('d.m.Y') }}</span>
+                                {% endif %}
+                            </div>
+                            <h1 class="text-4xl md:text-5xl lg:text-7xl font-black mb-6 leading-[1.1] tracking-tight text-black dark:text-white">{{ article.title }}</h1>
+                        </header>
+                    {% endif %}
+
+                    {% if article.seoDescription %}
+                        <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 italic mb-12 {{ not article.coverImage ? 'mt-8' : '' }} border-l-4 border-indigo-500 pl-6 lg:pl-8 font-light leading-relaxed">{{ article.seoDescription }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="article-content px-8 md:px-16 lg:px-24 pb-16 lg:pb-32 max-w-5xl">
+                    {% if article.content.blocks is defined %}
+                        {% for block in article.content.blocks %}
+                            
+                            {% if block.type == 'paragraph' %}
+                                <p>{{ block.data.text|raw }}</p>
+                            
+                            {% elseif block.type == 'header' %}
+                                <h{{ block.data.level }} class="{% if block.data.level == 2 %}mt-16{% else %}mt-12{% endif %}">{{ block.data.text|raw }}</h{{ block.data.level }}>
+
+                            {% elseif block.type == 'list' %}
+                                {% if block.data.style == 'ordered' %}
+                                    <ol>
+                                        {% for item in block.data.items %}
+                                            <li>{{ item.content is defined ? item.content|raw : item|raw }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                {% else %}
+                                    <ul class="space-y-3">
+                                        {% for item in block.data.items %}
+                                            <li class="relative pl-6">
+                                                <span class="absolute left-0 top-2.5 w-2 h-2 rounded-full bg-indigo-500"></span>
+                                                {{ item.content is defined ? item.content|raw : item|raw }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+
+                            {% elseif block.type == 'image' %}
+                                <figure>
+                                    <img src="{{ block.data.file.url }}" alt="{{ block.data.caption|default('Изображение к статье ' ~ article.title)|striptags|escape }}" loading="lazy">
+                                    {% if block.data.caption %}
+                                        <figcaption>{{ block.data.caption|raw }}</figcaption>
+                                    {% endif %}
+                                </figure>
+
+                            {% elseif block.type == 'quote' %}
+                                <blockquote>
+                                    <p class="text-xl">{{ block.data.text|raw }}</p>
+                                    {% if block.data.caption %}
+                                        <footer>— {{ block.data.caption|raw }}</footer>
+                                    {% endif %}
+                                </blockquote>
+                                
+                            {% elseif block.type == 'delimiter' %}
+                                <div class="flex items-center justify-center my-16 gap-4">
+                                    <div class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                                    <div class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                                    <div class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                                </div>
+                            {% endif %}
+                            
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-gray-500 italic text-center py-10">Контент пуст.</p>
+                    {% endif %}
+                </div>
+
+            </article>
+        </main>
+
+        <!-- Right Promo Sidebar -->
+        <aside class="w-full xl:w-80 shrink-0 xl:sticky xl:top-32 hidden xl:flex flex-col gap-6 z-10">
+            <!-- First promo widget -->
+            <div class="bg-white dark:bg-[#1a1a1a] rounded-[2rem] overflow-hidden shadow-sm border border-black/5 dark:border-white/5 relative group">
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent z-0"></div>
+                <div class="p-8 relative z-10">
+                    <div class="w-12 h-12 bg-indigo-500 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/30">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-black text-black dark:text-white mb-3">Бесплатный<br>SEO-аудит</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">Оставьте заявку и получите подробный технический аудит вашего сайта от экспертов RDN.</p>
+                    <a href="{{ path('app_contacts') }}" class="inline-flex items-center justify-center w-full bg-black dark:bg-white text-white dark:text-black font-semibold py-3 px-6 rounded-xl group-hover:bg-indigo-500 dark:group-hover:bg-indigo-500 dark:group-hover:text-white transition-colors">
+                        Заказать аудит
+                    </a>
+                </div>
+            </div>
+
+            <!-- Second Promo widget -->
+            <div class="bg-black text-white rounded-[2rem] overflow-hidden shadow-xl shadow-black/20 p-8 flex flex-col items-start gap-4 justify-between relative">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
+                <div class="relative z-10">
+                    <div class="text-[0.65rem] font-bold tracking-widest uppercase text-white/50 mb-2">Акция</div>
+                    <h4 class="text-xl font-bold mb-2">-20% на услуги GEO до конца месяца</h4>
+                    <p class="text-sm text-white/70 mb-6">Адаптируйте свой бизнес под поисковики на базе ИИ уже сегодня.</p>
+                </div>
+                <a href="{{ path('app_service_show', {slug: 'geo'}) }}" class="relative z-10 text-sm font-semibold text-white flex items-center gap-2 hover:gap-4 transition-all border-b border-white/30 pb-1">
+                    Узнать больше <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+        </aside>
+
+    </div>
+</div>
+
+{% endblock %}
