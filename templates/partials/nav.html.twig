@@ -22,16 +22,16 @@
       </a>
 
       <div class="lg:hidden ml-2 z-20">
-        <button type="button" class="hs-collapse-toggle size-9.5 flex justify-center items-center text-sm font-semibold rounded-xl border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" id="hs-pro-hcail-collapse" aria-expanded="false" aria-controls="hs-pro-hcail" aria-label="Toggle navigation" data-hs-collapse="#hs-pro-hcail">
-          <svg class="hs-collapse-open:hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-          <svg class="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        <button type="button" class="size-9.5 flex justify-center items-center text-sm font-semibold rounded-xl border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" id="hs-pro-hcail-collapse" aria-expanded="false" aria-controls="hs-pro-hcail" aria-label="Toggle navigation">
+          <svg id="nav-icon-burger" class="shrink-0 size-4 block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+          <svg id="nav-icon-close" class="shrink-0 size-4 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
       </div>
     </div>
     <!-- End Button Group -->
 
     <!-- Collapse -->
-    <div id="hs-pro-hcail" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow lg:block lg:w-auto lg:basis-auto lg:order-2 lg:col-span-6 z-10" aria-labelledby="hs-pro-hcail-collapse" role="region">
+    <div id="hs-pro-hcail" class="hidden transition-all duration-300 basis-full grow lg:block lg:w-auto lg:basis-auto lg:order-2 lg:col-span-6 z-10" aria-labelledby="hs-pro-hcail-collapse" role="region">
       <div class="flex flex-col gap-y-4 gap-x-0 mt-5 lg:flex-row lg:justify-center lg:items-center lg:gap-y-0 lg:gap-x-10 lg:mt-0 bg-white lg:bg-transparent p-4 lg:p-0">
         {% set current_path = app.request.pathinfo %}
         {% set menu_links = [
@@ -87,6 +87,36 @@
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
+    }
+
+    // Vanilla mobile menu implementation (saves 112KB by bypassing preline.js)
+    const toggleBtn = document.getElementById('hs-pro-hcail-collapse');
+    const menu = document.getElementById('hs-pro-hcail');
+    const iconBurger = document.getElementById('nav-icon-burger');
+    const iconClose = document.getElementById('nav-icon-close');
+
+    if (toggleBtn && menu) {
+        toggleBtn.addEventListener('click', () => {
+            const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                // Close it
+                menu.classList.add('hidden');
+                iconBurger.classList.remove('hidden');
+                iconBurger.classList.add('block');
+                iconClose.classList.add('hidden');
+                iconClose.classList.remove('block');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            } else {
+                // Open it
+                menu.classList.remove('hidden');
+                iconBurger.classList.add('hidden');
+                iconBurger.classList.remove('block');
+                iconClose.classList.remove('hidden');
+                iconClose.classList.add('block');
+                toggleBtn.setAttribute('aria-expanded', 'true');
+            }
+        });
     }
   });
 </script>
