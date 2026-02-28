@@ -57,11 +57,13 @@
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden transform lg:translate-x-12">
           <span class="text-[9rem] md:text-[14rem] lg:text-[20rem] font-black text-transparent whitespace-nowrap" style="-webkit-text-stroke: 1px rgba(0,0,0,0.03);">WEB STUDIO</span>
         </div>
+        <!-- Loading AI Placeholder -->
+        <div id="ai-placeholder" class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none transition-opacity duration-1000">
+            <span class="text-[8rem] sm:text-[10rem] lg:text-[14rem] font-black tracking-tighter text-transparent select-none animate-pulse" style="-webkit-text-stroke: 4px rgba(0,0,0,0.8);">AI</span>
+        </div>
         
         <!-- Local 3D AI Network Scene -->
-        <div id="hero-3d-scene" class="absolute inset-0 z-10 pointer-events-auto cursor-crosshair"></div>
-      </div>
-      
+        <div id="hero-3d-scene" class="absolute inset-0 z-20 pointer-events-auto cursor-crosshair opacity-0 transition-opacity duration-1000"></div>
     </div>
   </div>
 </section>
@@ -69,10 +71,24 @@
 
 
 
-
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('RDNLibsLoaded', () => {
+    // Smooth transition from "AI" text to 3D sphere
+    const placeholder = document.getElementById('ai-placeholder');
     const container = document.getElementById('hero-3d-scene');
+    
+    if (placeholder) {
+        placeholder.style.opacity = '0';
+        setTimeout(() => placeholder.remove(), 1000); // clear from DOM after fade
+    }
+    
+    if (container) {
+        // Wait just a bit to let the text fade slightly before showing the sphere
+        setTimeout(() => {
+            container.style.opacity = '1';
+        }, 300);
+    }
+
     if (!container || typeof THREE === 'undefined') return;
 
     // 1. Core Setup

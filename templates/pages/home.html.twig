@@ -164,7 +164,7 @@
 
     {# GSAP Scroll Animations for the new sections #}
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('RDNLibsLoaded', () => {
             if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
             
             gsap.registerPlugin(ScrollTrigger);
@@ -226,8 +226,7 @@
 {# 5. Добавление специфичного JavaScript для этой страницы #}
 {% block javascripts %}
     {{ parent() }} {# ← ВАЖНО: сохраняем родительские скрипты #}
-    <script src="{{ asset('assets/js/index_home.js') }}"></script>
-
+    <script src="{{ asset('assets/build/index_home.min.js') }}" defer></script>
 {% endblock %}
 
 {# 6. Дополнительный контент в конце body (если нужно) #}

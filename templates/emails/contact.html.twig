@@ -1,0 +1,38 @@
+<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 40px 0; text-align: center;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px; border-top: 4px solid #000000; text-align: left; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 24px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; color: #000000;">Новая заявка</h2>
+        <p style="font-size: 14px; color: #666666; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px;">Поступил новый запрос с сайта RDN.BY</p>
+
+        <div style="margin-bottom: 20px;">
+            <p style="margin: 0 0 5px 0; font-size: 10px; font-weight: bold; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Имя клиента / Контактное лицо</p>
+            <p style="margin: 0; font-size: 16px; color: #000000;">{{ name }}</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <p style="margin: 0 0 5px 0; font-size: 10px; font-weight: bold; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Компания / Объект</p>
+            <p style="margin: 0; font-size: 16px; color: #000000;">{{ company }}</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <p style="margin: 0 0 5px 0; font-size: 10px; font-weight: bold; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Email</p>
+            <p style="margin: 0; font-size: 16px; color: #000000;"><a href="mailto:{{ client_email }}" style="color:#000;">{{ client_email }}</a></p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <p style="margin: 0 0 5px 0; font-size: 10px; font-weight: bold; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Телефон</p>
+            <p style="margin: 0; font-size: 16px; color: #000000;"><a href="tel:{{ phone }}" style="color:#000;">{{ phone }}</a></p>
+        </div>
+
+        <div style="padding: 20px; background-color: #f9f9f9; border-left: 4px solid #000000; margin-bottom: 30px;">
+            <p style="margin: 0 0 5px 0; font-size: 10px; font-weight: bold; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Интересующая услуга</p>
+            <p style="margin: 0 0 15px 0; font-size: 18px; font-weight: bold; color: #000000;">{{ service }}</p>
+            
+            <p style="margin: 0 0 5px 0; font-size: 10px; font-weight: bold; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Детали проекта</p>
+            <p style="margin: 0; font-size: 14px; color: #333333; line-height: 1.6;">{{ message_text|nl2br }}</p>
+        </div>
+
+        <div style="padding-top: 30px; border-top: 1px solid #eeeeee; text-align: center;">
+            <a href="https://rdn.by" style="display: inline-block; padding: 15px 30px; background-color: #000000; color: #ffffff; text-decoration: none; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Перейти на сайт</a>
+        </div>
+    </div>
+</div>

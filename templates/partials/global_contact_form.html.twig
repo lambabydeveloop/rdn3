@@ -2,21 +2,21 @@
     <div class="max-w-4xl mx-auto js-reveal">
         <div class="text-center mb-16">
             <h2 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-4">НАЧАТЬ ПРОЕКТ</h2>
-            <p class="text-xs font-bold tracking-widest text-gray-400 uppercase">Опишите вашу задачу</p>
+            <p class="text-xs font-bold tracking-widest text-gray-400 uppercase">Опишите Вашу задачу</p>
         </div>
 
-        <form class="space-y-8">
+        <form class="space-y-8" id="global-contact-form">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Name -->
                 <div class="border-b border-gray-300 focus-within:border-black transition-colors">
                     <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Имя *</label>
-                    <input type="text" required class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="Иван Иванов">
+                    <input type="text" id="contact-name" name="name" required class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="Иван Иванов">
                 </div>
                 
                 <!-- Company -->
                 <div class="border-b border-gray-300 focus-within:border-black transition-colors">
                     <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Объект / Компания</label>
-                    <input type="text" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="RDN.BY">
+                    <input type="text" id="contact-company" name="company" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="RDN.BY">
                 </div>
             </div>
 
@@ -24,45 +24,109 @@
                 <!-- Email -->
                 <div class="border-b border-gray-300 focus-within:border-black transition-colors">
                     <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Email *</label>
-                    <input type="email" required class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="hello@rdn.by">
+                    <input type="email" id="contact-email" name="email" required class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="hello@rdn.by">
                 </div>
                 
                 <!-- Phone -->
                 <div class="border-b border-gray-300 focus-within:border-black transition-colors">
                     <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Телефон</label>
-                    <input type="tel" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="+375 (25) 999-74-90">
+                    <input type="tel" id="contact-phone" name="phone" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300" placeholder="+375 (25) 999-74-90">
                 </div>
             </div>
 
             <!-- Service Interest -->
             <div class="border-b border-gray-300 focus-within:border-black transition-colors">
                 <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Услуга</label>
-                <select class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black appearance-none rounded-none cursor-pointer">
+                <select id="contact-service" name="service" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black appearance-none rounded-none cursor-pointer">
                     <option value="" disabled selected class="text-gray-300">Выберите услугу</option>
-                    <option value="seo">SEO-Продвижение</option>
-                    <option value="geo">GEO (Продвижение в нейросетях)</option>
-                    <option value="dev">Разработка Сайта</option>
-                    <option value="ads">Контекстная Реклама</option>
-                    <option value="analytics">Веб-Аналитика</option>
-                    <option value="complex">Комплексный маркетинг</option>
+                    <option value="SEO-Продвижение">SEO-Продвижение</option>
+                    <option value="GEO (Продвижение в нейросетях)">GEO (Продвижение в нейросетях)</option>
+                    <option value="Разработка Сайта">Разработка Сайта</option>
+                    <option value="Контекстная Реклама">Контекстная Реклама</option>
+                    <option value="Веб-Аналитика">Веб-Аналитика</option>
+                    <option value="Комплексный маркетинг">Комплексный маркетинг</option>
                 </select>
             </div>
 
             <!-- Message -->
             <div class="border-b border-gray-300 focus-within:border-black transition-colors">
                 <label class="block text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-2">Детали проекта</label>
-                <textarea rows="4" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300 resize-none" placeholder="Кратко опишите вашу задачу, текущую ситуацию и желаемый результат..."></textarea>
+                <textarea id="contact-message" name="message" rows="4" class="w-full bg-transparent border-none outline-none focus:ring-0 px-0 pb-2 text-black placeholder-gray-300 resize-none" placeholder="Кратко опишите вашу задачу, текущую ситуацию и желаемый результат..."></textarea>
             </div>
+
+            <div id="contact-form-notification" class="hidden text-[11px] font-bold tracking-widest uppercase p-4 mt-4 text-center"></div>
 
             <!-- Submit -->
             <div class="pt-8 text-center md:text-right">
-                <button type="submit" class="group relative inline-flex items-center justify-center px-12 py-5 border border-black bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-500 hover:bg-white focus:outline-none overflow-hidden w-full md:w-auto">
-                    <span class="relative z-10 transition-opacity duration-300 group-hover:opacity-0">ОТПРАВИТЬ ЗАЯВКУ</span>
+                <button type="submit" id="contact-submit-btn" class="group relative inline-flex items-center justify-center px-12 py-5 border border-black bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-500 hover:bg-white focus:outline-none overflow-hidden w-full md:w-auto">
+                    <span class="relative z-10 transition-opacity duration-300 group-hover:opacity-0" id="contact-btn-text">ОТПРАВИТЬ ЗАЯВКУ</span>
                     <span class="absolute left-0 inset-y-0 w-0 z-20 overflow-hidden bg-white flex items-center justify-center text-black border-r-2 border-transparent group-hover:w-[105%] group-hover:border-black transition-all duration-500 ease-out">
-                        <span class="px-12 whitespace-nowrap">ОТПРАВИТЬ ЗАЯВКУ</span>
+                        <span class="px-12 whitespace-nowrap" id="contact-btn-hover-text">ОТПРАВИТЬ ЗАЯВКУ</span>
                     </span>
                 </button>
             </div>
         </form>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('global-contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const btnText = document.getElementById('contact-btn-text');
+        const btnHoverText = document.getElementById('contact-btn-hover-text');
+        const btn = document.getElementById('contact-submit-btn');
+        const notification = document.getElementById('contact-form-notification');
+        
+        const originalText = btnText.innerText;
+        btnText.innerText = 'ОТПРАВКА...';
+        btnHoverText.innerText = 'ОТПРАВКА...';
+        btn.classList.add('opacity-70', 'pointer-events-none');
+        notification.classList.add('hidden');
+        notification.classList.remove('bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+        
+        const payload = {
+            name: document.getElementById('contact-name').value,
+            company: document.getElementById('contact-company').value,
+            email: document.getElementById('contact-email').value,
+            phone: document.getElementById('contact-phone').value,
+            service: document.getElementById('contact-service').value,
+            message: document.getElementById('contact-message').value
+        };
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                notification.innerHTML = '✅ Заявка успешно отправлена! Мы свяжемся с Вами в ближайшее время.';
+                notification.classList.add('bg-green-100', 'text-green-800');
+                notification.classList.remove('hidden');
+                form.reset();
+            } else {
+                throw new Error(result.error || 'Произошла ошибка при отправке заявки.');
+            }
+        } catch (error) {
+            notification.innerHTML = '❌ Ошибка: ' + error.message;
+            notification.classList.add('bg-red-100', 'text-red-800');
+            notification.classList.remove('hidden');
+        } finally {
+            btnText.innerText = originalText;
+            btnHoverText.innerText = originalText;
+            btn.classList.remove('opacity-70', 'pointer-events-none');
+        }
+    });
+});
+</script>

@@ -1,7 +1,12 @@
 {
     "scripts": {
+        "build": "npm run build:css && npm run build:js",
         "build:css": "npx @tailwindcss/cli -i ./assets/styles/app.css -o ./public/assets/build/app.css --minify",
-        "watch:css": "npx @tailwindcss/cli -i ./assets/styles/app.css -o ./public/assets/build/app.css --watch"
+        "watch:css": "npx @tailwindcss/cli -i ./assets/styles/app.css -o ./public/assets/build/app.css --watch",
+        "build:js": "npx terser public/assets/js/index_home.js -o public/assets/build/index_home.min.js -c -m"
+    },
+    "devDependencies": {
+        "terser": "^5.30.0"
     },
     "dependencies": {
         "@tailwindcss/cli": "^4.1.18",

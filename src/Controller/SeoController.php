@@ -28,4 +28,12 @@ class SeoController extends AbstractController
 
         return new Response($content, 200, ['Content-Type' => 'text/plain']);
     }
+
+    #[Route('/llms.txt', name: 'app_llms')]
+    public function llms(): Response
+    {
+        $content = $this->seoService->getLlmsTxt();
+
+        return new Response($content, 200, ['Content-Type' => 'text/plain']);
+    }
 }

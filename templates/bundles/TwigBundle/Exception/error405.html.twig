@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Метод не поддерживается - 405 | RDN.BY{% endblock %}
+
+{% block body %}
+<section class="relative pt-40 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-black text-white min-h-screen flex items-center justify-center">
+    <!-- Grid Background -->
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10 text-center">
+        <h1 class="text-9xl md:text-[12rem] font-black tracking-tighter mix-blend-difference mb-4">405</h1>
+        <p class="text-xl md:text-2xl font-bold tracking-widest text-gray-400 uppercase mb-8">Метод не поддерживается</p>
+        
+        <p class="max-w-xl mx-auto text-gray-400 mb-12">
+            Прямой переход по этому адресу запрещен.<br>
+            Вы будете автоматически перенаправлены на главную страницу через <span id="countdown-timer" class="text-white font-bold">5</span> секунд.
+        </p>
+
+        <a href="{{ path('app_home') }}" class="group relative inline-flex items-center justify-center px-12 py-5 border border-white bg-transparent text-white text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-500 hover:bg-white focus:outline-none overflow-hidden mx-auto">
+            <span class="relative z-10 transition-colors duration-300 group-hover:text-black">ВЕРНУТЬСЯ СЕЙЧАС</span>
+            <span class="absolute left-0 inset-y-0 w-0 z-0 bg-white transition-all duration-500 ease-out group-hover:w-full"></span>
+        </a>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let timeLeft = 5;
+    const timerElement = document.getElementById('countdown-timer');
+    
+    if (timerElement) {
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                window.location.href = "{{ path('app_home') }}";
+            }
+        }, 1000);
+    } else {
+        // Fallback if element not found
+        setTimeout(() => {
+            window.location.href = "{{ path('app_home') }}";
+        }, 5000);
+    }
+});
+</script>
+{% endblock %}

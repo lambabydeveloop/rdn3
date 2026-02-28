@@ -1,0 +1,11 @@
+RewriteEngine On
+
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^rdn\.by$ [NC]
+RewriteRule ^(.*)$ https://www.rdn.by/$1 [R=301,L]

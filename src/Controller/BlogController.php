@@ -24,6 +24,7 @@ class BlogController extends AbstractController
                 'description' => 'Практические статьи по SEO, индексированию и AI-поиску.',
                 'canonical' => $this->generateUrl('app_blog_index', [], true),
                 'schema_type' => 'Blog',
+                'robots' => 'index, follow',
             ],
         ]);
     }
@@ -43,6 +44,7 @@ class BlogController extends AbstractController
                 'description' => $post['excerpt'],
                 'canonical' => $this->generateUrl('app_blog_post', ['slug' => $slug], true),
                 'schema_type' => 'BlogPosting',
+                'robots' => 'index, follow',
             ],
         ]);
     }

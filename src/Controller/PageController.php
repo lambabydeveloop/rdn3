@@ -21,6 +21,7 @@ class PageController extends AbstractController
                 'title' => 'RDN.BY - студия продвижения Вашего сайта и бизнеса',
                 'description' => 'SEO, GEO, реклама и аналитика для роста посещаемости сайтов',
                 'canonical' => $this->generateUrl('app_home', [], true),
+                'robots' => 'index, follow',
             ],
             'managed_blocks' => $this->hydrateBlocks('home'),
         ]);
@@ -34,6 +35,7 @@ class PageController extends AbstractController
                 'title' => 'О студии RDN.BY',
                 'description' => 'Подход, философия и экспертиза',
                 'canonical' => $this->generateUrl('app_about', [], true),
+                'robots' => 'index, follow',
             ],
             'managed_blocks' => $this->hydrateBlocks('about'),
         ]);
@@ -47,6 +49,7 @@ class PageController extends AbstractController
                 'title' => 'Контакты digital-агентства RDN.BY | Связаться с нами',
                 'description' => 'Наши контакты: адрес офиса в Минске, телефоны, email, реквизиты. Свяжитесь с нами для консультации по SEO, GEO, аналитике, рекламе и разработке.',
                 'canonical' => $this->generateUrl('app_contacts', [], true),
+                'robots' => 'index, follow',
             ],
             'managed_blocks' => $this->hydrateBlocks('contacts'),
         ]);

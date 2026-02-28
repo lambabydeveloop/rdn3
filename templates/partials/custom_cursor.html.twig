@@ -1,12 +1,13 @@
 <div id="custom-cursor-container" style="position: fixed; top: 0; left: 0; width: 100px; height: 100px; pointer-events: none; z-index: 999999; mix-blend-mode: difference; display: none; transition: opacity 0.3s ease;"></div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('RDNLibsLoaded', () => {
     // Only init cursor on non-touch devices (desktops)
     if(window.matchMedia("(pointer: coarse)").matches) {
-        document.body.classList.remove("cursor-none");
         return;
     }
+    
+    document.body.classList.add('custom-cursor-active');
     
     // Un-hide the container
     const container = document.getElementById('custom-cursor-container');
