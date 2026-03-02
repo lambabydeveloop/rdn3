@@ -213,7 +213,7 @@
                             trigger: section,
                             start: "top bottom", // When top of *this* section hits bottom of window
                             end: "top top",      // Until top of *this* section hits top of window
-                            scrub: true
+                            scrub: 1 // Using 1 sec interpolation to smooth out jerky scrolling
                         }
                     });
                 }

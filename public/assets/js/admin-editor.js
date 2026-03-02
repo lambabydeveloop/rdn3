@@ -114,6 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     captionPlaceholder: 'Описание изображения (будет использовано как SEO alt текст)'
                 }
             },
+            code: {
+                class: CodeTool,
+            },
             quote: {
                 class: Quote,
                 inlineToolbar: true,
@@ -162,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 seoDescription: document.getElementById('seo-description').value.trim(),
                 coverImage: document.getElementById('seo-cover').value.trim(),
                 status: status,
+                categories: document.getElementById('article-categories') ? Array.from(document.getElementById('article-categories').selectedOptions).map(o => parseInt(o.value)) : [],
                 content: outputData
             };
 

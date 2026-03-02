@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/libs/choices/choices.min.css') }}" />
     <style>
         /* Editor.js Clean Styling to match Notion */
         .ce-block__content, .ce-toolbar__content {
@@ -24,56 +25,46 @@
             border-radius: 8px;
         }
         
-        /* Toolbar Theme */
-        .ce-toolbar__plus, .ce-toolbar__settings-btn {
-            color: #888;
-            background-color: transparent;
+        /* Choices.js Custom Styling */
+        .choices__inner {
+            background-color: transparent !important;
+            border-radius: 0.75rem !important;
+            border: 1px solid rgba(0,0,0,0.1) !important;
+            padding: 8px 12px !important;
+            min-height: 44px !important;
         }
-        .ce-toolbar__plus:hover, .ce-toolbar__settings-btn:hover {
-            color: #fff;
-            background-color: rgba(255,255,255,0.1);
+        .dark .choices__inner {
+            border-color: rgba(255,255,255,0.1) !important;
+            background-color: rgba(255,255,255,0.05) !important;
         }
-        .ce-popover, .tc-popover {
-            background-color: #1a1a1a;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
+        .choices__list--multiple .choices__item {
+            background-color: #6366f1 !important;
+            border: none !important;
+            border-radius: 6px !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
         }
-        .ce-popover__item:hover, .tc-popover__item:hover {
-            background-color: rgba(255,255,255,0.05);
+        .choices__list--dropdown {
+            background-color: #fff !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(0,0,0,0.1) !important;
+            overflow: hidden !important;
+            z-index: 100 !important;
         }
-        .ce-popover__item-icon.ce-popover__item-icon--active {
-            background: rgba(255,255,255,0.1);
+        .dark .choices__list--dropdown {
+            background-color: #1a1a1a !important;
+            border-color: rgba(255,255,255,0.1) !important;
         }
-        .ce-inline-toolbar, .ce-conversion-toolbar {
-            background-color: #1a1a1a;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            border-radius: 8px;
+        .choices__input {
+            background-color: transparent !important;
+            color: inherit !important;
         }
-        .ce-inline-tool:hover {
-            background-color: rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        /* Image plugin */
-        .image-tool__image-picture {
-            border-radius: 12px;
-        }
-        .image-tool__caption {
-            background: transparent;
-            color: inherit;
-            border: none;
-            text-align: center;
-            font-size: 0.875rem;
-            opacity: 0.5;
-            transition: opacity 0.3s;
-        }
-        .image-tool__caption:focus {
-            opacity: 1;
-            outline: none;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+        
+        /* Sidebar layout fix */
+        #seo-sidebar.show {
+            transform: translateX(0);
         }
     </style>
 {% endblock %}
@@ -110,7 +101,7 @@
 
     <div class="flex-1 overflow-y-auto px-4 md:px-12 lg:px-24 py-12 z-10 flex gap-8 relative h-full">
         <!-- Editor Content Area -->
-        <div class="flex-1 max-w-4xl mx-auto w-full flex flex-col h-full bg-white dark:bg-[#1a1a1a] rounded-[2rem] shadow-sm border border-black/5 dark:border-white/5 p-8 md:p-16 transition-all duration-300" id="editor-container">
+        <div class="flex-1 max-w-4xl mx-auto w-full flex flex-col min-h-max h-fit bg-white dark:bg-[#1a1a1a] rounded-[2rem] shadow-sm border border-black/5 dark:border-white/5 p-8 md:p-16 transition-all duration-300" id="editor-container">
             <input type="text" id="article-title" placeholder="Заголовок статьи" class="w-full text-4xl md:text-5xl font-bold bg-transparent border-none outline-none text-black dark:text-white placeholder:text-gray-300 dark:placeholder:text-gray-700 mb-8" value="{{ article is defined ? article.title : '' }}">
             
             <div id="editorjs" class="font-sans text-black dark:text-gray-200 flex-1 min-h-[70vh]"></div>
@@ -132,6 +123,15 @@
                     <input type="text" id="seo-slug" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 transition-colors" value="{{ article is defined ? article.slug : '' }}" placeholder="generiruetsya-avtomaticheski">
                 </div>
                 
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Категории</label>
+                    <select id="article-categories" multiple>
+                        {% for cat in categories|default([]) %}
+                            <option value="{{ cat.id }}" {% if article is defined and article.categories.contains(cat) %}selected{% endif %}>{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Meta Title</label>
                     <input type="text" id="seo-title" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 transition-colors" value="{{ article is defined ? article.seoTitle : '' }}" placeholder="Название для поисковиков">
@@ -199,8 +199,8 @@
         window.articleId = {{ article is defined ? article.id : 'null' }};
         
         function toggleSeoPanel() {
-            const panel = document.getElementById('seo-panel');
-            panel.classList.toggle('translate-x-full');
+            const sidebar = document.getElementById('seo-sidebar');
+            sidebar.classList.toggle('translate-x-full');
         }
     </script>
 {% endblock %}
@@ -215,7 +215,27 @@
     <script src="{{ asset('assets/libs/editorjs/quote.umd.js') }}"></script>
     <script src="{{ asset('assets/libs/editorjs/marker.umd.js') }}"></script>
     <script src="{{ asset('assets/libs/editorjs/delimiter.umd.js') }}"></script>
+    <script src="{{ asset('assets/libs/editorjs/code.umd.js') }}"></script>
     
     <!-- Load custom admin editor logic -->
     <script src="{{ asset('assets/js/admin-editor.js') }}"></script>
+    
+    <!-- Load Choices.js and initialize -->
+    <script src="{{ asset('assets/libs/choices/choices.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categorySelect = document.getElementById('article-categories');
+            if (categorySelect && typeof Choices !== 'undefined') {
+                new Choices(categorySelect, {
+                    removeItemButton: true,
+                    placeholder: true,
+                    placeholderValue: 'Выберите категории',
+                    searchPlaceholderValue: 'Поиск...',
+                    noChoicesText: 'Нет категорий',
+                    itemSelectText: '',
+                    shouldSort: false
+                });
+            }
+        });
+    </script>
 {% endblock %}

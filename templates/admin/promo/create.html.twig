@@ -1,0 +1,122 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}Редактировать промо - RDN Admin{% endblock %}
+
+{% block dashboard_content %}
+    <header class="px-8 py-6 flex flex-col md:flex-row md:items-center justify-between gap-6 shrink-0 z-10 border-b border-black/5 dark:border-white/5">
+        <div class="flex items-center gap-4">
+            <a href="{{ path('app_admin_promo_index') }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400 transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            </a>
+            <div>
+                <h1 class="text-2xl font-bold text-black dark:text-white tracking-tight">{{ promo.id ? 'Редактировать' : 'Новое промо' }}</h1>
+                <p class="text-gray-500 text-sm">Настройка отображения баннера.</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex-1 overflow-y-auto w-full flex flex-col lg:flex-row">
+        
+        <form method="post" class="flex-1 p-8 flex flex-col gap-6 w-full lg:max-w-2xl border-r border-black/5 dark:border-white/5 z-10">
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Название (Тайтл)</label>
+                <input type="text" name="title" value="{{ promo.title }}" required class="w-full bg-white dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors" oninput="updatePreview()">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Описание</label>
+                <textarea name="description" rows="3" required class="w-full bg-white dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition-colors" oninput="updatePreview()">{{ promo.description }}</textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Лейбл (сверху)</label>
+                    <input type="text" name="label" value="{{ promo.label }}" class="w-full bg-white dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500" placeholder="Напр. Акция" oninput="updatePreview()">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Текст кнопки</label>
+                    <input type="text" name="actionText" value="{{ promo.actionText }}" class="w-full bg-white dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500" placeholder="Узнать больше" oninput="updatePreview()">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ссылка URL</label>
+                <input type="url" name="url" value="{{ promo.url }}" class="w-full bg-white dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500">
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 items-center">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Стиль (Пресет)</label>
+                    <select name="styleName" class="w-full bg-white dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500" onchange="updatePreview()">
+                        <option value="light" {% if promo.styleName == 'light' %}selected{% endif %}>Светлый (Белый фон)</option>
+                        <option value="dark" {% if promo.styleName == 'dark' %}selected{% endif %}>Тёмный (Черный фон)</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-3 mt-6">
+                    <input type="checkbox" name="isActive" id="isActive" class="w-5 h-5 rounded text-indigo-500" {% if promo.id is null or promo.isActive %}checked{% endif %}>
+                    <label for="isActive" class="text-sm font-bold cursor-pointer select-none">Показывать на сайте</label>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-black/5 dark:border-white/5 flex justify-end">
+                <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-xl transition-colors">Сохранить</button>
+            </div>
+            
+        </form>
+
+        <div class="flex-1 bg-gray-50/50 dark:bg-black/20 p-8 flex items-start justify-center" id="preview-container">
+            <!-- Dynamic Preview -->
+            <div id="live-preview" class="w-80 shrink-0">
+                <div id="preview-box" class="rounded-[2rem] overflow-hidden shadow-sm border border-black/5 dark:border-white/5 relative group p-8 flex flex-col items-start gap-4 justify-between transition-colors bg-black dark:bg-[#1a1a1a]">
+                    <div id="preview-bg" class="absolute inset-0 z-0 opacity-10 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent"></div>
+                    <div class="relative z-10 w-full">
+                        <div id="preview-label" class="text-[0.65rem] font-bold tracking-widest uppercase text-indigo-500 dark:text-indigo-400 mb-2">{{ promo.label|default('Лейбл') }}</div>
+                        <h3 id="preview-title" class="text-xl font-black text-white mb-3">{{ promo.title|default('Заголовок') }}</h3>
+                        <p id="preview-desc" class="text-sm text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">{{ promo.description|default('Описание') }}</p>
+                    </div>
+                    <div id="preview-btn" class="relative z-10 inline-flex items-center justify-center w-full bg-white text-black font-semibold py-3 px-6 rounded-xl transition-colors text-center shadow-lg pointer-events-none">
+                        {{ promo.actionText|default('Узнать больше') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    function updatePreview() {
+        const title = document.querySelector('input[name="title"]').value || 'Заголовок';
+        const desc = document.querySelector('textarea[name="description"]').value || 'Описание';
+        const label = document.querySelector('input[name="label"]').value || '';
+        const actionText = document.querySelector('input[name="actionText"]').value || 'Узнать больше';
+        const style = document.querySelector('select[name="styleName"]').value;
+
+        document.getElementById('preview-title').innerText = title;
+        document.getElementById('preview-desc').innerText = desc;
+        document.getElementById('preview-label').innerText = label;
+        document.getElementById('preview-btn').innerText = actionText;
+
+        const box = document.getElementById('preview-box');
+        const bg = document.getElementById('preview-bg');
+        const h3 = document.getElementById('preview-title');
+        const btn = document.getElementById('preview-btn');
+
+        if (style === 'dark') {
+            box.classList.remove('bg-white');
+            box.classList.add('bg-black');
+            bg.className = 'absolute inset-0 z-0 opacity-10 flex';
+            h3.className = 'text-xl font-black mb-3 text-white';
+            btn.className = 'relative z-10 inline-flex items-center justify-center w-full font-semibold py-3 px-6 rounded-xl transition-colors text-center shadow-lg pointer-events-none bg-white text-black';
+        } else {
+            box.classList.remove('bg-black');
+            box.classList.add('bg-white');
+            bg.className = 'absolute inset-0 z-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent';
+            h3.className = 'text-xl font-black mb-3 text-black dark:text-white';
+            btn.className = 'relative z-10 inline-flex items-center justify-center w-full font-semibold py-3 px-6 rounded-xl transition-colors text-center shadow-lg pointer-events-none bg-black dark:bg-white text-white dark:text-black';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', updatePreview);
+    </script>
+{% endblock %}

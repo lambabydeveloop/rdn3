@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Service\ImageProcessingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,16 +26,19 @@ class AdminBlogController extends AbstractController
     }
 
     #[Route('/create', name: 'app_admin_blog_create')]
-    public function create(): Response
+    public function create(EntityManagerInterface $em): Response
     {
-        return $this->render('admin/blog/create.html.twig');
+        return $this->render('admin/blog/create.html.twig', [
+            'categories' => $em->getRepository(Category::class)->findAll(),
+        ]);
     }
 
     #[Route('/edit/{id}', name: 'app_admin_blog_edit', requirements: ['id' => '\d+'])]
-    public function edit(Article $article): Response
+    public function edit(Article $article, EntityManagerInterface $em): Response
     {
         return $this->render('admin/blog/create.html.twig', [
             'article' => $article,
+            'categories' => $em->getRepository(Category::class)->findAll(),
         ]);
     }
 
@@ -75,6 +79,16 @@ class AdminBlogController extends AbstractController
         
         $status = $data['status'] ?? 'draft';
         $article->setStatus($status);
+
+        $article->getCategories()->clear();
+        if (!empty($data['categories']) && is_array($data['categories'])) {
+            foreach ($data['categories'] as $catId) {
+                $category = $em->getRepository(Category::class)->find($catId);
+                if ($category) {
+                    $article->addCategory($category);
+                }
+            }
+        }
 
         $em->persist($article);
         $em->flush();
