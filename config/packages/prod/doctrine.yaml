@@ -1,0 +1,5 @@
+doctrine:
+    dbal:
+        # Hardcoding SQLite for production to avoid environment variable conflicts on the server
+        url: 'sqlite:///%kernel.project_dir%/var/data.db'
+        driver: 'pdo_sqlite'

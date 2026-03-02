@@ -51,14 +51,7 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-
-User-agent: *
-Allow: /
-
-
 Disallow: /admin/
 Disallow: /api/
-Disallow: /private/
 
-# Sitemap
 Sitemap: https://www.rdn.by/sitemap.xml
