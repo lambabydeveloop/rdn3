@@ -174,13 +174,13 @@
             <div class="flex-1 overflow-y-auto custom-scrollbar px-8 pb-8 z-10">
                 
                 <!-- Time Filter row -->
-                <div class="flex items-center gap-4 mb-8 dashboard-card overflow-x-auto pb-2 custom-scrollbar" style="--stagger: 3;">
-                    <div class="flex bg-black/5 dark:bg-white/5 rounded-full p-1 border border-black/5 dark:border-white/5 transition-all flex-shrink-0">
+                <div class="flex items-center gap-4 mb-8 dashboard-card" style="--stagger: 3;">
+                    <div class="flex flex-wrap bg-black/5 dark:bg-white/5 rounded-2xl md:rounded-full p-1 border border-black/5 dark:border-white/5 transition-all gap-1 overflow-hidden">
                         <a href="{{ path('app_admin_dashboard', {period: 'day'}) }}" class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap {{ currentPeriod == 'day' ? 'bg-white dark:bg-[#1a1a1a] text-black dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white' }}">День</a>
                         <a href="{{ path('app_admin_dashboard', {period: 'week'}) }}" class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap {{ currentPeriod == 'week' ? 'bg-white dark:bg-[#1a1a1a] text-black dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white' }}">Неделя</a>
                         <a href="{{ path('app_admin_dashboard', {period: 'month'}) }}" class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap {{ currentPeriod == 'month' ? 'bg-white dark:bg-[#1a1a1a] text-black dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white' }}">Месяц</a>
                         <a href="{{ path('app_admin_dashboard', {period: 'year'}) }}" class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap {{ currentPeriod == 'year' ? 'bg-white dark:bg-[#1a1a1a] text-black dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white' }}">Год</a>
-                        <a href="{{ path('app_admin_dashboard', {period: 'all'}) }}" class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap {{ currentPeriod == 'all' or not currentPeriod ? 'bg-white dark:bg-[#1a1a1a] text-black dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white' }}">Всё время</a>
+                        <a href="{{ path('app_admin_dashboard', {period: 'all'}) }}" class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap min-w-[80px] text-center {{ currentPeriod == 'all' or not currentPeriod ? 'bg-white dark:bg-[#1a1a1a] text-black dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white' }}">Всё время</a>
                     </div>
                 </div>
 

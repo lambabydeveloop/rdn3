@@ -22,16 +22,16 @@ class SitemapController extends AbstractController
 
         // Static routes
         $urls[] = ['loc' => $this->generateUrl('app_home'), 'changefreq' => 'weekly', 'priority' => '1.0'];
-        $urls[] = ['loc' => $this->generateUrl('app_about'), 'changefreq' => 'monthly', 'priority' => '0.8'];
-        $urls[] = ['loc' => $this->generateUrl('app_services'), 'changefreq' => 'monthly', 'priority' => '0.8'];
-        $urls[] = ['loc' => $this->generateUrl('app_contacts'), 'changefreq' => 'monthly', 'priority' => '0.8'];
+        $urls[] = ['loc' => $this->generateUrl('app_about'), 'changefreq' => 'weekly', 'priority' => '0.8'];
+        $urls[] = ['loc' => $this->generateUrl('app_services'), 'changefreq' => 'weekly', 'priority' => '0.8'];
+        $urls[] = ['loc' => $this->generateUrl('app_contacts'), 'changefreq' => 'weekly', 'priority' => '0.8'];
         $urls[] = ['loc' => $this->generateUrl('app_blog_index'), 'changefreq' => 'weekly', 'priority' => '0.8'];
 
         // Service routes
         foreach (ServiceController::SERVICES as $slug => $service) {
             $urls[] = [
                 'loc' => $this->generateUrl('app_service_show', ['slug' => $slug]),
-                'changefreq' => 'monthly',
+                'changefreq' => 'weekly',
                 'priority' => '0.9'
             ];
         }
@@ -42,7 +42,7 @@ class SitemapController extends AbstractController
             $urls[] = [
                 'loc' => $this->generateUrl('app_blog_show', ['slug' => $article->getSlug()]),
                 'lastmod' => $article->getUpdatedAt() ? $article->getUpdatedAt()->format('Y-m-d') : $article->getCreatedAt()->format('Y-m-d'),
-                'changefreq' => 'monthly',
+                'changefreq' => 'weekly',
                 'priority' => '0.7'
             ];
         }
